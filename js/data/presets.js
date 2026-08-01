@@ -39,12 +39,12 @@ const META_PRESETS = [
   },
   {
     id: 'warrior_arms_meta',
-    title: 'Warrior - Mortal Strike Executioner',
+    title: 'Warrior - Bladestorm Battlecraft',
     classKey: 'warrior',
     className: 'Warrior',
     classColor: '#d67a54',
     roleId: 'arms',
-    desc: 'Devastating 2H Arms Warrior build with Sweeping Strikes, Deep Wounds, and Bladestorm.',
+    desc: 'Devastating Battlecraft Warrior build with Avatar, Bladestorm, and Anger Management for maximum DPS.',
     badgeText: '⚔️ Meta PvP/PvE DPS',
     hypeCount: 1280,
     buildPayload: {
@@ -52,12 +52,12 @@ const META_PRESETS = [
       c: 'warrior',
       s: 'arms',
       r: {
-        '5': 'war_r5_sweeping_strikes',
-        '8': 'war_r8_piercing_howl',
-        '11': 'war_r11_mortal_strike',
-        '14': 'war_r14_weapon_mastery',
-        '17': 'war_r17_second_wind',
-        '20': 'war_r20_bladestorm'
+        '5': 'war_row_double_charge',
+        '8': 'war_row_die_by_the_sword',
+        '11': 'war_row_storm_bolt',
+        '14': 'war_row_anger_management',
+        '17': 'war_row_avatar',
+        '20': 'war_row_bladestorm'
       }
     },
     items: {
@@ -77,7 +77,7 @@ const META_PRESETS = [
     className: 'Priest',
     classColor: '#c6d4f0',
     roleId: 'shadow',
-    desc: 'High sustained caster DPS build with Vampiric Touch, Mind Blast, and Dispersion.',
+    desc: 'High sustained caster DPS build with Gloam Siphon, Twin Fracture, and Thoughtburn.',
     badgeText: '✨ Meta Caster DPS',
     hypeCount: 950,
     buildPayload: {
@@ -85,12 +85,12 @@ const META_PRESETS = [
       c: 'priest',
       s: 'shadow',
       r: {
-        '5': 'pri_r5_shadow_affinity',
+        '5': 'pri_r5_twisted_faith',
         '8': 'pri_r8_silence',
         '11': 'pri_r11_vampiric_embrace',
         '14': 'pri_r14_mind_melt',
-        '17': 'pri_r17_dispersion',
-        '20': 'pri_r20_shadowfiend'
+        '17': 'pri_r17_desperate_prayer',
+        '20': 'pri_r20_mind_sear'
       }
     },
     items: {
@@ -105,25 +105,91 @@ const META_PRESETS = [
   },
   {
     id: 'mage_fire_meta',
-    title: 'Mage - Pyromaniac Fire Burst',
+    title: 'Mage - Elemental Convergence',
     classKey: 'mage',
     className: 'Mage',
     classColor: '#33c1f1',
     roleId: 'fire',
-    desc: 'AoE explosion build with Ignite, Combustion, and Meteor for high critical burst.',
-    badgeText: '🔮 Meta AoE Fire',
+    desc: 'Burst mage build combining Fire and Frost for maximum Elemental Convergence procs and Power Echo finishers.',
+    badgeText: '🔮 Meta AoE Burst',
     hypeCount: 1100,
     buildPayload: {
       v: 2,
       c: 'mage',
       s: 'fire',
       r: {
-        '5': 'mag_r5_ignite',
-        '8': 'mag_r8_blast_wave',
-        '11': 'mag_r11_combustion',
-        '14': 'mag_r14_dragon_breath',
-        '17': 'mag_r17_living_bomb',
-        '20': 'mag_r20_meteor'
+        '5': 'mag_r5_ice_floes',
+        '8': 'mag_r8_greater_invis',
+        '11': 'mag_r11_rings_of_frost',
+        '14': 'mag_r14_power_echo',
+        '17': 'mag_r17_convergence',
+        '20': 'mag_r20_rune_of_power'
+      }
+    },
+    items: {
+      head: 'helm_dreadnought',
+      chest: 'chest_plate_glory',
+      legs: 'legs_mithril_greaves',
+      mainhand: 'runic_blade_epic',
+      offhand: null,
+      ring1: 'ring_dragon_seal',
+      trinket: 'trinket_holy_relic'
+    }
+  },
+  {
+    id: 'hunter_survival_meta',
+    title: 'Hunter - Wildfang Survival',
+    classKey: 'hunter',
+    className: 'Hunter',
+    classColor: '#a6d84f',
+    roleId: 'survival',
+    desc: 'Lethal Survival Hunter build focused on Deepvenom poison damage, Viperfletch, and the Wildfang Rally capstone.',
+    badgeText: '🏹 Meta Physical DPS',
+    hypeCount: 870,
+    buildPayload: {
+      v: 2,
+      c: 'hunter',
+      s: 'survival',
+      r: {
+        '5': 'hun_r5_improved_serpent_sting',
+        '8': 'hun_r8_improved_concussive',
+        '11': 'hun_r11_efficiency',
+        '14': 'hun_r14_sniper_training',
+        '17': 'hun_r17_deterrence',
+        '20': 'hun_r20_aspect_of_the_wild'
+      }
+    },
+    items: {
+      head: 'helm_dreadnought',
+      chest: 'chest_plate_glory',
+      legs: 'legs_mithril_greaves',
+      mainhand: 'runic_blade_epic',
+      offhand: null,
+      ring1: 'ring_dragon_seal',
+      trinket: 'trinket_holy_relic'
+    }
+  },
+  {
+    id: 'warlock_affliction_meta',
+    title: 'Warlock - Hexstorm Affliction',
+    classKey: 'warlock',
+    className: 'Warlock',
+    classColor: '#a785e6',
+    roleId: 'affliction',
+    desc: 'DoT juggernaut build stacking Blacktide slows, Deepened Hex damage amplification, and Hexstorm instant bolts.',
+    badgeText: '💀 Meta Sustained DoT',
+    hypeCount: 760,
+    buildPayload: {
+      v: 2,
+      c: 'warlock',
+      s: 'affliction',
+      r: {
+        '5': 'wlk_r5_improved_corruption',
+        '8': 'wlk_r8_voidfeast',
+        '11': 'wlk_r11_improved_life_tap',
+        '14': 'wlk_r14_amplify_curse',
+        '17': 'wlk_r17_death_coil',
+        '20': 'wlk_r20_curse_mastery'
       }
     },
     items: {

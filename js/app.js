@@ -182,6 +182,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (elements.liveGameStringInput) {
       elements.liveGameStringInput.value = liveString;
     }
+    // Update class•spec indicator
+    const classData = GAME_SPECS[state.selectedClass];
+    const specObj = classData ? classData.specs.find(s => s.id === state.selectedSpec) : null;
+    const indicator = document.getElementById('liveStringClassIndicator');
+    if (indicator && classData) {
+      indicator.textContent = `${classData.className} • ${specObj ? specObj.name : '—'}`;
+      indicator.style.color = classData.color;
+    }
   }
 
   function setupGlobalImportTriggers() {
@@ -497,10 +505,32 @@ document.addEventListener('DOMContentLoaded', () => {
       const rowDiv = document.createElement('div');
       rowDiv.className = 'grid grid-cols-12 gap-3 items-center bg-[#0a0e1a] p-3 rounded-lg border border-wurm-border';
 
+      // Level badge + reset button column
+      const lvlCol = document.createElement('div');
+      lvlCol.className = 'col-span-1 flex flex-col items-center gap-1';
+
       const lvlBadge = document.createElement('div');
-      lvlBadge.className = 'col-span-1 text-center font-mono font-bold text-sm text-wurm-accent w-8 h-8 rounded-full border border-wurm-accent/40 flex items-center justify-center mx-auto';
+      lvlBadge.className = 'font-mono font-bold text-sm text-wurm-accent w-8 h-8 rounded-full border border-wurm-accent/40 flex items-center justify-center';
       lvlBadge.textContent = row.level;
-      rowDiv.appendChild(lvlBadge);
+      lvlCol.appendChild(lvlBadge);
+
+      // Reset button for this row
+      if (state.selectedChoices[row.level]) {
+        const resetBtn = document.createElement('button');
+        resetBtn.className = 'text-[9px] font-mono text-wurm-muted hover:text-red-400 transition-colors px-1 leading-tight';
+        resetBtn.title = 'Limpar escolha';
+        resetBtn.textContent = '✕';
+        resetBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          delete state.selectedChoices[row.level];
+          renderChoiceRows();
+          recalculateStats();
+          updateUrlHashState();
+        });
+        lvlCol.appendChild(resetBtn);
+      }
+
+      rowDiv.appendChild(lvlCol);
 
       const optionsContainer = document.createElement('div');
       optionsContainer.className = 'col-span-11 grid grid-cols-3 gap-3';
@@ -508,18 +538,30 @@ document.addEventListener('DOMContentLoaded', () => {
       row.options.forEach(opt => {
         const isSelected = state.selectedChoices[row.level] === opt.id;
         const optCard = document.createElement('div');
-        optCard.className = `p-3 rounded-md border flex items-center gap-3 cursor-pointer transition-all ${isSelected ? 'border-wurm-accent bg-wurm-accent/15 shadow-md shadow-wurm-accent/20' : 'border-wurm-border bg-wurm-bg hover:border-wurm-accent/50'}`;
+        optCard.className = `p-3 rounded-md border flex items-center gap-3 cursor-pointer transition-all ${isSelected ? 'border-wurm-accent bg-wurm-accent/15 shadow-md shadow-wurm-accent/20 choice-selected' : 'border-wurm-border bg-wurm-bg hover:border-wurm-accent/50'}`;
+        optCard.setAttribute('data-tooltip-name', opt.name);
+        optCard.setAttribute('data-tooltip-desc', opt.desc);
         
         optCard.innerHTML = `
           <img src="${opt.iconUrl}" alt="${opt.name}" class="w-8 h-8 rounded border border-wurm-border object-cover flex-shrink-0" onerror="this.src='https://raw.githubusercontent.com/levy-street/world-of-claudecraft/main/public/favicon-32x32.png'">
           <div class="overflow-hidden">
             <div class="font-mono text-xs font-bold text-wurm-text truncate">${opt.name}</div>
-            <div class="text-[10px] text-wurm-muted truncate">${opt.desc}</div>
+            <div class="text-[10px] text-wurm-muted line-clamp-2">${opt.desc}</div>
           </div>
         `;
 
+        // Skill tooltip on hover
+        optCard.addEventListener('mouseenter', (e) => {
+          showSkillTooltip(e, opt.name, opt.desc);
+        });
+        optCard.addEventListener('mousemove', moveTooltip);
+        optCard.addEventListener('mouseleave', hideTooltip);
+
         optCard.addEventListener('click', () => {
           state.selectedChoices[row.level] = opt.id;
+          // Pulse animation
+          optCard.classList.add('choice-pulse');
+          setTimeout(() => optCard.classList.remove('choice-pulse'), 400);
           renderChoiceRows();
           recalculateStats();
           updateUrlHashState();
@@ -662,13 +704,13 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast('Por favor, cole uma string de build válida.');
         return;
       }
-      const success = importOfficialBuildString(str);
-      if (success) {
+      const result = importOfficialBuildStringDetailed(str);
+      if (result.success) {
         elements.gameImportModalOverlay.classList.add('hidden');
         switchTab('builder');
         showToast('Build oficial importada com sucesso!');
       } else {
-        showToast('Erro: String de build inválida ou incompatível.');
+        showToast(`Erro: ${result.error}`);
       }
     });
 
@@ -754,6 +796,40 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch {
       return false;
     }
+  }
+
+  function importOfficialBuildStringDetailed(str) {
+    try {
+      let decodedStr;
+      try {
+        decodedStr = atob(str.trim());
+      } catch {
+        return { success: false, error: 'String não é um Base64 válido. Verifique se copiou corretamente.' };
+      }
+      let payload;
+      try {
+        payload = JSON.parse(decodedStr);
+      } catch {
+        return { success: false, error: 'String decodificada não é um JSON válido.' };
+      }
+      if (!payload.c) return { success: false, error: 'Campo de classe (c) ausente na string.' };
+      if (!GAME_SPECS[payload.c]) return { success: false, error: `Classe "${payload.c}" não reconhecida neste site.` };
+      if (!payload.v || payload.v !== 2) return { success: false, error: 'Versão de string incompatível. Apenas v:2 é suportado.' };
+      const ok = loadBuildFromPayload(payload);
+      return ok ? { success: true } : { success: false, error: 'Falha ao carregar build.' };
+    } catch (e) {
+      return { success: false, error: 'Erro desconhecido ao importar string.' };
+    }
+  }
+
+  function showSkillTooltip(e, name, desc) {
+    if (!elements.wowTooltip) return;
+    elements.wowTooltip.innerHTML = `
+      <div class="font-mono font-bold text-wurm-accent text-xs mb-1">${name}</div>
+      <div class="text-[11px] text-wurm-muted leading-relaxed">${desc}</div>
+    `;
+    elements.wowTooltip.classList.remove('hidden');
+    moveTooltip(e);
   }
 
   function getBuildPayload() {
