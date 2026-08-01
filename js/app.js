@@ -132,7 +132,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     wowTooltip: document.getElementById('wowTooltip'),
     toastNotification: document.getElementById('toastNotification'),
-    toastMessage: document.getElementById('toastMessage')
+    toastMessage: document.getElementById('toastMessage'),
+    headerLogoLink: document.getElementById('headerLogoLink')
   };
 
   const SLOT_CONFIG_LEFT = [
@@ -148,6 +149,41 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 'trinket', name: 'Acessório', defaultIcon: '📿' }
   ];
 
+  // Memory Cache Preloader for all skill & spec icons to eliminate image flickering
+  const iconMemoryCache = new Set();
+  function preloadAllSkillIcons() {
+    if (typeof GAME_SPECS === 'undefined') return;
+    Object.keys(GAME_SPECS).forEach(classKey => {
+      const classData = GAME_SPECS[classKey];
+      if (classData.specs) {
+        classData.specs.forEach(s => {
+          if (s.sampleSkills) {
+            s.sampleSkills.forEach(sk => {
+              if (sk.iconUrl && !iconMemoryCache.has(sk.iconUrl)) {
+                const img = new Image();
+                img.src = sk.iconUrl;
+                iconMemoryCache.add(sk.iconUrl);
+              }
+            });
+          }
+        });
+      }
+      if (classData.choiceRows) {
+        classData.choiceRows.forEach(row => {
+          if (row.options) {
+            row.options.forEach(opt => {
+              if (opt.iconUrl && !iconMemoryCache.has(opt.iconUrl)) {
+                const img = new Image();
+                img.src = opt.iconUrl;
+                iconMemoryCache.add(opt.iconUrl);
+              }
+            });
+          }
+        });
+      }
+    });
+  }
+
   function init() {
     setupNavigation();
     setupEcosystemMenu();
@@ -158,6 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupGlobalImportTriggers();
     setupLiveStringBar();
     setupModals();
+    preloadAllSkillIcons();
 
     const hasDeepLink = handleUrlDeepLink();
     if (!hasDeepLink) {
@@ -258,6 +295,12 @@ document.addEventListener('DOMContentLoaded', () => {
         switchTab(tabName);
       });
     });
+    if (elements.headerLogoLink) {
+      elements.headerLogoLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        switchTab('gallery');
+      });
+    }
   }
 
   function switchTab(tabName) {
