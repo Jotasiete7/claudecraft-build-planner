@@ -24,7 +24,7 @@ const GAME_SPECS = {
     specs: [
       {
         id: 'arms',
-        name: 'ARMS',
+        name: 'BATTLECRAFT',
         role: 'DPS',
         roleType: 'dps',
         roleIcon: '⚔️',
@@ -41,7 +41,7 @@ const GAME_SPECS = {
       },
       {
         id: 'fury',
-        name: 'FURY',
+        name: 'BLOODRUSH',
         role: 'DPS',
         roleType: 'dps',
         roleIcon: '⚔️',
@@ -57,8 +57,8 @@ const GAME_SPECS = {
         ]
       },
       {
-        id: 'protection',
-        name: 'PROTECTION',
+        id: 'prot',
+        name: 'IRONGUARD',
         role: 'TANK',
         roleType: 'tank',
         roleIcon: '🛡️',
@@ -74,54 +74,54 @@ const GAME_SPECS = {
         ]
       }
     ],
-    // NOTE: Warrior is not in the official choice_rows_classic.ts - using placeholder data
+    // Source: warrior_rows.ts - WARRIOR_ROWS (real game data)
     choiceRows: [
       {
         level: 5,
         options: [
-          { id: 'war_r5_sweeping_strikes', name: 'Sweeping Strikes', iconUrl: getSkillIconUrl('warrior', 'sweeping_strikes'), desc: 'Melee attacks hit 1 additional nearby target.' },
-          { id: 'war_r5_blood_craze', name: 'Blood Craze', iconUrl: getSkillIconUrl('warrior', 'bloodthirst'), desc: 'Regenerates 3% health over 6s when critically hit.' },
-          { id: 'war_r5_shield_specialization', name: 'Shield Specialization', iconUrl: getSkillIconUrl('warrior', 'shield_block'), desc: 'Increases block chance by 5% and generates 1 Rage on block.' }
+          { id: 'war_row_double_charge', name: 'Double Charge', iconUrl: getSkillIconUrl('warrior', 'charge'), desc: 'Your Charge stores 2 uses, so you can charge twice in a row.' },
+          { id: 'war_row_pursuit', name: 'Pursuit', iconUrl: getSkillIconUrl('warrior', 'charge'), desc: 'Each enemy you kill grants 30% movement speed for 6 sec.' },
+          { id: 'war_row_crushing_charge', name: 'Crushing Charge', iconUrl: getSkillIconUrl('warrior', 'charge'), desc: 'Your Charge also roots the target for 4 sec and slows it by 50% for 15 sec.' }
         ]
       },
       {
         level: 8,
         options: [
-          { id: 'war_r8_piercing_howl', name: 'Piercing Howl', iconUrl: getSkillIconUrl('warrior', 'demoralizing_shout'), desc: 'Slows all nearby enemies by 50% for 6s.' },
-          { id: 'war_r8_improved_overpower', name: 'Improved Overpower', iconUrl: getSkillIconUrl('warrior', 'overpower'), desc: 'Increases critical strike chance of Overpower by 50%.' },
-          { id: 'war_r8_last_stand', name: 'Last Stand', iconUrl: getSkillIconUrl('warrior', 'shield_wall'), desc: 'Temporarily grants 30% of maximum health for 20s.' }
+          { id: 'war_row_second_wind', name: 'Second Wind', iconUrl: getSkillIconUrl('warrior', 'battle_shout'), desc: 'Below 35% health, you regenerate 1.5% of your health per second.' },
+          { id: 'war_row_die_by_the_sword', name: 'Die by the Sword', iconUrl: getSkillIconUrl('warrior', 'mortal_strike'), desc: 'Defensive cooldown: for 8 sec you take 30% less damage and dodge far more attacks.' },
+          { id: 'war_row_victory_rush', name: 'Victory Rush', iconUrl: getSkillIconUrl('warrior', 'execute'), desc: 'After killing an enemy, your next strike heals you for 20% of your maximum health.' }
         ]
       },
       {
         level: 11,
         options: [
-          { id: 'war_r11_mortal_strike', name: 'Deep Wounds', iconUrl: getSkillIconUrl('warrior', 'mortal_strike'), desc: 'Critical strikes bleed the target for 60% of weapon damage.' },
-          { id: 'war_r11_flurry', name: 'Flurry', iconUrl: getSkillIconUrl('warrior', 'bloodthirst'), desc: 'Increases attack speed by 25% for 3 swings after a critical hit.' },
-          { id: 'war_r11_concussion_blow', name: 'Concussion Blow', iconUrl: getSkillIconUrl('warrior', 'shield_slam'), desc: 'Stuns the target for 5s and generates high threat.' }
+          { id: 'war_row_piercing_howl', name: 'Piercing Howl', iconUrl: getSkillIconUrl('warrior', 'demoralizing_shout'), desc: 'A shout that slows enemies within 15 yards by 50% for 8 sec.' },
+          { id: 'war_row_storm_bolt', name: 'Storm Bolt', iconUrl: getSkillIconUrl('warrior', 'execute'), desc: 'Hurl your weapon to stun a target.' },
+          { id: 'war_row_lingering_dread', name: 'Lingering Dread', iconUrl: getSkillIconUrl('warrior', 'demoralizing_shout'), desc: 'Enemies feared by your Intimidating Shout can endure 20% of their health in damage before the fear breaks.' }
         ]
       },
       {
         level: 14,
         options: [
-          { id: 'war_r14_weapon_mastery', name: 'Weapon Mastery', iconUrl: getSkillIconUrl('warrior', 'mortal_strike'), desc: 'Reduces the chance your attacks are dodged by 2%.' },
-          { id: 'war_r14_death_wish', name: 'Death Wish', iconUrl: getSkillIconUrl('warrior', 'execute'), desc: 'Increases physical damage by 20% but increases damage taken by 5%.' },
-          { id: 'war_r14_shield_wall', name: 'Shield Wall', iconUrl: getSkillIconUrl('warrior', 'shield_wall'), desc: 'Reduces all damage taken by 60% for 12s.' }
+          { id: 'war_row_anger_management', name: 'Anger Management', iconUrl: getSkillIconUrl('warrior', 'bloodthirst'), desc: 'Your auto-attacks generate 10% more rage and your abilities 5% more.' },
+          { id: 'war_row_blood_offering', name: 'Combat Mastery', iconUrl: getSkillIconUrl('warrior', 'battle_shout'), desc: 'Your stances gain additional effects: Battle Stance boosts crits, Berserker speeds attacks, Guarded reduces big hits.' },
+          { id: 'war_row_battle_rhythm', name: 'Battle Rhythm', iconUrl: getSkillIconUrl('warrior', 'bloodthirst'), desc: 'Every third ability you use generates 20% more rage.' }
         ]
       },
       {
         level: 17,
         options: [
-          { id: 'war_r17_second_wind', name: 'Second Wind', iconUrl: getSkillIconUrl('warrior', 'battle_shout'), desc: 'Regenerates 10% health and 20 Rage when stunned or immobilized.' },
-          { id: 'war_r17_rampage', name: 'Rampage', iconUrl: getSkillIconUrl('warrior', 'raging_blow'), desc: 'Enrages you on critical hits, increasing attack power by 10%.' },
-          { id: 'war_r17_devastate', name: 'Devastate', iconUrl: getSkillIconUrl('warrior', 'revenge'), desc: 'Sunder Armor also deals 120% weapon damage.' }
+          { id: 'war_row_recklessness', name: 'Recklessness', iconUrl: getSkillIconUrl('warrior', 'raging_blow'), desc: 'Enrage: increase all your rage generation by 50% and gain 20% additional critical strike chance for 12 sec.' },
+          { id: 'war_row_avatar', name: 'Avatar', iconUrl: getSkillIconUrl('warrior', 'mortal_strike'), desc: 'Transform into a colossus for 20 sec, breaking enemy control effects and increasing damage by 20%.' },
+          { id: 'war_row_bloodbath', name: 'Bloodbath', iconUrl: getSkillIconUrl('warrior', 'execute'), desc: 'Each enemy you kill grants 5% critical strike and 5% damage dealt for 8 sec, stacking up to 25%.' }
         ]
       },
       {
         level: 20,
         options: [
-          { id: 'war_r20_bladestorm', name: 'Bladestorm', iconUrl: getSkillIconUrl('warrior', 'whirlwind'), desc: 'Become an unstoppable whirlwind dealing massive AoE damage for 6s.' },
-          { id: 'war_r20_recklessness', name: 'Recklessness', iconUrl: getSkillIconUrl('warrior', 'execute'), desc: 'Next 3 special attacks have 100% critical strike chance.' },
-          { id: 'war_r20_shockwave', name: 'Shockwave', iconUrl: getSkillIconUrl('warrior', 'shield_slam'), desc: 'Sends a frontal cone wave dealing damage and stunning for 4s.' }
+          { id: 'war_row_colossal_might', name: 'Colossal Might', iconUrl: getSkillIconUrl('warrior', 'mortal_strike'), desc: 'Each point of Rage you spend shaves 0.1 sec off the cooldown of your major offensive abilities.' },
+          { id: 'war_row_bladestorm', name: 'Bladestorm', iconUrl: getSkillIconUrl('warrior', 'whirlwind'), desc: 'Become a whirling storm of steel, striking all enemies within 8 yards every second for 4 sec.' },
+          { id: 'war_row_sanguine_aura', name: 'Sanguine Aura', iconUrl: getSkillIconUrl('warrior', 'battle_shout'), desc: 'You and your melee allies gain 10% attack speed and 10% damage for 20 sec.' }
         ]
       }
     ],
