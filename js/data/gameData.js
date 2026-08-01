@@ -1144,4 +1144,3 @@ const GAME_ITEMS = [
     iconUrl: getItemIconUrl('amber_crimson_armor_plate')
   }
 ];
-`;
