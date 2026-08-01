@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Guilda | World of Claudecraft Hub - 9 Classes Build Planner & Live String Exporter</title>
+  <meta name="description" content="Portal oficial do Ecossistema A Guilda para World of Claudecraft. Monte qualquer build de classe e gere a string oficial em tempo real para colar direto dentro do jogo.">
+  
+  <!-- Fonts: Playfair Display, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            serif: ['Playfair Display', 'serif'],
+          },
+          colors: {
+            wurm: {
+              bg: '#050505',
+              panel: '#0a0a0a',
+              border: '#262626',
+              accent: '#d4b483',
+              accentDim: '#8a7453',
+              text: '#e5e5e5',
+              muted: '#737373'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-wurm-bg text-wurm-text font-sans antialiased min-h-screen flex flex-col selection:bg-wurm-accent selection:text-black">
+
+  <!-- Header - Ecossistema Guilda Signature Header -->
+  <header class="ag-header sticky top-0 z-50 w-full bg-[#050505]/95 backdrop-blur-md border-b border-wurm-border px-4 md:px-8 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-4">
+      <div class="relative">
+        <button id="ecosystemTrigger" class="p-2 text-wurm-muted hover:text-wurm-accent hover:bg-white/5 border border-transparent hover:border-wurm-border rounded transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <div id="ecosystemMenu" class="hidden absolute top-full left-0 mt-2 w-64 bg-wurm-panel border border-wurm-border rounded-md shadow-2xl p-2 z-50">
+          <div class="text-[10px] font-extrabold uppercase tracking-widest text-wurm-accentDim px-3 py-2 border-b border-wurm-border">
+            Ecossistema A Guilda
+          </div>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm text-wurm-accent bg-wurm-accent/10 rounded font-medium my-1">
+            <span class="w-2 h-2 rounded-full bg-wurm-accent"></span>
+            World of Claudecraft Hub
+            <span class="ml-auto text-[10px] bg-wurm-accentDim text-wurm-bg px-1.5 py-0.5 rounded font-mono uppercase">Atual</span>
+          </a>
+          <a href="https://wurm-mining-tool.pages.dev" target="_blank" class="flex items-center gap-3 px-3 py-2.5 text-sm text-wurm-text hover:text-wurm-accent hover:bg-white/5 rounded transition-all">
+            <span class="w-2 h-2 rounded-full bg-wurm-muted"></span>
+            Wurm Mining Optimizer
+          </a>
+        </div>
+      </div>
+
+      <div class="w-px h-5 bg-wurm-border hidden sm:block"></div>
+
+      <a href="#" class="font-serif text-lg md:text-xl font-semibold tracking-tight text-wurm-text flex items-center gap-1.5 no-underline">
+        A Guilda <span class="text-wurm-accent italic font-serif font-normal text-base md:text-lg">World of Claudecraft</span>
+      </a>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="hidden md:flex items-center gap-1">
+      <button class="nav-tab-btn active px-3.5 py-1.5 text-xs font-medium uppercase tracking-wider text-wurm-text hover:text-wurm-accent rounded transition-all" data-tab="gallery">
+        Galeria de Classes
+      </button>
+      <button class="nav-tab-btn px-3.5 py-1.5 text-xs font-medium uppercase tracking-wider text-wurm-muted hover:text-wurm-text rounded transition-all" data-tab="builder">
+        Montador de Talentos
+      </button>
+      <button class="nav-tab-btn px-3.5 py-1.5 text-xs font-medium uppercase tracking-wider text-wurm-muted hover:text-wurm-text rounded transition-all" data-tab="presets">
+        Builds Meta
+      </button>
+      <button class="nav-tab-btn px-3.5 py-1.5 text-xs font-medium uppercase tracking-wider text-wurm-muted hover:text-wurm-text rounded transition-all" data-tab="wiki">
+        Wiki de Itens
+      </button>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="flex items-center gap-3">
+      <button id="headerImportStringBtn" class="px-3.5 py-1.5 bg-wurm-accent/15 border border-wurm-accent text-wurm-accent hover:bg-wurm-accent hover:text-wurm-bg font-mono text-xs font-bold uppercase rounded transition-all flex items-center gap-1.5 shadow-md">
+        <span>📥</span> <span>Importar String do Jogo</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 py-6 md:px-8 md:py-8 flex-grow w-full">
+
+    <!-- Meta Presets Bar with Direct Game String Copy Button -->
+    <section id="metaPresetsSection" class="bg-wurm-panel p-6 rounded border border-wurm-border shadow-2xl mb-8">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 border-b border-wurm-border pb-4">
+        <div>
+          <h2 class="text-xs font-mono font-bold text-wurm-accent uppercase tracking-widest flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-wurm-accent animate-pulse"></span>
+            Builds Meta em Destaque
+          </h2>
+          <p class="text-xs text-wurm-muted mt-1 font-sans">Escolha uma build para carregar ou copie a String Oficial do Jogo direto do card abaixo</p>
+        </div>
+        <button id="presetsImportStringBtn" class="px-4 py-2 bg-wurm-accent/15 border border-wurm-accent text-wurm-accent font-mono text-xs font-bold uppercase rounded flex items-center gap-2 hover:bg-wurm-accent hover:text-wurm-bg transition-all">
+          <span>📥</span> Importar String do Jogo (eyJ2...)
+        </button>
+      </div>
+      <div id="presetsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Rendered by JS with 📋 Copiar String do Jogo on every card -->
+      </div>
+    </section>
+
+    <!-- SECTION 1: Class Selection Gallery (Entry Point) -->
+    <section id="classGallerySection" class="tab-panel active bg-wurm-panel border border-wurm-border rounded-lg p-6 shadow-2xl mb-8 space-y-6">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-wurm-border pb-4">
+        <div>
+          <h1 class="font-serif text-2xl font-bold text-wurm-text">Escolha sua Classe</h1>
+          <p class="text-xs text-wurm-muted mt-1 font-sans">Selecione uma das 9 classes para montar sua build e gerar a string oficial para o jogo real</p>
+        </div>
+
+        <!-- Role Filter Buttons -->
+        <div class="flex items-center gap-2 bg-wurm-bg p-1.5 rounded border border-wurm-border">
+          <button class="role-filter-btn active px-3 py-1.5 rounded text-xs font-mono font-bold uppercase transition-all bg-wurm-accent text-wurm-bg" data-role="all">
+            Todos
+          </button>
+          <button class="role-filter-btn px-3 py-1.5 rounded text-xs font-mono font-bold uppercase transition-all text-wurm-muted hover:text-wurm-text hover:bg-white/5" data-role="tank">
+            🛡️ Tank
+          </button>
+          <button class="role-filter-btn px-3 py-1.5 rounded text-xs font-mono font-bold uppercase transition-all text-wurm-muted hover:text-wurm-text hover:bg-white/5" data-role="healer">
+            💚 Healer
+          </button>
+          <button class="role-filter-btn px-3 py-1.5 rounded text-xs font-mono font-bold uppercase transition-all text-wurm-muted hover:text-wurm-text hover:bg-white/5" data-role="dps">
+            ⚔️ DPS
+          </button>
+        </div>
+      </div>
+
+      <!-- 9 Class Cards Grid -->
+      <div id="classGalleryGrid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- SECTION 2: In-Game Talent Builder Workspace -->
+    <section id="builderWorkspace" class="tab-panel hidden bg-wurm-panel border border-wurm-border rounded-lg shadow-2xl overflow-hidden">
+      
+      <!-- Class Quick Switcher Bar (Persistent Top Bar for 9 Classes) -->
+      <div id="classQuickSwitcherBar" class="bg-[#05070c] border-b border-wurm-border px-6 py-2.5 flex items-center justify-between overflow-x-auto no-scrollbar gap-2">
+        <div class="text-[10px] font-mono uppercase text-wurm-muted font-bold flex-shrink-0 mr-2">Trocar Classe:</div>
+        <div id="classQuickSwitcherIcons" class="flex items-center gap-2">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Top Window Bar: TALENTOS <CLASSE> & LIVE GAME STRING DISPLAY -->
+      <div class="bg-[#0e131f] border-b border-wurm-border px-6 py-3 flex items-center justify-between flex-wrap gap-3">
+        <div class="font-serif text-sm text-wurm-text font-bold uppercase tracking-wider flex items-center gap-2">
+          <span id="activeClassHeaderTitle">TALENTOS PALADIN</span>
+        </div>
+        
+        <!-- Game Navigation Subtabs -->
+        <div class="flex items-center gap-2 flex-wrap">
+          <button class="game-subtab-btn active px-5 py-2 rounded text-xs font-mono font-bold uppercase tracking-wider border border-wurm-accent text-wurm-accent bg-wurm-accent/10" data-game-subtab="spec">
+            ESPECIALIZAÇÃO
+          </button>
+          <button class="game-subtab-btn px-5 py-2 rounded text-xs font-mono font-bold uppercase tracking-wider border border-wurm-border text-wurm-muted hover:text-wurm-text bg-white/5" data-game-subtab="choices">
+            ESCOLHAS (6/6)
+          </button>
+          <button class="game-subtab-btn px-5 py-2 rounded text-xs font-mono font-bold uppercase tracking-wider border border-wurm-border text-wurm-muted hover:text-wurm-text bg-white/5" data-game-subtab="spellbook">
+            LIVRO DE FEITIÇOS
+          </button>
+          <button class="game-subtab-btn px-5 py-2 rounded text-xs font-mono font-bold uppercase tracking-wider border border-wurm-border text-wurm-muted hover:text-wurm-text bg-white/5" data-game-subtab="bis">
+            EQUIPAMENTOS BiS
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Generated Game String Bar (Updates in Real-Time as you pick skills!) -->
+      <div class="bg-[#07090e] border-b border-wurm-border px-6 py-3 flex items-center justify-between flex-wrap gap-3">
+        <div class="flex items-center gap-3 flex-grow overflow-hidden">
+          <span class="text-xs font-mono font-bold text-wurm-accent flex-shrink-0 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> String do Jogo (Ao Vivo):
+          </span>
+          <input type="text" id="liveGameStringInput" readonly class="flex-grow bg-wurm-bg border border-wurm-border rounded px-3 py-1.5 text-xs font-mono text-emerald-300 focus:outline-none truncate" value="eyJ2Ijoy...">
+        </div>
+        <button id="copyLiveStringBtn" class="px-4 py-1.5 bg-wurm-accent text-wurm-bg hover:bg-wurm-accentDim font-mono text-xs font-bold uppercase rounded flex items-center gap-1.5 shadow transition-all flex-shrink-0">
+          📋 Copiar String para o Jogo
+        </button>
+      </div>
+
+      <!-- Content Area -->
+      <div class="p-6">
+
+        <!-- Subtab 1: ESPECIALIZAÇÃO -->
+        <div id="gameSubtabSpec" class="game-subtab-panel active">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="specCardsGrid">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Subtab 2: ESCOLHAS (6/6) -->
+        <div id="gameSubtabChoices" class="game-subtab-panel hidden space-y-4">
+          <div class="text-xs font-mono text-wurm-muted mb-2">Selecione 1 opção em cada uma das 6 linhas de nível para compor sua build:</div>
+          <div id="choicesRowsContainer" class="space-y-3">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Subtab 3: LIVRO DE FEITIÇOS -->
+        <div id="gameSubtabSpellbook" class="game-subtab-panel hidden space-y-4">
+          <div class="flex items-center justify-between border-b border-wurm-border pb-3">
+            <h3 id="spellbookTitleHeader" class="font-serif text-base font-bold text-wurm-accent">LIVRO DE FEITIÇOS — Habilidades</h3>
+            <span class="text-xs font-mono text-wurm-muted">Guia completo de feitiços e habilidades da classe</span>
+          </div>
+          <div id="spellbookGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Subtab 4: EQUIPAMENTOS BiS -->
+        <div id="gameSubtabBis" class="game-subtab-panel hidden grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div id="leftPaperdollSlots" class="lg:col-span-3 space-y-3"></div>
+          <div class="lg:col-span-6 space-y-6">
+            <div class="bg-wurm-bg p-6 rounded border border-wurm-border text-center">
+              <div id="avatarClassIcon" class="text-5xl mb-2">🛡️</div>
+              <h3 id="buildTitleHeader" class="font-serif text-lg text-wurm-accent font-semibold">Paladin Protection Tank</h3>
+              <span id="confidenceBadge" class="inline-block mt-2 text-[11px] font-mono px-3 py-1 rounded bg-wurm-accent/15 border border-wurm-accent text-wurm-accent">🛡️ Certificada por A Guilda</span>
+            </div>
+            <div class="bg-wurm-bg p-6 rounded border border-wurm-border space-y-4">
+              <div class="flex items-center justify-between border-b border-wurm-border pb-3 font-mono text-xs text-wurm-accent uppercase font-bold">
+                <span>Atributos Totais da Build</span>
+                <span>iLvl Médio: <strong id="statILvl" class="text-wurm-text">88</strong></span>
+              </div>
+              <div class="grid grid-cols-2 gap-3 pt-2 font-mono text-xs">
+                <div class="bg-wurm-panel p-3 rounded border border-wurm-border">
+                  <div class="text-[10px] text-wurm-muted uppercase">Vida (HP)</div>
+                  <div id="statHP" class="text-base font-bold text-wurm-text mt-0.5">5.420</div>
+                </div>
+                <div class="bg-wurm-panel p-3 rounded border border-wurm-border">
+                  <div id="resourceLabelTitle" class="text-[10px] text-wurm-muted uppercase">Recurso (Mana)</div>
+                  <div id="statResource" class="text-base font-bold text-wurm-text mt-0.5">1.400</div>
+                </div>
+                <div class="bg-wurm-panel p-3 rounded border border-wurm-border">
+                  <div class="text-[10px] text-wurm-muted uppercase">Armadura</div>
+                  <div id="statArmor" class="text-base font-bold text-wurm-text mt-0.5">1.450</div>
+                </div>
+                <div class="bg-wurm-panel p-3 rounded border border-wurm-border">
+                  <div class="text-[10px] text-wurm-muted uppercase">Crítico</div>
+                  <div id="statCrit" class="text-base font-bold text-wurm-text mt-0.5">18.5%</div>
+                </div>
+              </div>
+              <div class="flex gap-3 pt-2">
+                <button id="applyBiSBtn" class="flex-1 py-2 text-xs font-mono font-bold bg-wurm-accent text-wurm-bg rounded hover:bg-wurm-accentDim">⭐ Aplicar Set BiS Recomendado</button>
+              </div>
+            </div>
+          </div>
+          <div id="rightPaperdollSlots" class="lg:col-span-3 space-y-3"></div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Loadout Dropdown & Action Menu -->
+      <div class="bg-[#0a0d14] border-t border-wurm-border px-6 py-3 flex items-center justify-between flex-wrap gap-4 relative">
+        <div class="relative">
+          <button id="loadoutDropdownBtn" class="px-4 py-2 bg-wurm-accent/15 border border-wurm-accent text-wurm-accent font-mono text-xs font-bold uppercase rounded flex items-center gap-2 hover:bg-wurm-accent/25 transition-all">
+            <span id="activeLoadoutName">DEFAULT BUILD</span> ▲
+          </button>
+
+          <div id="loadoutDropdownMenu" class="hidden absolute bottom-full left-0 mb-2 w-64 bg-[#0a0d14] border border-wurm-accent/50 rounded-lg shadow-2xl p-2 z-50">
+            <div class="text-[10px] font-mono font-bold text-wurm-muted uppercase px-3 py-1 border-b border-wurm-border mb-1">Builds Salvas</div>
+            <div class="px-3 py-1.5 text-xs font-mono text-wurm-text flex justify-between items-center bg-white/5 rounded my-1">
+              <span>Build matriz</span>
+            </div>
+
+            <div class="border-t border-wurm-border my-1"></div>
+
+            <button id="menuImportStringBtn" class="w-full text-left px-3 py-2 text-xs font-mono text-wurm-text hover:text-wurm-accent hover:bg-white/5 rounded transition-all flex items-center gap-2">
+              <span>📥</span> Importar String do Jogo
+            </button>
+            <button id="menuExportStringBtn" class="w-full text-left px-3 py-2 text-xs font-mono text-wurm-text hover:text-wurm-accent hover:bg-white/5 rounded transition-all flex items-center gap-2">
+              <span>📤</span> Exportar String do Jogo
+            </button>
+            <button id="menuDownloadFileBtn" class="w-full text-left px-3 py-2 text-xs font-mono text-wurm-text hover:text-wurm-accent hover:bg-white/5 rounded transition-all flex items-center gap-2">
+              <span>💾</span> Baixar Arquivo no PC (.wocbuild)
+            </button>
+            <button id="menuUploadFileBtn" class="w-full text-left px-3 py-2 text-xs font-mono text-wurm-text hover:text-wurm-accent hover:bg-white/5 rounded transition-all flex items-center gap-2">
+              <span>📂</span> Carregar Arquivo do PC
+            </button>
+            <input type="file" id="buildFileInput" accept=".json,.wocbuild" class="hidden">
+            
+            <div class="border-t border-wurm-border my-1"></div>
+
+            <button id="menuResetTalentsBtn" class="w-full text-left px-3 py-2 text-xs font-mono text-red-400 hover:bg-red-950/40 rounded transition-all">
+              Redefinir pontos
+            </button>
+          </div>
+        </div>
+
+        <div class="flex gap-2 flex-wrap">
+          <button id="hypeBuildBtn" class="px-4 py-2 text-xs font-mono font-bold bg-orange-950/40 border border-orange-700/50 text-orange-400 rounded flex items-center gap-1.5 hover:bg-orange-900/60">
+            🔥 Hype Build (<span id="buildHypeCount">1.420</span>)
+          </button>
+          <button id="shareUrlBtn" class="px-4 py-2 text-xs font-mono font-bold bg-white/5 border border-wurm-border text-wurm-text rounded hover:bg-white/10">
+            🔗 Compartilhar Link
+          </button>
+          <button id="copyDiscordBtn" class="px-4 py-2 text-xs font-mono font-bold bg-indigo-950/40 border border-indigo-700/50 text-indigo-300 rounded hover:bg-indigo-900/60">
+            📋 Copiar para Discord
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- SECTION 3: Meta Gallery Tab -->
+    <section id="presetsTab" class="tab-panel hidden space-y-6">
+      <div class="border-b border-wurm-border pb-4">
+        <h2 class="font-serif text-xl font-bold text-wurm-accent">Galeria de Builds da Comunidade & Guilda</h2>
+      </div>
+      <div id="fullPresetsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- SECTION 4: Wiki Tab -->
+    <section id="wikiTab" class="tab-panel hidden space-y-6">
+      <div class="border-b border-wurm-border pb-4">
+        <h2 class="font-serif text-xl font-bold text-wurm-accent">Wiki de Itens de World of Claudecraft</h2>
+      </div>
+      <div id="wikiItemsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </section>
+
+  </main>
+
+  <!-- Game String IMPORT Modal (Universal!) -->
+  <div id="gameImportModalOverlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="w-full max-w-md bg-[#0e131f] border border-wurm-accent/60 rounded-lg p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-wurm-border pb-3">
+        <h3 class="font-serif text-base font-bold text-wurm-accent">IMPORTAR BUILD DO JOGO</h3>
+        <button id="closeGameImportModalBtn" class="text-wurm-muted hover:text-wurm-text text-xl">&times;</button>
+      </div>
+      <div class="space-y-2">
+        <label class="text-xs font-mono text-wurm-text">Cole uma string de build exportada do jogo (começa com eyJ2...):</label>
+        <textarea id="gameImportTextarea" rows="4" placeholder="eyJ2IjoyLCJjIjoicGFsYWRpbiIsInMiOiJwcm90ZWN0aW9uIiwiciI6eyJ..." class="w-full bg-wurm-bg border border-wurm-border rounded p-3 text-xs text-wurm-accent font-mono focus:outline-none focus:border-wurm-accent"></textarea>
+      </div>
+      <div class="flex justify-end gap-3 pt-2">
+        <button id="cancelGameImportBtn" class="px-5 py-2 text-xs font-mono font-bold bg-red-950/60 hover:bg-red-900 border border-red-800 text-red-200 rounded">CANCELAR</button>
+        <button id="confirmGameImportBtn" class="px-5 py-2 text-xs font-mono font-bold bg-wurm-accent hover:bg-wurm-accentDim text-wurm-bg rounded">IMPORTAR</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game String EXPORT Modal -->
+  <div id="gameExportModalOverlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="w-full max-w-md bg-[#0e131f] border border-wurm-accent/60 rounded-lg p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-wurm-border pb-3">
+        <h3 class="font-serif text-base font-bold text-wurm-accent">EXPORTAR STRING PARA O JOGO</h3>
+        <button id="closeGameExportModalBtn" class="text-wurm-muted hover:text-wurm-text text-xl">&times;</button>
+      </div>
+      <div class="space-y-2">
+        <label class="text-xs font-mono text-wurm-text">String oficial gerada (copie e cole dentro do jogo):</label>
+        <textarea id="gameExportTextarea" rows="4" readonly class="w-full bg-wurm-bg border border-wurm-border rounded p-3 text-xs text-wurm-accent font-mono focus:outline-none"></textarea>
+      </div>
+      <div class="flex justify-end gap-3 pt-2">
+        <button id="copyGameExportBtn" class="w-full py-2.5 text-xs font-mono font-bold bg-wurm-accent hover:bg-wurm-accentDim text-wurm-bg rounded">COPIAR STRING DO JOGO</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Item Drawer -->
+  <div id="itemDrawerOverlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex justify-end">
+    <div class="w-full max-w-md bg-wurm-panel border-l border-wurm-border h-full p-6 flex flex-col">
+      <div class="flex items-center justify-between border-b border-wurm-border pb-4 mb-4">
+        <h3 id="drawerSlotTitle" class="font-mono text-xs font-bold text-wurm-accent uppercase tracking-wider">Escolher Item</h3>
+        <button id="closeDrawerBtn" class="text-wurm-muted hover:text-wurm-text text-xl">&times;</button>
+      </div>
+      <div id="drawerItemList" class="flex-grow overflow-y-auto space-y-2"></div>
+    </div>
+  </div>
+
+  <!-- Share Modal -->
+  <div id="shareModalOverlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="w-full max-w-lg bg-wurm-panel border border-wurm-border rounded-lg p-6 space-y-4">
+      <div class="flex items-center justify-between border-b border-wurm-border pb-3">
+        <h3 class="font-serif text-base font-bold text-wurm-accent">Compartilhar Build</h3>
+        <button id="closeShareModalBtn" class="text-wurm-muted hover:text-wurm-text text-xl">&times;</button>
+      </div>
+      <input type="text" id="shareUrlInput" readonly class="w-full bg-wurm-bg border border-wurm-border rounded px-3 py-2 text-xs text-wurm-accent font-mono mb-2">
+      <textarea id="discordMarkdownTextarea" rows="5" readonly class="w-full bg-wurm-bg border border-wurm-border rounded p-3 text-xs text-wurm-text font-mono"></textarea>
+      <button id="copyMarkdownBtn" class="w-full py-2 text-xs font-mono font-bold bg-white/5 border border-wurm-border text-wurm-text rounded">Copiar Formatado para Discord</button>
+    </div>
+  </div>
+
+  <!-- WoW Tooltip -->
+  <div id="wowTooltip" class="fixed z-50 hidden bg-[#0a0a0a]/95 border border-[#262626] rounded p-4 max-w-xs shadow-2xl font-sans text-xs pointer-events-none space-y-1">
+    <div id="ttName" class="font-serif font-bold text-sm text-wurm-accent"></div>
+    <div id="ttILvl" class="font-mono text-[11px] text-[#ffb703]"></div>
+    <div id="ttSlot" class="text-[11px] text-wurm-muted font-mono uppercase"></div>
+    <div id="ttStats" class="text-emerald-400 py-1 space-y-0.5"></div>
+    <div id="ttSource" class="text-[10px] text-wurm-accentDim border-t border-wurm-border pt-1"></div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 hidden bg-wurm-panel border border-wurm-accent text-wurm-accent px-4 py-2.5 rounded shadow-2xl font-mono text-xs flex items-center gap-2">
+    <span>✨</span> <span id="toastMessage"></span>
+  </div>
+
+  <!-- App Scripts -->
+  <script src="js/data/gameData.js"></script>
+  <script src="js/data/presets.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

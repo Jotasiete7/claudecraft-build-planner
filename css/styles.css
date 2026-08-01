@@ -1,0 +1,101 @@
+/* A GUILDA — World of Claudecraft Hub Design System (Wurm Theme) */
+:root {
+  --wurm-bg: #050505;
+  --wurm-panel: #0a0a0a;
+  --wurm-border: #262626;
+  --wurm-accent: #d4b483;
+  --wurm-accent-dim: #8a7453;
+  --wurm-text: #e5e5e5;
+  --wurm-muted: #737373;
+
+  /* Official 9 Class Colors */
+  --class-warrior: #d67a54;
+  --class-mage: #33c1f1;
+  --class-rogue: #fcee58;
+  --class-paladin: #f58ca0;
+  --class-hunter: #a6d84f;
+  --class-priest: #c6d4f0;
+  --class-shaman: #4e8aea;
+  --class-warlock: #a785e6;
+  --class-druid: #ff8c1a;
+}
+
+body {
+  background-color: var(--wurm-bg);
+  color: var(--wurm-text);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #080808;
+}
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d4b483;
+}
+
+/* Glassmorphism Panels */
+.glass-panel {
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 180, 131, 0.15);
+}
+
+/* Active Nav Tab */
+.nav-tab-btn.active {
+  color: var(--wurm-accent);
+  border-bottom: 2px solid var(--wurm-accent);
+}
+
+/* Class Gallery Card Hover Effects */
+.class-card {
+  transition: all 0.25s ease-in-out;
+  border: 1px solid var(--wurm-border);
+}
+.class-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+/* Signature Skill Highlight */
+.signature-skill-badge {
+  border: 1.5px solid #d4b483 !important;
+  box-shadow: 0 0 10px rgba(212, 180, 131, 0.4);
+}
+
+/* Paperdoll Equipment Slots */
+.paperdoll-slot-card {
+  background: #080a10;
+  border: 1px solid var(--wurm-border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  display: flex;
+  items-center: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.paperdoll-slot-card:hover {
+  border-color: var(--wurm-accent);
+  background: rgba(212, 180, 131, 0.05);
+}
+.paperdoll-slot-card.has-item {
+  border-color: var(--item-rarity-color, #d4b483);
+}
+
+/* Horizontal Scroll Bar for Quick Switcher */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
