@@ -1,3 +1,5 @@
+/**
+ * World of Claudecraft - Complete 9-Class Dataset & Talent Choices
  * Original English Names and Official GitHub Image Art CDN (.webp):
  * https://raw.githubusercontent.com/levy-street/world-of-claudecraft/main/public/ui/
  */
