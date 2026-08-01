@@ -74,6 +74,7 @@ const GAME_SPECS = {
         ]
       }
     ],
+    // NOTE: Warrior is not in the official choice_rows_classic.ts - using placeholder data
     choiceRows: [
       {
         level: 5,
@@ -310,53 +311,54 @@ const GAME_SPECS = {
         ]
       }
     ],
+    // Source: choice_rows_classic.ts - MAGE_CHOICE_ROWS
     choiceRows: [
       {
         level: 5,
         options: [
-          { id: 'mag_r5_clearcasting', name: 'Clearcasting', iconUrl: getSkillIconUrl('mage', 'arcane_intellect'), desc: 'Spells have 10% chance to enter a Clearcasting state.' },
-          { id: 'mag_r5_ignite', name: 'Ignite', iconUrl: getSkillIconUrl('mage', 'fireball'), desc: 'Fire critical hits burn target for 40% additional damage.' },
-          { id: 'mag_r5_ice_floes', name: 'Ice Floes', iconUrl: getSkillIconUrl('mage', 'frostbolt'), desc: 'Allows casting while moving for 5s.' }
+          { id: 'mag_r5_ice_floes', name: 'Ice Floes', iconUrl: getSkillIconUrl('mage', 'ice_floes'), desc: 'Grants Ice Floes: your next two spells with a cast time can be cast while moving.' },
+          { id: 'mag_r5_double_blink', name: 'Double Blink', iconUrl: getSkillIconUrl('mage', 'double_blink'), desc: 'Flickerstep stores 2 charges, but each recharges 30% more slowly.' },
+          { id: 'mag_r5_blink_cast', name: 'Blink While Casting', iconUrl: getSkillIconUrl('mage', 'blink_while_casting'), desc: 'You can use Flickerstep in the middle of a cast without interrupting it.' }
         ]
       },
       {
         level: 8,
         options: [
-          { id: 'mag_r8_counterspell', name: 'Counterspell', iconUrl: getSkillIconUrl('mage', 'blink'), desc: 'Interrupts spellcasting and locks school for 6s.' },
-          { id: 'mag_r8_blast_wave', name: 'Blast Wave', iconUrl: getSkillIconUrl('mage', 'fireball'), desc: 'Knocks back nearby enemies dealing Fire damage.' },
-          { id: 'mag_r8_cold_snap', name: 'Cold Snap', iconUrl: getSkillIconUrl('mage', 'frost_nova'), desc: 'Instantly resets cooldown of all Frost spells.' }
+          { id: 'mag_r8_warded', name: 'Warded', iconUrl: getSkillIconUrl('mage', 'warded'), desc: 'While your personal barrier is up you take 15% less damage, and it heals you for 10% of your maximum health when it breaks.' },
+          { id: 'mag_r8_temporal_rift', name: 'Shifting Ward', iconUrl: getSkillIconUrl('mage', 'temporal_rift'), desc: 'Casting your personal barrier breaks roots affecting you.' },
+          { id: 'mag_r8_greater_invis', name: 'Greater Invisibility', iconUrl: getSkillIconUrl('mage', 'greater_invisibility'), desc: 'Grants Greater Invisibility: vanish for 20 sec and remove 2 damage-over-time effects.' }
         ]
       },
       {
         level: 11,
         options: [
-          { id: 'mag_r11_presence_of_mind', name: 'Presence of Mind', iconUrl: getSkillIconUrl('mage', 'arcane_intellect'), desc: 'Next spell becomes instant cast.' },
-          { id: 'mag_r11_combustion', name: 'Combustion', iconUrl: getSkillIconUrl('mage', 'fireball'), desc: 'Increases Fire critical strike chance by 100%.' },
-          { id: 'mag_r11_ice_barrier', name: 'Ice Barrier', iconUrl: getSkillIconUrl('mage', 'ice_armor'), desc: 'Absorbs physical and magical damage for 30s.' }
+          { id: 'mag_r11_rings_of_frost', name: 'Ring of Frost', iconUrl: getSkillIconUrl('mage', 'rings_of_frost'), desc: 'Grants Ring of Frost: its perimeter persists for 10 sec and freezes enemies that cross it for 4 sec.' },
+          { id: 'mag_r11_snap_polymorph', name: 'Snap Bewitch', iconUrl: getSkillIconUrl('mage', 'snap_polymorph'), desc: 'Bewitch becomes instant, on a 20 sec cooldown.' },
+          { id: 'mag_r11_twin_nova', name: 'Twin Icebind', iconUrl: getSkillIconUrl('mage', 'twin_frost_nova'), desc: 'Icebind stores 2 charges that recharge independently.' }
         ]
       },
       {
         level: 14,
         options: [
-          { id: 'mag_r14_arcane_power', name: 'Arcane Power', iconUrl: getSkillIconUrl('mage', 'arcane_intellect'), desc: 'Increases spell damage by 30% for 15s.' },
-          { id: 'mag_r14_dragon_breath', name: "Dragon's Breath", iconUrl: getSkillIconUrl('mage', 'fireball'), desc: 'Disorients enemies in a cone for 4s.' },
-          { id: 'mag_r14_fingers_of_frost', name: 'Fingers of Frost', iconUrl: getSkillIconUrl('mage', 'frostbolt'), desc: 'Chilling effects treat target as frozen.' }
+          { id: 'mag_r14_power_echo', name: 'Power Echo', iconUrl: getSkillIconUrl('mage', 'power_echo'), desc: 'Grants Power Echo: your next direct spell repeats at 50% power on the same target.' },
+          { id: 'mag_r14_overload', name: 'Overload', iconUrl: getSkillIconUrl('mage', 'overload'), desc: 'Grants Overload: your next spell is amplified by 40% but costs 50% more mana.' },
+          { id: 'mag_r14_presence_of_mind', name: 'Racing Mind', iconUrl: getSkillIconUrl('mage', 'presence_of_mind'), desc: 'Grants Racing Mind: your next spell with a cast time is cast instantly.' }
         ]
       },
       {
         level: 17,
         options: [
-          { id: 'mag_r17_evocation', name: 'Improved Evocation', iconUrl: getSkillIconUrl('mage', 'arcane_intellect'), desc: 'Regenerates 60% total mana over 6s.' },
-          { id: 'mag_r17_living_bomb', name: 'Living Bomb', iconUrl: getSkillIconUrl('mage', 'fireball'), desc: 'Target explodes after 12s dealing AoE Fire damage.' },
-          { id: 'mag_r17_deep_freeze', name: 'Deep Freeze', iconUrl: getSkillIconUrl('mage', 'frost_nova'), desc: 'Stuns a frozen target for 5s.' }
+          { id: 'mag_r17_convergence', name: 'Elemental Convergence', iconUrl: getSkillIconUrl('mage', 'elemental_convergence'), desc: 'Alternating a Fire and a Frost spell opens an 8 sec surge of power, once per 30 sec.' },
+          { id: 'mag_r17_cold_snap', name: "Winter's Recall", iconUrl: getSkillIconUrl('mage', 'cold_snap'), desc: "Grants Winter's Recall: instantly finishes the cooldown of Flickerstep, Frostveil and Greater Invisibility." },
+          { id: 'mag_r17_mass_barrier', name: 'Mass Barrier', iconUrl: getSkillIconUrl('mage', 'mass_barrier'), desc: 'Grants Mass Barrier: shield you and all allies within 30 yd.' }
         ]
       },
       {
         level: 20,
         options: [
-          { id: 'mag_r20_time_warp', name: 'Time Warp', iconUrl: getSkillIconUrl('mage', 'blink'), desc: 'Increases party haste by 30% for 40s.' },
-          { id: 'mag_r20_meteor', name: 'Meteor', iconUrl: getSkillIconUrl('mage', 'fireball'), desc: 'Calls down a meteor dealing massive Fire damage.' },
-          { id: 'mag_r20_comet_storm', name: 'Comet Storm', iconUrl: getSkillIconUrl('mage', 'blizzard'), desc: 'Calls down 7 comets around the target.' }
+          { id: 'mag_r20_rune_of_power', name: 'Rune of Power', iconUrl: getSkillIconUrl('mage', 'rune_of_power'), desc: 'Grants Rune of Power: inscribe a rune; allies standing near it deal 10% more damage.' },
+          { id: 'mag_r20_overflowing_power', name: 'Overflowing Power', iconUrl: getSkillIconUrl('mage', 'overflowing_power'), desc: 'Spending mana shaves the cooldown of your defensives: 2 sec per tenth of your max mana spent, up to 10 sec every 30 sec.' },
+          { id: 'mag_r20_evocation', name: 'Aetherwell', iconUrl: getSkillIconUrl('mage', 'evocation'), desc: 'Grants Aetherwell: channel to restore mana, building spell power the longer you channel.' }
         ]
       }
     ],
@@ -427,53 +429,54 @@ const GAME_SPECS = {
         ]
       }
     ],
+    // Source: choice_rows_classic.ts - ROGUE_CHOICE_ROWS
     choiceRows: [
       {
         level: 5,
         options: [
-          { id: 'rog_r5_relentless_strikes', name: 'Relentless Strikes', iconUrl: getSkillIconUrl('rogue', 'eviscerate'), desc: 'Finishers have 20% chance per combo point to refund 25 Energy.' },
-          { id: 'rog_r5_craven_thrust', name: 'Craven Thrust', iconUrl: getSkillIconUrl('rogue', 'sinister_strike'), desc: 'Increases critical damage of builders by 25%.' },
-          { id: 'rog_r5_opportunity', name: 'Opportunity', iconUrl: getSkillIconUrl('rogue', 'backstab'), desc: 'Increases damage of Backstab and Ambush by 20%.' }
+          { id: 'rog_r5_relentless_strikes', name: 'Ceaseless Cuts', iconUrl: getSkillIconUrl('rogue', 'sinister_strike'), desc: 'Every 3rd Wicked Slash restores 30 energy.' },
+          { id: 'rog_r5_improved_backstab', name: "Knife's Dividend", iconUrl: getSkillIconUrl('rogue', 'backstab'), desc: 'Craven Thrust makes your next Dirt Nap within 6 sec cost 50% less energy.' },
+          { id: 'rog_r5_opportunist', name: 'Dusk Dividend', iconUrl: getSkillIconUrl('rogue', 'ambush'), desc: "Using Lurker's Strike or Throat Wire restores 20 energy." }
         ]
       },
       {
         level: 8,
         options: [
-          { id: 'rog_r8_smoke_screen', name: 'Smoke Screen', iconUrl: getSkillIconUrl('rogue', 'vanish'), desc: 'Creates a smoke cloud preventing targeted spells for 5s.' },
-          { id: 'rog_r8_gouge', name: 'Gouge', iconUrl: getSkillIconUrl('rogue', 'sinister_strike'), desc: 'Incapacitates target for 45s.' },
-          { id: 'rog_r8_kick', name: 'Kick', iconUrl: getSkillIconUrl('rogue', 'sinister_strike'), desc: 'Interrupts spellcasting locking school for 5s.' }
+          { id: 'rog_r8_smoke_screen', name: 'Smoke Screen', iconUrl: getSkillIconUrl('rogue', 'smoke_screen'), desc: 'Grants Smoke Screen: a cloud that raises your dodge by 30% for 8 sec.' },
+          { id: 'rog_r8_improved_gouge', name: 'Blindside Opening', iconUrl: getSkillIconUrl('rogue', 'gouge'), desc: 'Eye Jab makes your next Craven Thrust within 6 sec free.' },
+          { id: 'rog_r8_improved_kidney_shot', name: 'Paid in Pain', iconUrl: getSkillIconUrl('rogue', 'kidney_shot'), desc: 'Low Blow restores 15 energy when used.' }
         ]
       },
       {
         level: 11,
         options: [
-          { id: 'rog_r11_preparation', name: 'Preparation', iconUrl: getSkillIconUrl('rogue', 'vanish'), desc: 'Resets cooldown of Sprint, Vanish, and Evasion.' },
-          { id: 'rog_r11_blade_flurry', name: 'Blade Flurry', iconUrl: getSkillIconUrl('rogue', 'blade_flurry'), desc: 'Attacks hit all nearby enemies.' },
-          { id: 'rog_r11_cold_blood', name: 'Cold Blood', iconUrl: getSkillIconUrl('rogue', 'eviscerate'), desc: 'Increases critical strike chance of next offensive ability by 100%.' }
+          { id: 'rog_r11_preparation', name: 'Contingency', iconUrl: getSkillIconUrl('rogue', 'preparation'), desc: 'Grants Contingency.' },
+          { id: 'rog_r11_endurance', name: 'Second Exit', iconUrl: getSkillIconUrl('rogue', 'sprint'), desc: 'Swift Heels and Ghostfoot each store 2 uses.' },
+          { id: 'rog_r11_improved_slice_and_dice', name: 'Borrowed Tempo', iconUrl: getSkillIconUrl('rogue', 'slice_and_dice'), desc: 'Every 3rd builder makes your next Cutthroat Tempo within 8 sec free.' }
         ]
       },
       {
         level: 14,
         options: [
-          { id: 'rog_r14_seal_fate', name: 'Seal Fate', iconUrl: getSkillIconUrl('rogue', 'sinister_strike'), desc: 'Critical strike combo builders add an extra combo point.' },
-          { id: 'rog_r14_adrenaline_rush', name: 'Adrenaline Rush', iconUrl: getSkillIconUrl('rogue', 'adrenaline_rush'), desc: 'Increases Energy regeneration by 100% for 15s.' },
-          { id: 'rog_r14_hemorrhage', name: 'Hemorrhage', iconUrl: getSkillIconUrl('rogue', 'backstab'), desc: 'Causes target to bleed and take bonus physical damage.' }
+          { id: 'rog_r14_seal_fate', name: 'Final Notice', iconUrl: getSkillIconUrl('rogue', 'eviscerate'), desc: 'Each Dirt Nap or Bleed Out makes your next builder within 8 sec cost 50% less energy.' },
+          { id: 'rog_r14_ghostly_strike', name: 'Wraith Strike', iconUrl: getSkillIconUrl('rogue', 'ghostly_strike'), desc: 'Grants Wraith Strike.' },
+          { id: 'rog_r14_deadly_brew', name: 'Venom Dividend', iconUrl: getSkillIconUrl('rogue', 'deadly_poison'), desc: 'Landed melee auto-attacks with an active poison have a 20% chance to restore 10 energy.' }
         ]
       },
       {
         level: 17,
         options: [
-          { id: 'rog_r17_cloak_of_shadows', name: 'Cloak of Shadows', iconUrl: getSkillIconUrl('rogue', 'vanish'), desc: 'Dispels all harmful magic effects and grants 90% spell resistance.' },
-          { id: 'rog_r17_cheat_death', name: 'Cheat Death', iconUrl: getSkillIconUrl('rogue', 'stealth'), desc: 'Fatal attacks reduce health to 10% instead of killing you.' },
-          { id: 'rog_r17_evasion', name: 'Evasion', iconUrl: getSkillIconUrl('rogue', 'sprint'), desc: 'Increases dodge chance by 50% for 15s.' }
+          { id: 'rog_r17_cloak_of_shadows', name: 'Shadecloak', iconUrl: getSkillIconUrl('rogue', 'cloak_of_shadows'), desc: 'Grants Shadecloak.' },
+          { id: 'rog_r17_improved_evasion', name: 'Ghostfoot Gambit', iconUrl: getSkillIconUrl('rogue', 'evasion'), desc: 'Ghostfoot restores 30 energy and makes your next builder within 8 sec cost 50% less energy.' },
+          { id: 'rog_r17_cheat_death', name: 'Borrowed Breath', iconUrl: getSkillIconUrl('rogue', 'vanish'), desc: 'A blow that would kill you leaves you at 1 health instead. Once every 120 sec.' }
         ]
       },
       {
         level: 20,
         options: [
-          { id: 'rog_r20_shadowstep', name: 'Shadowstep', iconUrl: getSkillIconUrl('rogue', 'shadowstep'), desc: 'Teleport behind target, increasing movement speed by 70%.' },
-          { id: 'rog_r20_killing_spree', name: 'Killing Spree', iconUrl: getSkillIconUrl('rogue', 'blade_flurry'), desc: 'Step between enemies attacking rapidly 5 times.' },
-          { id: 'rog_r20_shadow_dance', name: 'Shadow Dance', iconUrl: getSkillIconUrl('rogue', 'stealth'), desc: 'Allows use of stealth abilities out of stealth for 8s.' }
+          { id: 'rog_r20_shadowstep', name: 'Shadeslip', iconUrl: getSkillIconUrl('rogue', 'shadowstep'), desc: 'Grants Shadeslip.' },
+          { id: 'rog_r20_adrenaline_junkie', name: 'Redline Habit', iconUrl: getSkillIconUrl('rogue', 'adrenaline_rush'), desc: "Each finisher reduces Quickened Blood's cooldown by 6 sec." },
+          { id: 'rog_r20_master_assassin', name: 'First Cut, Last Word', iconUrl: getSkillIconUrl('rogue', 'ambush'), desc: 'Each opener makes your next finisher within 6 sec cost 50% less energy.' }
         ]
       }
     ],
@@ -544,53 +547,54 @@ const GAME_SPECS = {
         ]
       }
     ],
+    // Source: choice_rows_classic.ts - PRIEST_CHOICE_ROWS
     choiceRows: [
       {
         level: 5,
         options: [
-          { id: 'pri_r5_improved_renew', name: 'Improved Renew', iconUrl: getSkillIconUrl('priest', 'renew'), desc: 'Increases healing done by Renew by 15%.' },
-          { id: 'pri_r5_shield_ward', name: 'Shield Ward', iconUrl: getSkillIconUrl('priest', 'power_word_shield'), desc: 'Power Word: Shield absorbs 20% more damage.' },
-          { id: 'pri_r5_shadow_affinity', name: 'Shadow Affinity', iconUrl: getSkillIconUrl('priest', 'shadow_word_pain'), desc: 'Reduces threat generated by Shadow spells by 25%.' }
+          { id: 'pri_r5_improved_renew', name: 'Warding Refrain', iconUrl: getSkillIconUrl('priest', 'lesser_heal'), desc: 'Every 3rd Whispered Prayer hardens its target into a ward absorbing 40 damage for 10 sec.' },
+          { id: 'pri_r5_searing_light', name: 'Third Verse', iconUrl: getSkillIconUrl('priest', 'smite'), desc: 'Every 3rd Scouring Hymn makes your next mana-cost healing spell within 8 sec free.' },
+          { id: 'pri_r5_twisted_faith', name: 'Dirgebound Thought', iconUrl: getSkillIconUrl('priest', 'shadow_word_pain'), desc: "Mindfracture deals 25% more damage to targets afflicted by your Dirge of Decay." }
         ]
       },
       {
         level: 8,
         options: [
-          { id: 'pri_r8_improved_shield', name: 'Divine Aegis', iconUrl: getSkillIconUrl('priest', 'power_word_shield'), desc: 'Critical heals create a protective shield.' },
-          { id: 'pri_r8_psychic_scream', name: 'Psychic Scream', iconUrl: getSkillIconUrl('priest', 'psychic_scream'), desc: 'Fears up to 4 nearby enemies for 8s.' },
-          { id: 'pri_r8_silence', name: 'Silence', iconUrl: getSkillIconUrl('priest', 'mind_blast'), desc: 'Silences target for 5s.' }
+          { id: 'pri_r8_improved_shield', name: 'Shattered Psalm', iconUrl: getSkillIconUrl('priest', 'power_word_shield'), desc: 'When your Psalm of Warding is fully consumed, it bursts, healing its owner for 45.' },
+          { id: 'pri_r8_silence', name: 'Hushword', iconUrl: getSkillIconUrl('priest', 'silence'), desc: 'Grants Hushword.' },
+          { id: 'pri_r8_psychic_scream', name: 'Terror Canticle', iconUrl: getSkillIconUrl('priest', 'psychic_scream'), desc: 'Grants Terror Canticle.' }
         ]
       },
       {
         level: 11,
         options: [
-          { id: 'pri_r11_inner_focus', name: 'Inner Focus', iconUrl: getSkillIconUrl('priest', 'inner_focus'), desc: 'Next spell costs 0 mana and has +25% crit chance.' },
-          { id: 'pri_r11_holy_nova', name: 'Holy Nova', iconUrl: getSkillIconUrl('priest', 'holy_nova'), desc: 'Explosion of holy light healing allies and damaging foes.' },
-          { id: 'pri_r11_vampiric_embrace', name: 'Vampiric Embrace', iconUrl: getSkillIconUrl('priest', 'shadow_word_pain'), desc: 'Shadow damage heals party members for 20% of damage.' }
+          { id: 'pri_r11_inner_focus', name: 'Stilled Mind', iconUrl: getSkillIconUrl('priest', 'inner_focus'), desc: 'Grants Stilled Mind.' },
+          { id: 'pri_r11_meditation', name: 'Measured Mercy', iconUrl: getSkillIconUrl('priest', 'lesser_heal'), desc: 'Every 3rd mana-cost healing spell makes your next mana-cost healing spell within 10 sec cost 50% less.' },
+          { id: 'pri_r11_vampiric_embrace', name: 'Gloam Siphon', iconUrl: getSkillIconUrl('priest', 'mind_blast'), desc: 'Mindfracture also afflicts the target for 30 damage over 3 sec and heals you for 100% of it.' }
         ]
       },
       {
         level: 14,
         options: [
-          { id: 'pri_r14_mind_melt', name: 'Mind Melt', iconUrl: getSkillIconUrl('priest', 'mind_blast'), desc: 'Increases Mind Blast critical chance by 15%.' },
-          { id: 'pri_r14_pain_suppression', name: 'Pain Suppression', iconUrl: getSkillIconUrl('priest', 'power_word_shield'), desc: 'Reduces damage taken by ally by 40% for 8s.' },
-          { id: 'pri_r14_spirit_of_redemption', name: 'Spirit of Redemption', iconUrl: getSkillIconUrl('priest', 'renew'), desc: 'Cast heals for 15s after death.' }
+          { id: 'pri_r14_mind_melt', name: 'Twin Fracture', iconUrl: getSkillIconUrl('priest', 'mind_blast'), desc: 'Mindfracture stores 2 uses.' },
+          { id: 'pri_r14_greater_heal', name: 'Mercy Deferred', iconUrl: getSkillIconUrl('priest', 'heal'), desc: 'Solemn Prayer leaves an echo for 10 sec: if the target falls below 35% health, they are instantly healed for 60.' },
+          { id: 'pri_r14_pain_and_suffering', name: 'Endless Dirge', iconUrl: getSkillIconUrl('priest', 'mind_flay'), desc: 'Each Litany of Woe tick extends your Dirge of Decay on the target by 1 sec, up to 6 added sec.' }
         ]
       },
       {
         level: 17,
         options: [
-          { id: 'pri_r17_desperate_prayer', name: 'Desperate Prayer', iconUrl: getSkillIconUrl('priest', 'flash_heal'), desc: 'Instantly heals caster for large amount.' },
-          { id: 'pri_r17_power_infusion', name: 'Power Infusion', iconUrl: getSkillIconUrl('priest', 'inner_focus'), desc: 'Increases target spell casting speed by 20%.' },
-          { id: 'pri_r17_dispersion', name: 'Dispersion', iconUrl: getSkillIconUrl('priest', 'shadow_word_pain'), desc: 'Reduces all damage taken by 90% and restores 36% mana.' }
+          { id: 'pri_r17_desperate_prayer', name: 'Last Prayer', iconUrl: getSkillIconUrl('priest', 'desperate_prayer'), desc: 'Grants Last Prayer.' },
+          { id: 'pri_r17_improved_fortitude', name: 'Resolve Unbroken', iconUrl: getSkillIconUrl('priest', 'power_word_fortitude'), desc: "Litany of Resolve effect increased by 50%, granting your party 7.5% Stamina instead of 5%." },
+          { id: 'pri_r17_inner_fire', name: 'Wounded Halo', iconUrl: getSkillIconUrl('priest', 'power_word_shield'), desc: 'Taking a hit for at least 15% of your maximum health kindles a ward absorbing 15% of your maximum health for 10 sec.' }
         ]
       },
       {
         level: 20,
         options: [
-          { id: 'pri_r20_prayer_of_healing', name: 'Prayer of Healing', iconUrl: getSkillIconUrl('priest', 'prayer_of_healing'), desc: 'Heals all party members within 30 yards.' },
-          { id: 'pri_r20_lightwell', name: 'Lightwell', iconUrl: getSkillIconUrl('priest', 'renew'), desc: 'Creates a Holy Lightwell allies can click to heal.' },
-          { id: 'pri_r20_shadowfiend', name: 'Shadowfiend', iconUrl: getSkillIconUrl('priest', 'mind_blast'), desc: 'Summons shadow pet that restores mana on hit.' }
+          { id: 'pri_r20_prayer_of_healing', name: 'Choirmend', iconUrl: getSkillIconUrl('priest', 'prayer_of_healing'), desc: 'Grants Choirmend.' },
+          { id: 'pri_r20_mind_sear', name: 'Thoughtburn', iconUrl: getSkillIconUrl('priest', 'mind_sear'), desc: 'Grants Thoughtburn.' },
+          { id: 'pri_r20_blessed_recovery', name: 'Halo Aftershock', iconUrl: getSkillIconUrl('priest', 'flash_heal'), desc: 'Critical heals from Whispered Prayer, Solemn Prayer, Urgent Prayer, Sunburst Canticle, and Choirmend also ward the target, absorbing 50 damage for 10 sec.' }
         ]
       }
     ],
@@ -660,53 +664,54 @@ const GAME_SPECS = {
         ]
       }
     ],
+    // Source: choice_rows_classic.ts - HUNTER_CHOICE_ROWS (IDs match game protocol)
     choiceRows: [
       {
         level: 5,
         options: [
-          { id: 'hun_r5_lethal_shots', name: 'Lethal Shots', iconUrl: getSkillIconUrl('hunter', 'arcane_shot'), desc: 'Increases ranged critical strike chance by 5%.' },
-          { id: 'hun_r5_improved_hawk', name: 'Improved Hawk', iconUrl: getSkillIconUrl('hunter', 'aspect_of_the_hawk'), desc: 'Ranged attacks have 10% chance to increase attack speed by 15%.' },
-          { id: 'hun_r5_savage_strikes', name: 'Savage Strikes', iconUrl: getSkillIconUrl('hunter', 'serpent_sting'), desc: 'Increases critical strike chance of traps by 20%.' }
+          { id: 'hun_r5_improved_serpent_sting', name: 'Deepvenom', iconUrl: getSkillIconUrl('hunter', 'serpent_sting'), desc: "Venom Barb's poison deals 20% more damage." },
+          { id: 'hun_r5_quick_shots', name: 'Twin Fletching', iconUrl: getSkillIconUrl('hunter', 'arcane_shot'), desc: 'Fell Shot stores 2 uses.' },
+          { id: 'hun_r5_aspect_mastery', name: 'Guisecraft', iconUrl: getSkillIconUrl('hunter', 'aspect_of_the_hawk'), desc: "Harrier's Guise and Marten's Guise effects are 25% stronger." }
         ]
       },
       {
         level: 8,
         options: [
-          { id: 'hun_r8_startle_shot', name: 'Concussive Shot', iconUrl: getSkillIconUrl('hunter', 'concussive_shot'), desc: 'Slows target movement speed by 50% for 4s.' },
-          { id: 'hun_r8_freezing_trap', name: 'Freezing Trap', iconUrl: getSkillIconUrl('hunter', 'freezing_trap'), desc: 'Traps enemy in ice for 20s.' },
-          { id: 'hun_r8_scatter_shot', name: 'Scatter Shot', iconUrl: getSkillIconUrl('hunter', 'multi_shot'), desc: 'Short-range shot disorienting target for 4s.' }
+          { id: 'hun_r8_startle_shot', name: 'Startle Shot', iconUrl: getSkillIconUrl('hunter', 'startle_shot'), desc: 'Grants Startle Shot: a ranged disorient that breaks on any damage.' },
+          { id: 'hun_r8_frost_trap', name: 'Rime Snare', iconUrl: getSkillIconUrl('hunter', 'frost_trap'), desc: 'Grants Rime Snare.' },
+          { id: 'hun_r8_improved_concussive', name: 'Pinning Barb', iconUrl: getSkillIconUrl('hunter', 'concussive_shot'), desc: "Rattling Shot's slow deepens to 70% for its 4 sec duration." }
         ]
       },
       {
         level: 11,
         options: [
-          { id: 'hun_r11_mend_pet', name: 'Mend Pet', iconUrl: getSkillIconUrl('hunter', 'mend_pet'), desc: 'Heals pet over 10s.' },
-          { id: 'hun_r11_trueshot_aura', name: 'Trueshot Aura', iconUrl: getSkillIconUrl('hunter', 'aspect_of_the_hawk'), desc: 'Increases party ranged attack power by 10%.' },
-          { id: 'hun_r11_wyvern_sting', name: 'Wyvern Sting', iconUrl: getSkillIconUrl('hunter', 'serpent_sting'), desc: 'Puts target to sleep for 30s.' }
+          { id: 'hun_r11_mend_pet', name: 'Patch Up', iconUrl: getSkillIconUrl('hunter', 'mend_pet'), desc: 'Patch Up heals a living pet for 50% more.' },
+          { id: 'hun_r11_efficiency', name: 'Lean Quiver', iconUrl: getSkillIconUrl('hunter', 'aimed_shot'), desc: 'Every 3rd ranged shot restores 20 mana.' },
+          { id: 'hun_r11_survival_instincts', name: 'Deathless Will', iconUrl: getSkillIconUrl('hunter', 'aspect_of_the_monkey'), desc: 'Taking a hit for at least 30% of your maximum health grants 40% movement speed for 4 sec. 30 sec internal cooldown.' }
         ]
       },
       {
         level: 14,
         options: [
-          { id: 'hun_r14_multi_shot', name: 'Multi-Shot', iconUrl: getSkillIconUrl('hunter', 'multi_shot'), desc: 'Fires 3 arrows hitting 3 nearby targets.' },
-          { id: 'hun_r14_aimed_shot', name: 'Aimed Shot', iconUrl: getSkillIconUrl('hunter', 'aimed_shot'), desc: 'Precise aimed shot reducing target healing received.' },
-          { id: 'hun_r14_readiness', name: 'Readiness', iconUrl: getSkillIconUrl('hunter', 'disengage'), desc: 'Instantly resets cooldown of all Hunter abilities.' }
+          { id: 'hun_r14_multi_shot', name: 'Splitshot', iconUrl: getSkillIconUrl('hunter', 'multi_shot'), desc: 'Grants Splitshot.' },
+          { id: 'hun_r14_sniper_training', name: 'Steady Draw', iconUrl: getSkillIconUrl('hunter', 'aimed_shot'), desc: "Long Draw's cast time is reduced by 20%." },
+          { id: 'hun_r14_serpents_venom', name: 'Viperfletch', iconUrl: getSkillIconUrl('hunter', 'serpent_sting'), desc: 'Fell Shot also envenoms the target for 50% of its damage over 3 sec.' }
         ]
       },
       {
         level: 17,
         options: [
-          { id: 'hun_r17_deterrence', name: 'Deterrence', iconUrl: getSkillIconUrl('hunter', 'deterrence'), desc: 'Increases parry chance by 100% for 10s.' },
-          { id: 'hun_r17_bestial_wrath', name: 'Bestial Wrath', iconUrl: getSkillIconUrl('hunter', 'aspect_of_the_hawk'), desc: 'Enrages pet, increasing damage by 50% for 18s.' },
-          { id: 'hun_r17_disengage', name: 'Disengage', iconUrl: getSkillIconUrl('hunter', 'disengage'), desc: 'Leaps backward escaping melee range.' }
+          { id: 'hun_r17_deterrence', name: 'Bristleguard', iconUrl: getSkillIconUrl('hunter', 'deterrence'), desc: 'Grants Bristleguard.' },
+          { id: 'hun_r17_master_tamer', name: 'Bloodbond', iconUrl: getSkillIconUrl('hunter', 'tame_beast'), desc: 'While your pet is alive, 20% of damage you take is redirected to it.' },
+          { id: 'hun_r17_thick_hide', name: 'Fieldhardy', iconUrl: getSkillIconUrl('hunter', 'aspect_of_the_monkey'), desc: 'Increases your maximum health by 10%.' }
         ]
       },
       {
         level: 20,
         options: [
-          { id: 'hun_r20_improved_volley', name: 'Volley', iconUrl: getSkillIconUrl('hunter', 'multi_shot'), desc: 'Rains arrows down on target area dealing AoE damage.' },
-          { id: 'hun_r20_kill_shot', name: 'Kill Shot', iconUrl: getSkillIconUrl('hunter', 'aimed_shot'), desc: 'Finishing shot available on low health targets.' },
-          { id: 'hun_r20_explosive_shot', name: 'Explosive Shot', iconUrl: getSkillIconUrl('hunter', 'arcane_shot'), desc: 'Fires explosive charge dealing Fire damage per second.' }
+          { id: 'hun_r20_improved_volley', name: 'Steady Rain', iconUrl: getSkillIconUrl('hunter', 'volley'), desc: 'Arrowfall deals 50% more damage, and taking damage cannot shorten its channel.' },
+          { id: 'hun_r20_rapid_killing', name: 'Redline Draw', iconUrl: getSkillIconUrl('hunter', 'rapid_fire'), desc: "Every 3rd ranged shot reduces Fevered Draw's cooldown by 5 sec, at most once every 8 sec." },
+          { id: 'hun_r20_aspect_of_the_wild', name: 'Wildfang Rally', iconUrl: getSkillIconUrl('hunter', 'aspect_of_the_wild'), desc: 'Grants Wildfang Rally.' }
         ]
       }
     ],
@@ -775,53 +780,54 @@ const GAME_SPECS = {
         ]
       }
     ],
+    // Source: choice_rows_classic.ts - SHAMAN_CHOICE_ROWS
     choiceRows: [
       {
         level: 5,
         options: [
-          { id: 'sha_r5_concussion', name: 'Concussion', iconUrl: getSkillIconUrl('shaman', 'lightning_bolt'), desc: 'Increases damage of Lightning Bolt and Shock spells by 5%.' },
-          { id: 'sha_r5_flurry', name: 'Flurry', iconUrl: getSkillIconUrl('shaman', 'windfury_weapon'), desc: 'Increases attack speed by 30% after a critical hit.' },
-          { id: 'sha_r5_tidal_focus', name: 'Tidal Focus', iconUrl: getSkillIconUrl('shaman', 'healing_wave'), desc: 'Reduces mana cost of healing spells by 5%.' }
+          { id: 'sha_r5_concussion', name: 'Fault Line', iconUrl: getSkillIconUrl('shaman', 'lightning_bolt'), desc: 'Every 3rd Arc Bolt makes your next Earthen Jolt, Cinder Jolt, or Rime Jolt within 8 sec free.' },
+          { id: 'sha_r5_improved_lightning_shield', name: 'Rebounding Current', iconUrl: getSkillIconUrl('shaman', 'lightning_shield'), desc: 'When your Thunder Ward reflects a strike, your next Arc Bolt within 8 sec is instant.' },
+          { id: 'sha_r5_imbue_mastery', name: 'Imbued Lifeblood', iconUrl: getSkillIconUrl('shaman', 'rockbiter_weapon'), desc: 'Each landed melee auto-attack with an active weapon imbue heals you for 8.' }
         ]
       },
       {
         level: 8,
         options: [
-          { id: 'sha_r8_improved_earth_shock', name: 'Earth Shock', iconUrl: getSkillIconUrl('shaman', 'earth_shock'), desc: 'Interrupts spellcasting locking school for 2s.' },
-          { id: 'sha_r8_windfury', name: 'Windfury Weapon', iconUrl: getSkillIconUrl('shaman', 'windfury_weapon'), desc: 'Imbues weapon giving 20% chance to attack 2 extra times.' },
-          { id: 'sha_r8_earth_shield', name: 'Earth Shield', iconUrl: getSkillIconUrl('shaman', 'earth_shield'), desc: 'Shields ally healing them whenever attacked.' }
+          { id: 'sha_r8_improved_earth_shock', name: 'Fault Rebuke', iconUrl: getSkillIconUrl('shaman', 'earth_shock'), desc: 'Earthen Jolt also interrupts spellcasting for a 2 sec school lockout.' },
+          { id: 'sha_r8_frost_bind', name: 'Rime Lock', iconUrl: getSkillIconUrl('shaman', 'frost_shock'), desc: 'Rime Jolt also roots the target for 2 sec.' },
+          { id: 'sha_r8_shock_efficiency', name: 'Returning Current', iconUrl: getSkillIconUrl('shaman', 'earth_shock'), desc: 'Every 3rd Jolt restores 30 mana.' }
         ]
       },
       {
         level: 11,
         options: [
-          { id: 'sha_r11_ancestral_guidance', name: 'Ancestral Guidance', iconUrl: getSkillIconUrl('shaman', 'healing_wave'), desc: 'Converts 20% damage or healing into area healing.' },
-          { id: 'sha_r11_stormstrike', name: 'Stormstrike', iconUrl: getSkillIconUrl('shaman', 'stormstrike'), desc: 'Instantly attack with both weapons.' },
-          { id: 'sha_r11_mana_tide', name: 'Mana Tide Totem', iconUrl: getSkillIconUrl('shaman', 'mana_tide_totem'), desc: 'Restores 6% total mana every 3s to party.' }
+          { id: 'sha_r11_ancestral_guidance', name: 'Guiding Spirits', iconUrl: getSkillIconUrl('shaman', 'healing_wave'), desc: 'When your Mending Waters critically heals, your next Mending Waters within 10 sec is instant.' },
+          { id: 'sha_r11_elemental_attunement', name: 'Sky Echo', iconUrl: getSkillIconUrl('shaman', 'lightning_bolt'), desc: 'Arc Bolt critical strikes make your next Arc Bolt within 8 sec instant.' },
+          { id: 'sha_r11_healing_stream', name: 'Springwell', iconUrl: getSkillIconUrl('shaman', 'healing_stream'), desc: 'Grants Springwell.' }
         ]
       },
       {
         level: 14,
         options: [
-          { id: 'sha_r14_chain_lightning', name: 'Chain Lightning', iconUrl: getSkillIconUrl('shaman', 'chain_lightning'), desc: 'Hurls lightning bolt striking up to 3 targets.' },
-          { id: 'sha_r14_feral_spirit', name: 'Feral Spirit', iconUrl: getSkillIconUrl('shaman', 'windfury_weapon'), desc: 'Summons 2 Spirit Wolves to fight by your side.' },
-          { id: 'sha_r14_riptide', name: 'Riptide', iconUrl: getSkillIconUrl('shaman', 'healing_wave'), desc: 'Heals an ally instantly and over 18s.' }
+          { id: 'sha_r14_chain_lightning', name: 'Skybranch', iconUrl: getSkillIconUrl('shaman', 'chain_lightning'), desc: 'Grants Skybranch.' },
+          { id: 'sha_r14_improved_flame_shock', name: 'Cinder Rupture', iconUrl: getSkillIconUrl('shaman', 'flame_shock'), desc: 'Earthen Jolt detonates your Cinder Jolt on the target, dealing its remaining damage instantly.' },
+          { id: 'sha_r14_weapon_fury', name: 'Imbued Tempo', iconUrl: getSkillIconUrl('shaman', 'stormstrike'), desc: 'Landed melee auto-attacks with an imbued weapon shave 0.5 sec off your Jolt cooldowns.' }
         ]
       },
       {
         level: 17,
         options: [
-          { id: 'sha_r17_earthbind', name: 'Earthbind Totem', iconUrl: getSkillIconUrl('shaman', 'earth_shock'), desc: 'Slows all nearby enemies by 50%.' },
-          { id: 'sha_r17_ghost_wolf', name: 'Ghost Wolf', iconUrl: getSkillIconUrl('shaman', 'windfury_weapon'), desc: 'Transforms into a Ghost Wolf increasing speed by 40%.' },
-          { id: 'sha_r17_nature_swiftness', name: 'Nature\'s Swiftness', iconUrl: getSkillIconUrl('shaman', 'healing_wave'), desc: 'Next Nature spell becomes instant cast.' }
+          { id: 'sha_r17_earthbind', name: 'Gripping Earth', iconUrl: getSkillIconUrl('shaman', 'earthbind'), desc: 'Grants Gripping Earth.' },
+          { id: 'sha_r17_improved_ghost_wolf', name: 'Wolfstep', iconUrl: getSkillIconUrl('shaman', 'ghost_wolf'), desc: 'Shadewolf becomes instant.' },
+          { id: 'sha_r17_elemental_warding', name: 'Ancestral Mending', iconUrl: getSkillIconUrl('shaman', 'lightning_shield'), desc: 'Taking a hit for at least 15% of your maximum health instantly heals you for 12% of your maximum health. 20 sec internal cooldown.' }
         ]
       },
       {
         level: 20,
         options: [
-          { id: 'sha_r20_bloodlust', name: 'Bloodlust / Heroism', iconUrl: getSkillIconUrl('shaman', 'stormstrike'), desc: 'Increases party haste by 30% for 40s.' },
-          { id: 'sha_r20_thunderstorm', name: 'Thunderstorm', iconUrl: getSkillIconUrl('shaman', 'lightning_bolt'), desc: 'Knocks back all enemies and restores 20% mana.' },
-          { id: 'sha_r20_ascendance', name: 'Ascendance', iconUrl: getSkillIconUrl('shaman', 'chain_lightning'), desc: 'Transforms into elemental ascendant form.' }
+          { id: 'sha_r20_bloodlust', name: 'Storm Chorus', iconUrl: getSkillIconUrl('shaman', 'bloodlust'), desc: 'Grants Storm Chorus.' },
+          { id: 'sha_r20_elemental_fury', name: 'Storm Recall', iconUrl: getSkillIconUrl('shaman', 'lightning_bolt'), desc: "Arc Bolt critical strikes finish Earthen Jolt's cooldown and make your next Earthen Jolt within 8 sec free." },
+          { id: 'sha_r20_tidal_waves', name: 'Undertow Promise', iconUrl: getSkillIconUrl('shaman', 'healing_wave'), desc: 'Every 3rd Mending Waters leaves an echo for 10 sec: if the target falls below 35% health, the echo heals them for 80.' }
         ]
       }
     ],
@@ -889,53 +895,54 @@ const GAME_SPECS = {
         ]
       }
     ],
+    // Source: choice_rows_classic.ts - WARLOCK_CHOICE_ROWS
     choiceRows: [
       {
         level: 5,
         options: [
-          { id: 'wlk_r5_bane', name: 'Bane', iconUrl: getSkillIconUrl('warlock', 'shadow_bolt'), desc: 'Reduces cast time of Shadow Bolt and Immolate by 0.5s.' },
-          { id: 'wlk_r5_improved_corruption', name: 'Improved Corruption', iconUrl: getSkillIconUrl('warlock', 'corruption'), desc: 'Reduces cast time of Corruption by 0.4s.' },
-          { id: 'wlk_r5_demonic_embrace', name: 'Demonic Embrace', iconUrl: getSkillIconUrl('warlock', 'demon_armor'), desc: 'Increases total Stamina by 15%.' }
+          { id: 'wlk_r5_bane', name: 'Grave Rhythm', iconUrl: getSkillIconUrl('warlock', 'shadow_bolt'), desc: 'Every 3rd Gloom Bolt makes your next Blackrot within 8 sec instant.' },
+          { id: 'wlk_r5_improved_corruption', name: 'Blacktide', iconUrl: getSkillIconUrl('warlock', 'corruption'), desc: 'Blackrot also slows its target by 30% for 6 sec.' },
+          { id: 'wlk_r5_improved_immolate', name: 'Pact Deepened', iconUrl: getSkillIconUrl('warlock', 'immolate'), desc: 'Burning Pact deals 20% more damage.' }
         ]
       },
       {
         level: 8,
         options: [
-          { id: 'wlk_r8_voidfeast', name: 'Fel Domination', iconUrl: getSkillIconUrl('warlock', 'summon_voidwalker'), desc: 'Next demon summon spell cast time reduced by 5.5s.' },
-          { id: 'wlk_r8_fear', name: 'Fear', iconUrl: getSkillIconUrl('warlock', 'fear'), desc: 'Fears target causing them to flee for 20s.' },
-          { id: 'wlk_r8_shadowfury', name: 'Shadowfury', iconUrl: getSkillIconUrl('warlock', 'shadow_bolt'), desc: 'Stuns all enemies in target area for 3s.' }
+          { id: 'wlk_r8_voidfeast', name: 'Voidfeast', iconUrl: getSkillIconUrl('warlock', 'voidfeast'), desc: 'Grants Voidfeast: devour a magic effect and heal yourself.' },
+          { id: 'wlk_r8_howl_of_terror', name: 'Dread Chorus', iconUrl: getSkillIconUrl('warlock', 'howl_of_terror'), desc: 'Grants Dread Chorus.' },
+          { id: 'wlk_r8_curse_of_exhaustion', name: 'Leaden Hex', iconUrl: getSkillIconUrl('warlock', 'curse_of_exhaustion'), desc: 'Grants Leaden Hex.' }
         ]
       },
       {
         level: 11,
         options: [
-          { id: 'wlk_r11_siphon_life', name: 'Siphon Life', iconUrl: getSkillIconUrl('warlock', 'corruption'), desc: 'Corruption ticks heal caster for 40% of damage dealt.' },
-          { id: 'wlk_r11_soul_link', name: 'Soul Link', iconUrl: getSkillIconUrl('warlock', 'demon_armor'), desc: 'Transfers 20% of damage taken to your demon pet.' },
-          { id: 'wlk_r11_ruin', name: 'Ruin', iconUrl: getSkillIconUrl('warlock', 'immolate'), desc: 'Increases critical strike damage bonus of Destruction spells.' }
+          { id: 'wlk_r11_improved_life_tap', name: 'Blood Credit', iconUrl: getSkillIconUrl('warlock', 'life_tap'), desc: 'Hard Bargain grants 20% more mana.' },
+          { id: 'wlk_r11_fel_concentration', name: 'Walking Hunger', iconUrl: getSkillIconUrl('warlock', 'drain_life'), desc: 'Consume is channelable while moving.' },
+          { id: 'wlk_r11_demon_armor', name: 'Fiendward', iconUrl: getSkillIconUrl('warlock', 'demon_skin'), desc: 'Taking a hit for at least 15% of your health binds your demon: if you fall below 35% health, it heals you for 15% of your max health.' }
         ]
       },
       {
         level: 14,
         options: [
-          { id: 'wlk_r14_amplify_curse', name: 'Amplify Curse', iconUrl: getSkillIconUrl('warlock', 'curse_of_agony'), desc: 'Increases effect of next Curse by 50%.' },
-          { id: 'wlk_r14_demonic_pact', name: 'Demonic Pact', iconUrl: getSkillIconUrl('warlock', 'summon_voidwalker'), desc: 'Increases party spell power by 10%.' },
-          { id: 'wlk_r14_conflagrate', name: 'Conflagrate', iconUrl: getSkillIconUrl('warlock', 'immolate'), desc: 'Consumes Immolate to deal instant Fire damage.' }
+          { id: 'wlk_r14_amplify_curse', name: 'Deepened Hex', iconUrl: getSkillIconUrl('warlock', 'curse_of_agony'), desc: 'Gloom Bolt deals 20% more damage to targets afflicted by your DoTs.' },
+          { id: 'wlk_r14_ruin', name: 'Ashen Focus', iconUrl: getSkillIconUrl('warlock', 'shadowburn'), desc: 'Sear deals 25% more damage and costs 25% less.' },
+          { id: 'wlk_r14_shadow_mastery', name: 'Shadow Credit', iconUrl: getSkillIconUrl('warlock', 'shadow_bolt'), desc: 'Each damaging Fire spell makes your next damaging Shadow spell within 8 sec cost 50% less.' }
         ]
       },
       {
         level: 17,
         options: [
-          { id: 'wlk_r17_death_coil', name: 'Mortal Coil', iconUrl: getSkillIconUrl('warlock', 'fear'), desc: 'Causes target to flee for 3s and heals caster.' },
-          { id: 'wlk_r17_haunt', name: 'Haunt', iconUrl: getSkillIconUrl('warlock', 'unstable_affliction'), desc: 'Increases Shadow DoT damage taken by target by 20%.' },
-          { id: 'wlk_r17_demonic_circle', name: 'Demonic Circle', iconUrl: getSkillIconUrl('warlock', 'demon_armor'), desc: 'Teleports caster to designated circle.' }
+          { id: 'wlk_r17_death_coil', name: 'Morrowlash', iconUrl: getSkillIconUrl('warlock', 'death_coil'), desc: 'Grants Morrowlash.' },
+          { id: 'wlk_r17_improved_fear', name: 'Snapdread', iconUrl: getSkillIconUrl('warlock', 'fear'), desc: 'Harrow becomes instant but gains a 16 sec cooldown.' },
+          { id: 'wlk_r17_demonic_resilience', name: 'Deep Hunger', iconUrl: getSkillIconUrl('warlock', 'demon_skin'), desc: 'Consume deals 50% more damage.' }
         ]
       },
       {
         level: 20,
         options: [
-          { id: 'wlk_r20_chaos_bolt', name: 'Chaos Bolt', iconUrl: getSkillIconUrl('warlock', 'shadow_bolt'), desc: 'Fires chaotic bolt piercing all absorption shields.' },
-          { id: 'wlk_r20_metamorphosis', name: 'Metamorphosis', iconUrl: getSkillIconUrl('warlock', 'demon_armor'), desc: 'Transforms into Demon Demonology form gaining armor.' },
-          { id: 'wlk_r20_summon_infernal', name: 'Summon Infernal', iconUrl: getSkillIconUrl('warlock', 'summon_voidwalker'), desc: 'Calls down infernal meteor stunning enemies.' }
+          { id: 'wlk_r20_chaos_bolt', name: 'Ruinbolt', iconUrl: getSkillIconUrl('warlock', 'chaos_bolt'), desc: 'Grants Ruinbolt.' },
+          { id: 'wlk_r20_grimoire_of_haste', name: 'Hellglass Ward', iconUrl: getSkillIconUrl('warlock', 'summon_felhound'), desc: 'Every 3rd damaging Fire or Shadow spell raises a demonic ward absorbing 90 damage for 10 sec.' },
+          { id: 'wlk_r20_curse_mastery', name: 'Hexstorm', iconUrl: getSkillIconUrl('warlock', 'curse_of_agony'), desc: 'Every 3rd Blackrot or Hex of Anguish makes your next Gloom Bolt within 8 sec instant, at most once every 10 sec.' }
         ]
       }
     ],
@@ -1003,53 +1010,54 @@ const GAME_SPECS = {
         ]
       }
     ],
+    // Source: choice_rows_classic.ts - DRUID_CHOICE_ROWS
     choiceRows: [
       {
         level: 5,
         options: [
-          { id: 'dru_r5_improved_wrath', name: 'Improved Wrath', iconUrl: getSkillIconUrl('druid', 'wrath'), desc: 'Reduces cast time of Wrath by 0.5s.' },
-          { id: 'dru_r5_feral_aggression', name: 'Feral Aggression', iconUrl: getSkillIconUrl('druid', 'claw'), desc: 'Increases damage of Ferocious Bite and Demoralizing Roar.' },
-          { id: 'dru_r5_improved_rejuvenation', name: 'Improved Rejuvenation', iconUrl: getSkillIconUrl('druid', 'rejuvenation'), desc: 'Increases effect of Rejuvenation by 15%.' }
+          { id: 'dru_r5_improved_wrath', name: 'Moonkindle', iconUrl: getSkillIconUrl('druid', 'wrath'), desc: 'Every 3rd Wildbolt makes your next Lunar Tempest within 8 sec free.' },
+          { id: 'dru_r5_ferocity', name: 'Redmaw', iconUrl: getSkillIconUrl('druid', 'claw'), desc: 'Shifting into Wolf Form makes your next Rendclaw or Flense within 8 sec cost 50% less.' },
+          { id: 'dru_r5_natures_bounty', name: "Bloom's End", iconUrl: getSkillIconUrl('druid', 'rejuvenation'), desc: 'When Wildbloom runs its full duration, your next Wildmend within 8 sec is instant.' }
         ]
       },
       {
         level: 8,
         options: [
-          { id: 'dru_r8_typhoon', name: 'Typhoon', iconUrl: getSkillIconUrl('druid', 'wrath'), desc: 'Knocks back all enemies in front of druid.' },
-          { id: 'dru_r8_bash', name: 'Bash', iconUrl: getSkillIconUrl('druid', 'maul'), desc: 'Stuns target in Bear Form for 4s.' },
-          { id: 'dru_r8_nature_swiftness', name: "Nature's Swiftness", iconUrl: getSkillIconUrl('druid', 'healing_touch'), desc: 'Next Nature spell becomes instant cast.' }
+          { id: 'dru_r8_typhoon', name: 'Typhoon', iconUrl: getSkillIconUrl('druid', 'typhoon'), desc: 'Grants Typhoon: knock back and daze all enemies within 8 yd.' },
+          { id: 'dru_r8_improved_roots', name: 'Briar Ambush', iconUrl: getSkillIconUrl('druid', 'entangling_roots'), desc: 'Gripping Roots makes your next Wildbolt within 8 sec instant, at most once every 15 sec.' },
+          { id: 'dru_r8_brutal_bash', name: 'Bruin Rebound', iconUrl: getSkillIconUrl('druid', 'bash'), desc: 'Concuss restores 15 rage, refunding its cost plus 5 additional rage, and removes 20 sec from its cooldown.' }
         ]
       },
       {
         level: 11,
         options: [
-          { id: 'dru_r11_innervate', name: 'Innervate', iconUrl: getSkillIconUrl('druid', 'innervate'), desc: 'Restores 20% max mana over 10s.' },
-          { id: 'dru_r11_survival_instincts', name: 'Survival Instincts', iconUrl: getSkillIconUrl('druid', 'maul'), desc: 'Grants 30% max health temporarily in Bear Form.' },
-          { id: 'dru_r11_swiftmend', name: 'Swiftmend', iconUrl: getSkillIconUrl('druid', 'rejuvenation'), desc: 'Consumes Rejuvenation to heal target instantly.' }
+          { id: 'dru_r11_innervate', name: 'Lifesap', iconUrl: getSkillIconUrl('druid', 'innervate'), desc: 'Grants Lifesap: living sap restores your current resource in waves, in any form.' },
+          { id: 'dru_r11_furor', name: 'Formrush', iconUrl: getSkillIconUrl('druid', 'bear_form'), desc: 'Shapeshifting makes your next form attack within 8 sec cost 50% less.' },
+          { id: 'dru_r11_improved_mark', name: 'Grove Covenant', iconUrl: getSkillIconUrl('druid', 'mark_of_the_wild'), desc: 'Every 3rd Wildmend shields its target, absorbing 90 damage for 10 sec.' }
         ]
       },
       {
         level: 14,
         options: [
-          { id: 'dru_r14_savage_fury', name: 'Savage Fury', iconUrl: getSkillIconUrl('druid', 'claw'), desc: 'Increases damage of Claw and Mangle by 20%.' },
-          { id: 'dru_r14_moonkin_form', name: 'Moonkin Form', iconUrl: getSkillIconUrl('druid', 'starfire'), desc: 'Transforms into Moonkin Form increasing spell crit by 5%.' },
-          { id: 'dru_r14_wild_growth', name: 'Wild Growth', iconUrl: getSkillIconUrl('druid', 'rejuvenation'), desc: 'Heals up to 5 party members over 7s.' }
+          { id: 'dru_r14_savage_fury', name: 'Redtooth Rhythm', iconUrl: getSkillIconUrl('druid', 'ferocious_bite'), desc: 'Each Gorebite or Bloodrift makes your next Rendclaw or Flense within 8 sec cost 50% less.' },
+          { id: 'dru_r14_moonfury', name: 'Moonspite', iconUrl: getSkillIconUrl('druid', 'moonfire'), desc: 'Every 3rd Lunar Tempest makes your next Skyfall within 8 sec instant, at most once every 15 sec.' },
+          { id: 'dru_r14_empowered_touch', name: 'Mercy Seed', iconUrl: getSkillIconUrl('druid', 'healing_touch'), desc: 'Wildmend leaves a stored heal of 60 that triggers if the target falls below 35% health within 8 sec.' }
         ]
       },
       {
         level: 17,
         options: [
-          { id: 'dru_r17_improved_barkskin', name: 'Barkskin', iconUrl: getSkillIconUrl('druid', 'barkskin'), desc: 'Reduces all damage taken by 20% for 12s.' },
-          { id: 'dru_r17_frenzied_regeneration', name: 'Frenzied Regeneration', iconUrl: getSkillIconUrl('druid', 'maul'), desc: 'Converts Rage into health per second.' },
-          { id: 'dru_r17_tree_of_life', name: 'Tree of Life', iconUrl: getSkillIconUrl('druid', 'rejuvenation'), desc: 'Transforms into Tree of Life increasing healing.' }
+          { id: 'dru_r17_improved_barkskin', name: 'Oaken Reflex', iconUrl: getSkillIconUrl('druid', 'barkskin'), desc: 'Oakhide makes your next Wildbolt, Skyfall, Wildmend, or Second Bloom within 8 sec instant.' },
+          { id: 'dru_r17_frenzied_regeneration', name: 'Savage Mending', iconUrl: getSkillIconUrl('druid', 'frenzied_regeneration'), desc: 'Grants Savage Mending.' },
+          { id: 'dru_r17_survival_of_the_fittest', name: 'Ironhide Reflex', iconUrl: getSkillIconUrl('druid', 'bear_form'), desc: 'Taking a hit for at least 20% of your maximum health shields you, absorbing 15% of your max health for 6 sec.' }
         ]
       },
       {
         level: 20,
         options: [
-          { id: 'dru_r20_starfall', name: 'Starfall', iconUrl: getSkillIconUrl('druid', 'starfire'), desc: 'Calls down stars striking all enemies within 30 yards.' },
-          { id: 'dru_r20_berserk', name: 'Berserk', iconUrl: getSkillIconUrl('druid', 'claw'), desc: 'Reduces Energy cost of Cat Form abilities by 50%.' },
-          { id: 'dru_r20_tranquility', name: 'Tranquility', iconUrl: getSkillIconUrl('druid', 'tranquility'), desc: 'Channels massive area healing to all allies for 8s.' }
+          { id: 'dru_r20_improved_hurricane', name: "Nature's Fury", iconUrl: getSkillIconUrl('druid', 'hurricane'), desc: 'While in Moonwing Form, you and your party members within 30 yd gain 3% spell critical strike chance.' },
+          { id: 'dru_r20_berserk', name: 'Red Haze', iconUrl: getSkillIconUrl('druid', 'berserk'), desc: 'Grants Red Haze.' },
+          { id: 'dru_r20_tranquility', name: 'Gladesong', iconUrl: getSkillIconUrl('druid', 'tranquility'), desc: 'Grants Gladesong.' }
         ]
       }
     ],
