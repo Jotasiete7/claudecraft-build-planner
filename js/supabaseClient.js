@@ -12,6 +12,23 @@ if (typeof supabase !== 'undefined' && SUPABASE_ANON_KEY) {
   supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 }
 
+async function registerBuildInSupabase(buildData) {
+  if (!supabaseClient) return;
+  try {
+    await supabaseClient.from('builds').upsert([
+      {
+        id: buildData.string,
+        class_key: buildData.classKey,
+        spec_id: buildData.specId,
+        title: buildData.name,
+        role: buildData.role || 'dps',
+        patch_version: 'v0.33.1',
+        verified_by_guild: false
+      }
+    ]);
+  } catch (e) {}
+}
+
 async function recordSupabaseAction(actionType, buildString, extraData = {}) {
   if (!supabaseClient) return;
 
@@ -19,6 +36,16 @@ async function recordSupabaseAction(actionType, buildString, extraData = {}) {
   const discordId = localStorage.getItem('claudecraft_discord_id') || null;
 
   try {
+    if (extraData.name) {
+      await registerBuildInSupabase({
+        string: buildString,
+        classKey: extraData.classKey || 'unknown',
+        specId: extraData.specId || 'unknown',
+        name: extraData.name,
+        role: extraData.role || 'dps'
+      });
+    }
+
     await supabaseClient.from('build_actions').insert([
       {
         build_id: buildString,
@@ -29,6 +56,70 @@ async function recordSupabaseAction(actionType, buildString, extraData = {}) {
       }
     ]);
   } catch (err) {
-    // Silent fail if RLS or network issue
+    // Silent fail
+  }
+}
+
+async function fetchMetaBuildsFromSupabase(filters = {}) {
+  if (!supabaseClient) return { data: [], isColdStart: true, totalCount: 0, error: 'Supabase client not initialized' };
+
+  try {
+    const { count } = await supabaseClient
+      .from('builds')
+      .select('*', { count: 'exact', head: true });
+
+    const totalCount = count || 0;
+    const isColdStart = totalCount < 20;
+
+    let query = supabaseClient
+      .from('build_popularity')
+      .select(`
+        build_id,
+        save_count,
+        share_count,
+        builds!inner (
+          id,
+          class_key,
+          spec_id,
+          title,
+          role,
+          patch_version,
+          verified_by_guild,
+          created_at
+        )
+      `);
+
+    if (filters.classKey && filters.classKey !== 'all') {
+      query = query.eq('builds.class_key', filters.classKey);
+    }
+    if (filters.role && filters.role !== 'all') {
+      query = query.eq('builds.role', filters.role);
+    }
+    if (filters.patch === 'current') {
+      query = query.eq('builds.patch_version', 'v0.33.1');
+    }
+    if (filters.verifiedOnly) {
+      query = query.eq('builds.verified_by_guild', true);
+    }
+    if (filters.searchQuery) {
+      query = query.ilike('builds.title', `%${filters.searchQuery}%`);
+    }
+
+    if (isColdStart || filters.sortBy === 'recent') {
+      query = query.order('save_count', { ascending: false });
+    } else if (filters.sortBy === 'shares') {
+      query = query.order('share_count', { ascending: false });
+    } else {
+      query = query.order('save_count', { ascending: false });
+    }
+
+    query = query.limit(30);
+
+    const { data, error } = await query;
+    if (error) throw error;
+
+    return { data: data || [], isColdStart, totalCount, error: null };
+  } catch (err) {
+    return { data: [], isColdStart: true, totalCount: 0, error: err.message };
   }
 }

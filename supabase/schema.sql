@@ -1,7 +1,19 @@
-﻿-- World of Claudecraft - Supabase Complete Schema
+﻿-- World of Claudecraft - Supabase Schema Phase 2
 -- Project URL: https://gjdbeipgqbjydenkppfq.supabase.co
 
--- 1. Table: build_actions (Deduplicated Save and Share Telemetry)
+-- 1. Table: builds (Registered Build Configurations)
+CREATE TABLE IF NOT EXISTS public.builds (
+  id                  TEXT PRIMARY KEY, -- Base64 string payload
+  class_key           TEXT NOT NULL,
+  spec_id             TEXT NOT NULL,
+  title               TEXT NOT NULL,
+  role                TEXT CHECK (role IN ('tank', 'healer', 'dps')),
+  patch_version       TEXT NOT NULL DEFAULT 'v0.33.1',
+  verified_by_guild   BOOLEAN DEFAULT FALSE,
+  created_at          TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 2. Table: build_actions (Deduplicated Save & Share Telemetry)
 CREATE TABLE IF NOT EXISTS public.build_actions (
   id          BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   build_id    TEXT NOT NULL,
@@ -13,40 +25,32 @@ CREATE TABLE IF NOT EXISTS public.build_actions (
   CONSTRAINT  unique_build_action UNIQUE (build_id, anon_id, action_type)
 );
 
--- 2. Table: build_popularity (Pre-computed & Aggregated Rankings)
+-- 3. Table: build_popularity (Pre-computed Popularity Summary)
 CREATE TABLE IF NOT EXISTS public.build_popularity (
-  build_id      TEXT PRIMARY KEY,
+  build_id      TEXT PRIMARY KEY REFERENCES public.builds(id) ON DELETE CASCADE,
   class_key     TEXT NOT NULL,
   spec_id       TEXT NOT NULL,
-  build_name    TEXT,
   save_count    INTEGER DEFAULT 0,
   share_count   INTEGER DEFAULT 0,
   updated_at    TIMESTAMPTZ DEFAULT NOW()
 );
 
--- 3. Table: wiki_items (Game Item Codex Database)
-CREATE TABLE IF NOT EXISTS public.wiki_items (
-  id          TEXT PRIMARY KEY,
-  name        TEXT NOT NULL,
-  slot        TEXT NOT NULL,
-  kind        TEXT NOT NULL,
-  quality     TEXT NOT NULL,
-  ilvl        INTEGER NOT NULL,
-  stats       JSONB,
-  armor_type  TEXT NOT NULL,
-  source      TEXT,
-  icon_url    TEXT NOT NULL,
-  created_at  TIMESTAMPTZ DEFAULT NOW()
-);
+-- Indexes for Ultra-Fast Queries
+CREATE INDEX IF NOT EXISTS idx_build_popularity_rank ON public.build_popularity (save_count DESC, share_count DESC);
+CREATE INDEX IF NOT EXISTS idx_builds_class_spec_role ON public.builds (class_key, spec_id, role);
+CREATE INDEX IF NOT EXISTS idx_builds_patch ON public.builds (patch_version);
+CREATE INDEX IF NOT EXISTS idx_builds_created ON public.builds (created_at DESC);
 
--- Enable Row Level Security (RLS)
+-- Enable RLS
+ALTER TABLE public.builds ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.build_actions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.build_popularity ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.wiki_items ENABLE ROW LEVEL SECURITY;
 
--- Allow Public Read Access
+-- RLS Policies
+CREATE POLICY "Allow public read builds" ON public.builds FOR SELECT USING (true);
+CREATE POLICY "Allow public insert builds" ON public.builds FOR INSERT WITH CHECK (true);
+
 CREATE POLICY "Allow public read build_popularity" ON public.build_popularity FOR SELECT USING (true);
-CREATE POLICY "Allow public read wiki_items" ON public.wiki_items FOR SELECT USING (true);
+CREATE POLICY "Allow public insert/update build_popularity" ON public.build_popularity FOR ALL USING (true);
 
--- Allow Public Insert into build_actions
 CREATE POLICY "Allow public insert build_actions" ON public.build_actions FOR INSERT WITH CHECK (true);

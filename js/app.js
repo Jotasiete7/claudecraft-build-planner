@@ -1040,64 +1040,375 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.closeShareModalBtn.addEventListener('click', closeShareModal);
   }
 
-  // Presets Grid with 1-Click Game String Copy on Every Card!
+  // Meta Controls State
+  const metaState = {
+    searchQuery: '',
+    activeClassKey: 'all',
+    activeRole: 'all',
+    sortBy: 'saves',
+    patchFilter: 'current',
+    verifiedOnly: false,
+    viewMode: localStorage.getItem('claudecraft_meta_view_mode') || 'cards'
+  };
+
+  let metaSearchDebounceTimer = null;
+
   function setupPresetsGrid() {
-    renderPresetsGrid(META_PRESETS);
+    setupMetaControlBar();
+    syncMetaStateFromUrl();
+    loadAndRenderMetaBuilds();
   }
 
-  function renderPresetsGrid(presets) {
-    elements.presetsGrid.innerHTML = '';
-    presets.forEach(preset => {
-      const card = document.createElement('div');
-      card.className = 'bg-wurm-bg p-4 rounded border border-wurm-border hover:border-wurm-accent transition-all flex flex-col justify-between gap-3';
-      
-      const preEncodedString = btoa(JSON.stringify(preset.buildPayload));
+  function syncMetaStateFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('class')) metaState.activeClassKey = params.get('class');
+    if (params.has('role')) metaState.activeRole = params.get('role');
+    if (params.has('search')) metaState.searchQuery = params.get('search');
+    if (params.has('sort')) metaState.sortBy = params.get('sort');
 
-      card.innerHTML = `
-        <div>
-          <div class="flex items-center justify-between mb-2">
-            <span class="font-serif text-sm font-semibold text-wurm-text">${preset.title}</span>
-            <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded font-bold" style="background-color: ${preset.classColor}20; color: ${preset.classColor}">${preset.className}</span>
-          </div>
-          <p class="text-xs text-wurm-muted leading-snug mb-3">${preset.desc}</p>
-        </div>
+    // Sync UI elements
+    const searchInput = document.getElementById('metaSearchInput');
+    const sortSelect = document.getElementById('metaSortSelect');
+    const patchSelect = document.getElementById('metaPatchSelect');
+    const verifiedToggle = document.getElementById('metaVerifiedToggle');
 
-        <div class="space-y-2 border-t border-wurm-border pt-3">
-          <div class="flex items-center justify-between text-[11px] font-mono">
-            <span class="text-wurm-accentDim font-semibold">${preset.badgeText}</span>
-            <span class="text-orange-400 font-bold">🔥 ${state.hypeCounts[preset.id] || preset.hypeCount}</span>
-          </div>
-          <div class="flex gap-2">
-            <button class="preset-load-btn flex-1 py-1.5 bg-white/5 hover:bg-white/10 text-wurm-text font-mono text-[11px] font-bold uppercase rounded border border-wurm-border transition-all">
-              Carregar no Site
-            </button>
-            <button class="preset-copy-string-btn px-2.5 py-1.5 bg-wurm-accent/15 hover:bg-wurm-accent hover:text-wurm-bg text-wurm-accent font-mono text-[11px] font-bold uppercase rounded border border-wurm-accent transition-all" title="Copiar String do Jogo">
-              📋 String
-            </button>
-          </div>
-        </div>
-      `;
+    if (searchInput) searchInput.value = metaState.searchQuery;
+    if (sortSelect) sortSelect.value = metaState.sortBy;
+    if (patchSelect) patchSelect.value = metaState.patchFilter;
+    if (verifiedToggle) verifiedToggle.checked = metaState.verifiedOnly;
 
-      // Load preset in site
-      card.querySelector('.preset-load-btn').addEventListener('click', (e) => {
-        e.stopPropagation();
-        loadPreset(preset);
+    updateMetaFilterButtonsUI();
+    updateMetaViewButtonsUI();
+  }
+
+  function updateUrlWithMetaState() {
+    const params = new URLSearchParams();
+    if (metaState.activeClassKey !== 'all') params.set('class', metaState.activeClassKey);
+    if (metaState.activeRole !== 'all') params.set('role', metaState.activeRole);
+    if (metaState.searchQuery) params.set('search', metaState.searchQuery);
+    if (metaState.sortBy !== 'saves') params.set('sort', metaState.sortBy);
+
+    const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}${window.location.hash}`;
+    window.history.replaceState(null, '', newUrl);
+  }
+
+  function setupMetaControlBar() {
+    const searchInput = document.getElementById('metaSearchInput');
+    const sortSelect = document.getElementById('metaSortSelect');
+    const patchSelect = document.getElementById('metaPatchSelect');
+    const verifiedToggle = document.getElementById('metaVerifiedToggle');
+    const cardsViewBtn = document.getElementById('metaViewCardsBtn');
+    const listViewBtn = document.getElementById('metaViewListBtn');
+
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(metaSearchDebounceTimer);
+        metaSearchDebounceTimer = setTimeout(() => {
+          metaState.searchQuery = e.target.value.trim();
+          updateUrlWithMetaState();
+          loadAndRenderMetaBuilds();
+        }, 300);
+      });
+    }
+
+    if (sortSelect) {
+      sortSelect.addEventListener('change', (e) => {
+        metaState.sortBy = e.target.value;
+        updateUrlWithMetaState();
+        loadAndRenderMetaBuilds();
+      });
+    }
+
+    if (patchSelect) {
+      patchSelect.addEventListener('change', (e) => {
+        metaState.patchFilter = e.target.value;
+        loadAndRenderMetaBuilds();
+      });
+    }
+
+    if (verifiedToggle) {
+      verifiedToggle.addEventListener('change', (e) => {
+        metaState.verifiedOnly = e.target.checked;
+        loadAndRenderMetaBuilds();
+      });
+    }
+
+    if (cardsViewBtn && listViewBtn) {
+      cardsViewBtn.addEventListener('click', () => {
+        metaState.viewMode = 'cards';
+        localStorage.setItem('claudecraft_meta_view_mode', 'cards');
+        updateMetaViewButtonsUI();
+        loadAndRenderMetaBuilds();
       });
 
-      // Copy Game String directly from Preset Card
-      card.querySelector('.preset-copy-string-btn').addEventListener('click', (e) => {
-        e.stopPropagation();
-        navigator.clipboard.writeText(preEncodedString);
-        showToast(`String da build "${preset.title}" copiada para o jogo!`);
+      listViewBtn.addEventListener('click', () => {
+        metaState.viewMode = 'list';
+        localStorage.setItem('claudecraft_meta_view_mode', 'list');
+        updateMetaViewButtonsUI();
+        loadAndRenderMetaBuilds();
       });
+    }
 
-      elements.presetsGrid.appendChild(card);
+    // Class Buttons Event Listeners
+    const classBtns = document.querySelectorAll('.meta-class-btn');
+    classBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        metaState.activeClassKey = btn.getAttribute('data-meta-class');
+        updateMetaFilterButtonsUI();
+        updateUrlWithMetaState();
+        loadAndRenderMetaBuilds();
+      });
+    });
+
+    // Role Buttons Event Listeners
+    const roleBtns = document.querySelectorAll('.meta-role-btn');
+    roleBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        metaState.activeRole = btn.getAttribute('data-meta-role');
+        updateMetaFilterButtonsUI();
+        updateUrlWithMetaState();
+        loadAndRenderMetaBuilds();
+      });
     });
   }
 
-  function renderFullPresetsGrid() {
-    elements.fullPresetsGrid.innerHTML = '';
-    META_PRESETS.forEach(preset => {
+  function updateMetaFilterButtonsUI() {
+    document.querySelectorAll('.meta-class-btn').forEach(btn => {
+      const cls = btn.getAttribute('data-meta-class');
+      if (cls === metaState.activeClassKey) {
+        btn.classList.add('active', 'bg-wurm-accent', 'text-wurm-bg');
+        btn.classList.remove('bg-white/5', 'text-wurm-muted');
+      } else {
+        btn.classList.remove('active', 'bg-wurm-accent', 'text-wurm-bg');
+        btn.classList.add('bg-white/5');
+      }
+    });
+
+    document.querySelectorAll('.meta-role-btn').forEach(btn => {
+      const role = btn.getAttribute('data-meta-role');
+      if (role === metaState.activeRole) {
+        btn.classList.add('active', 'bg-wurm-accent/20', 'text-wurm-accent');
+        btn.classList.remove('text-wurm-muted');
+      } else {
+        btn.classList.remove('active', 'bg-wurm-accent/20', 'text-wurm-accent');
+        btn.classList.add('text-wurm-muted');
+      }
+    });
+  }
+
+  function updateMetaViewButtonsUI() {
+    const cardsBtn = document.getElementById('metaViewCardsBtn');
+    const listBtn = document.getElementById('metaViewListBtn');
+    const cardsContainer = document.getElementById('metaCardsContainer');
+    const listContainer = document.getElementById('metaListViewContainer');
+
+    if (cardsBtn && listBtn) {
+      if (metaState.viewMode === 'cards') {
+        cardsBtn.classList.add('bg-wurm-accent', 'text-wurm-bg');
+        cardsBtn.classList.remove('bg-white/5', 'text-wurm-muted');
+        listBtn.classList.remove('bg-wurm-accent', 'text-wurm-bg');
+        listBtn.classList.add('bg-white/5', 'text-wurm-muted');
+        if (cardsContainer) cardsContainer.classList.remove('hidden');
+        if (listContainer) listContainer.classList.add('hidden');
+      } else {
+        listBtn.classList.add('bg-wurm-accent', 'text-wurm-bg');
+        listBtn.classList.remove('bg-white/5', 'text-wurm-muted');
+        cardsBtn.classList.remove('bg-wurm-accent', 'text-wurm-bg');
+        cardsBtn.classList.add('bg-white/5', 'text-wurm-muted');
+        if (listContainer) listContainer.classList.remove('hidden');
+        if (cardsContainer) cardsContainer.classList.add('hidden');
+      }
+    }
+  }
+
+  async function loadAndRenderMetaBuilds() {
+    const cardsContainer = document.getElementById('metaCardsContainer');
+    const listContainer = document.getElementById('metaListViewContainer');
+    const titleText = document.getElementById('metaHeaderTitleText');
+
+    // Phase 6: Loading Skeleton
+    if (cardsContainer) {
+      cardsContainer.innerHTML = Array(6).fill(0).map(() => `
+        <div class="bg-wurm-bg p-5 rounded border border-wurm-border animate-pulse space-y-4">
+          <div class="h-4 bg-white/10 rounded w-3/4"></div>
+          <div class="h-3 bg-white/5 rounded w-1/2"></div>
+          <div class="h-10 bg-white/5 rounded"></div>
+        </div>
+      `).join('');
+    }
+
+    const { data, isColdStart, totalCount, error } = await fetchMetaBuildsFromSupabase({
+      classKey: metaState.activeClassKey,
+      role: metaState.activeRole,
+      searchQuery: metaState.searchQuery,
+      sortBy: metaState.sortBy,
+      patch: metaState.patchFilter,
+      verifiedOnly: metaState.verifiedOnly
+    });
+
+    // Phase 4: Cold Start Header Rule
+    if (titleText) {
+      if (isColdStart) {
+        titleText.textContent = '🆕 Builds Recentes da Comunidade';
+      } else {
+        titleText.textContent = '🔥 Builds Meta em Destaque';
+      }
+    }
+
+    // Phase 6: Error State
+    if (error && (!data || data.length === 0)) {
+      if (cardsContainer) {
+        cardsContainer.innerHTML = `
+          <div class="col-span-full p-8 text-center bg-wurm-panel border border-red-900/40 rounded-lg space-y-3">
+            <div class="text-2xl">⚠️</div>
+            <div class="text-sm font-mono text-red-300 font-bold">Erro ao conectar com o banco de dados Supabase.</div>
+            <p class="text-xs text-wurm-muted">Verifique a conexão de rede ou tente novamente.</p>
+            <button onclick="loadAndRenderMetaBuilds()" class="px-4 py-2 bg-wurm-accent text-wurm-bg font-mono text-xs font-bold rounded uppercase cursor-pointer">Tentar Novamente 🔄</button>
+          </div>
+        `;
+      }
+      return;
+    }
+
+    // Phase 6: Empty State with CTA
+    if (!data || data.length === 0) {
+      const emptyHTML = `
+        <div class="col-span-full p-10 text-center bg-wurm-panel border border-wurm-border rounded-lg space-y-4">
+          <div class="text-4xl">🏹</div>
+          <div class="font-serif text-lg text-wurm-text font-bold">Nenhuma build encontrada com estes filtros.</div>
+          <p class="text-xs text-wurm-muted max-w-md mx-auto">Que tal criar a sua e ser a primeira dessa combinação?</p>
+          <button id="emptyStateCtaBtn" class="px-6 py-2.5 bg-wurm-accent text-wurm-bg hover:bg-wurm-accentDim font-mono text-xs font-bold uppercase rounded shadow transition-all cursor-pointer">
+            ⚒️ Criar Nova Build Agora
+          </button>
+        </div>
+      `;
+      if (cardsContainer) cardsContainer.innerHTML = emptyHTML;
+      if (listContainer) listContainer.innerHTML = emptyHTML;
+
+      const ctaBtn = document.getElementById('emptyStateCtaBtn');
+      if (ctaBtn) {
+        ctaBtn.addEventListener('click', () => {
+          if (metaState.activeClassKey !== 'all' && GAME_SPECS[metaState.activeClassKey]) {
+            state.selectedClass = metaState.activeClassKey;
+          }
+          switchTab('builder');
+        });
+      }
+      return;
+    }
+
+    // Render Cards View
+    if (cardsContainer) {
+      cardsContainer.innerHTML = '';
+      data.forEach(item => {
+        const buildInfo = item.builds || {};
+        const classData = GAME_SPECS[buildInfo.class_key] || { className: buildInfo.class_key || 'WoC', color: '#d4b483' };
+        const card = document.createElement('div');
+        card.className = 'bg-wurm-bg p-5 rounded border border-wurm-border hover:border-wurm-accent transition-all flex flex-col justify-between gap-4 shadow-lg';
+
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-serif text-base font-bold text-wurm-text">${buildInfo.title || 'Build Sem Nome'}</span>
+              <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded font-bold" style="background-color: ${classData.color}20; color: ${classData.color}">
+                ${classData.className}
+              </span>
+            </div>
+            <div class="flex items-center gap-2 text-[11px] font-mono text-wurm-muted mb-3">
+              <span>Especialização: <strong class="text-wurm-text">${(buildInfo.spec_id || '').toUpperCase()}</strong></span>
+              <span>•</span>
+              <span class="uppercase text-wurm-accent">${buildInfo.role || 'DPS'}</span>
+              ${buildInfo.verified_by_guild ? '<span class="text-amber-400 font-bold">👑 Guilda</span>' : ''}
+            </div>
+          </div>
+
+          <div class="space-y-3 border-t border-wurm-border pt-3">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="text-emerald-400 font-bold">💾 ${item.save_count || 0} Saves</span>
+              <span class="text-wurm-accent font-bold">📋 ${item.share_count || 0} Compartilhamentos</span>
+            </div>
+            <div class="flex gap-2">
+              <button class="preset-load-btn flex-1 py-2 bg-white/5 hover:bg-white/10 text-wurm-text font-mono text-xs font-bold uppercase rounded border border-wurm-border transition-all cursor-pointer">
+                Carregar no Site
+              </button>
+              <button class="preset-copy-btn px-3 py-2 bg-wurm-accent/15 hover:bg-wurm-accent hover:text-wurm-bg text-wurm-accent font-mono text-xs font-bold uppercase rounded border border-wurm-accent transition-all cursor-pointer" title="Copiar String do Jogo">
+                📋 String
+              </button>
+            </div>
+          </div>
+        `;
+
+        card.querySelector('.preset-load-btn').addEventListener('click', () => {
+          const success = importOfficialBuildString(buildInfo.id);
+          if (success) {
+            switchTab('builder');
+            showToast(`Build "${buildInfo.title}" carregada!`);
+          } else {
+            showToast('Erro ao carregar build.');
+          }
+        });
+
+        card.querySelector('.preset-copy-btn').addEventListener('click', () => {
+          navigator.clipboard.writeText(buildInfo.id);
+          recordSupabaseAction('share', buildInfo.id);
+          showToast(`String da build "${buildInfo.title}" copiada!`);
+        });
+
+        cardsContainer.appendChild(card);
+      });
+    }
+
+    // Phase 5: Render List View (Compact Table)
+    if (listContainer) {
+      listContainer.innerHTML = `
+        <table class="w-full text-left font-mono text-xs border-collapse">
+          <thead>
+            <tr class="border-b border-wurm-border text-wurm-accent uppercase text-[10px] bg-white/5">
+              <th class="p-3">Build</th>
+              <th class="p-3">Classe</th>
+              <th class="p-3">Spec</th>
+              <th class="p-3">Role</th>
+              <th class="p-3 text-center">Saves</th>
+              <th class="p-3 text-center">Shares</th>
+              <th class="p-3 text-right">Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${data.map(item => {
+              const b = item.builds || {};
+              const classData = GAME_SPECS[b.class_key] || { className: b.class_key, color: '#d4b483' };
+              return `
+                <tr class="border-b border-wurm-border/40 hover:bg-white/5 transition-all">
+                  <td class="p-3 font-serif font-bold text-wurm-text">${b.title || 'Build Customizada'} ${b.verified_by_guild ? '👑' : ''}</td>
+                  <td class="p-3" style="color: ${classData.color}">${classData.className}</td>
+                  <td class="p-3 text-wurm-muted uppercase">${b.spec_id || '-'}</td>
+                  <td class="p-3 uppercase text-wurm-accent">${b.role || 'dps'}</td>
+                  <td class="p-3 text-center text-emerald-400 font-bold">${item.save_count || 0}</td>
+                  <td class="p-3 text-center text-wurm-accent font-bold">${item.share_count || 0}</td>
+                  <td class="p-3 text-right">
+                    <button class="list-load-btn px-2.5 py-1 bg-wurm-accent/15 border border-wurm-accent text-wurm-accent text-[11px] font-bold uppercase rounded hover:bg-wurm-accent hover:text-wurm-bg" data-string="${b.id}">
+                      Carregar
+                    </button>
+                  </td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      `;
+
+      listContainer.querySelectorAll('.list-load-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const str = btn.getAttribute('data-string');
+          const ok = importOfficialBuildString(str);
+          if (ok) {
+            switchTab('builder');
+            showToast('Build carregada no montador!');
+          }
+        });
+      });
+    }
+  }
       const card = document.createElement('div');
       card.className = 'bg-wurm-panel p-6 rounded border border-wurm-border hover:border-wurm-accent transition-all flex flex-col justify-between';
       const preEncodedString = btoa(JSON.stringify(preset.buildPayload));

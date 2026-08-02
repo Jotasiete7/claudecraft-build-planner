@@ -120,23 +120,80 @@
   <!-- Main Container -->
   <main class="max-w-7xl mx-auto px-4 py-6 md:px-8 md:py-8 flex-grow w-full">
 
-    <!-- Meta Presets Bar with Direct Game String Copy Button -->
+    <!-- SECTION 1: Meta Presets & Dynamic Community Builds Bar -->
     <section id="metaPresetsSection" class="bg-wurm-panel p-6 rounded border border-wurm-border shadow-2xl mb-8">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 border-b border-wurm-border pb-4">
         <div>
-          <h2 class="text-xs font-mono font-bold text-wurm-accent uppercase tracking-widest flex items-center gap-2">
+          <h2 id="metaPresetsHeaderTitle" class="text-xs font-mono font-bold text-wurm-accent uppercase tracking-widest flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-wurm-accent animate-pulse"></span>
-            Builds Meta em Destaque
+            <span id="metaHeaderTitleText">🔥 Builds Meta em Destaque</span>
           </h2>
-          <p class="text-xs text-wurm-muted mt-1 font-sans">Escolha uma build para carregar ou copie a String Oficial do Jogo direto do card abaixo</p>
+          <p class="text-xs text-wurm-muted mt-1">Builds da comunidade ranqueadas por saves e compartilhamentos reais no Supabase.</p>
         </div>
-        <button id="presetsImportStringBtn" class="px-4 py-2 bg-wurm-accent/15 border border-wurm-accent text-wurm-accent font-mono text-xs font-bold uppercase rounded flex items-center gap-2 hover:bg-wurm-accent hover:text-wurm-bg transition-all">
-          <span>📥</span> Importar String do Jogo (eyJ2...)
-        </button>
+
+        <div class="flex items-center gap-2">
+          <button id="metaViewCardsBtn" class="meta-view-btn active px-3.5 py-1.5 rounded text-xs font-mono font-bold bg-wurm-accent text-wurm-bg transition-all" data-view="cards">🎴 Cards</button>
+          <button id="metaViewListBtn" class="meta-view-btn px-3.5 py-1.5 rounded text-xs font-mono font-bold bg-white/5 border border-wurm-border text-wurm-muted hover:text-wurm-text transition-all" data-view="list">📋 Tabela</button>
+        </div>
       </div>
-      <div id="presetsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- Rendered by JS with 📋 Copiar String do Jogo on every card -->
+
+      <!-- Control Bar Phase 3: Primary Filters & Controls -->
+      <div class="space-y-4 mb-6">
+        <!-- Row 1: Search, Sort, Patch -->
+        <div class="flex flex-col md:flex-row items-center justify-between gap-3">
+          <div class="relative w-full md:w-80">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-wurm-muted text-xs">🔍</span>
+            <input type="text" id="metaSearchInput" class="w-full bg-wurm-bg border border-wurm-border rounded-lg pl-9 pr-4 py-2 text-xs text-wurm-text font-mono focus:border-wurm-accent focus:outline-none transition-all" placeholder="Buscar por nome ou classe...">
+          </div>
+
+          <div class="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end flex-wrap">
+            <select id="metaSortSelect" class="bg-wurm-bg border border-wurm-border text-wurm-accent font-mono text-xs rounded px-3 py-2 focus:outline-none cursor-pointer">
+              <option value="saves">💾 Mais Salvas</option>
+              <option value="shares">📋 Mais Compartilhadas</option>
+              <option value="recent">⏱️ Mais Recentes</option>
+            </select>
+
+            <select id="metaPatchSelect" class="bg-wurm-bg border border-wurm-border text-wurm-text font-mono text-xs rounded px-3 py-2 focus:outline-none cursor-pointer">
+              <option value="current">Patch v0.33.1 (Atual)</option>
+              <option value="all">Todos os Patches</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Row 2: Class Filters (9 Buttons) & Role Filters & Guild Verified -->
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-4 pt-2 border-t border-wurm-border/60 flex-wrap">
+          <div id="metaClassFilterGroup" class="flex items-center gap-1.5 overflow-x-auto w-full lg:w-auto pb-1 no-scrollbar">
+            <button data-meta-class="all" class="meta-class-btn active px-3 py-1.5 rounded text-xs font-mono font-bold bg-wurm-accent text-wurm-bg transition-all flex-shrink-0">TODAS</button>
+            <button data-meta-class="warrior" class="meta-class-btn px-2.5 py-1.5 rounded text-xs font-mono font-bold bg-white/5 border border-wurm-border text-[#d67a54] hover:bg-white/10 transition-all flex-shrink-0">🗡️ Warrior</button>
+            <button data-meta-class="paladin" class="meta-class-btn px-2.5 py-1.5 rounded text-xs font-mono font-bold bg-white/5 border border-wurm-border text-[#f58ca0] hover:bg-white/10 transition-all flex-shrink-0">🛡️ Paladin</button>
+            <button data-meta-class="hunter" class="meta-class-btn px-2.5 py-1.5 rounded text-xs font-mono font-bold bg-white/5 border border-wurm-border text-[#abd473] hover:bg-white/10 transition-all flex-shrink-0">🏹 Hunter</button>
+            <button data-meta-class="mage" class="meta-class-btn px-2.5 py-1.5 rounded text-xs font-mono font-bold bg-white/5 border border-wurm-border text-[#69ccf0] hover:bg-white/10 transition-all flex-shrink-0">🔮 Mage</button>
+            <button data-meta-class="rogue" class="meta-class-btn px-2.5 py-1.5 rounded text-xs font-mono font-bold bg-white/5 border border-wurm-border text-[#fff569] hover:bg-white/10 transition-all flex-shrink-0">🗡️ Rogue</button>
+            <button data-meta-class="priest" class="meta-class-btn px-2.5 py-1.5 rounded text-xs font-mono font-bold bg-white/5 border border-wurm-border text-[#c6d4f0] hover:bg-white/10 transition-all flex-shrink-0">✨ Priest</button>
+            <button data-meta-class="shaman" class="meta-class-btn px-2.5 py-1.5 rounded text-xs font-mono font-bold bg-white/5 border border-wurm-border text-[#0070de] hover:bg-white/10 transition-all flex-shrink-0">⚡ Shaman</button>
+            <button data-meta-class="warlock" class="meta-class-btn px-2.5 py-1.5 rounded text-xs font-mono font-bold bg-white/5 border border-wurm-border text-[#9482c9] hover:bg-white/10 transition-all flex-shrink-0">💀 Warlock</button>
+            <button data-meta-class="druid" class="meta-class-btn px-2.5 py-1.5 rounded text-xs font-mono font-bold bg-white/5 border border-wurm-border text-[#ff7d0a] hover:bg-white/10 transition-all flex-shrink-0">🐾 Druid</button>
+          </div>
+
+          <div class="flex items-center gap-3 w-full lg:w-auto justify-between lg:justify-end flex-wrap">
+            <div id="metaRoleFilterGroup" class="flex items-center bg-wurm-bg border border-wurm-border rounded p-0.5">
+              <button data-meta-role="all" class="meta-role-btn active px-2.5 py-1 text-[11px] font-mono font-bold rounded text-wurm-accent bg-wurm-accent/20">ROLES</button>
+              <button data-meta-role="tank" class="meta-role-btn px-2.5 py-1 text-[11px] font-mono font-bold rounded text-wurm-muted hover:text-wurm-text">🛡️ TANK</button>
+              <button data-meta-role="healer" class="meta-role-btn px-2.5 py-1 text-[11px] font-mono font-bold rounded text-wurm-muted hover:text-wurm-text">💚 HEALER</button>
+              <button data-meta-role="dps" class="meta-role-btn px-2.5 py-1 text-[11px] font-mono font-bold rounded text-wurm-muted hover:text-wurm-text">⚔️ DPS</button>
+            </div>
+
+            <label class="flex items-center gap-2 text-xs font-mono text-wurm-accent cursor-pointer bg-white/5 border border-wurm-border rounded px-3 py-1.5 hover:bg-white/10 transition-all">
+              <input type="checkbox" id="metaVerifiedToggle" class="accent-wurm-accent cursor-pointer">
+              <span>👑 Apenas Guilda</span>
+            </label>
+          </div>
+        </div>
       </div>
+
+      <!-- Presets Cards Container & Dynamic List View -->
+      <div id="metaCardsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      <div id="metaListViewContainer" class="hidden overflow-x-auto"></div>
     </section>
 
     <!-- SECTION 1: Class Selection Gallery (Entry Point) -->
