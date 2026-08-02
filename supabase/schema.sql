@@ -1,4 +1,4 @@
-﻿-- World of Claudecraft - Supabase Schema Phase 2
+﻿-- World of Claudecraft - Supabase Schema (Idempotent & Safe to Run Multiple Times)
 -- Project URL: https://gjdbeipgqbjydenkppfq.supabase.co
 
 -- 1. Table: builds (Registered Build Configurations)
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS public.build_popularity (
   updated_at    TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Indexes for Ultra-Fast Queries
+-- Indexes
 CREATE INDEX IF NOT EXISTS idx_build_popularity_rank ON public.build_popularity (save_count DESC, share_count DESC);
 CREATE INDEX IF NOT EXISTS idx_builds_class_spec_role ON public.builds (class_key, spec_id, role);
 CREATE INDEX IF NOT EXISTS idx_builds_patch ON public.builds (patch_version);
@@ -46,7 +46,14 @@ ALTER TABLE public.builds ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.build_actions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.build_popularity ENABLE ROW LEVEL SECURITY;
 
--- RLS Policies
+-- Drop existing policies to prevent 42710 error
+DROP POLICY IF EXISTS "Allow public read builds" ON public.builds;
+DROP POLICY IF EXISTS "Allow public insert builds" ON public.builds;
+DROP POLICY IF EXISTS "Allow public read build_popularity" ON public.build_popularity;
+DROP POLICY IF EXISTS "Allow public insert/update build_popularity" ON public.build_popularity;
+DROP POLICY IF EXISTS "Allow public insert build_actions" ON public.build_actions;
+
+-- Create RLS Policies
 CREATE POLICY "Allow public read builds" ON public.builds FOR SELECT USING (true);
 CREATE POLICY "Allow public insert builds" ON public.builds FOR INSERT WITH CHECK (true);
 
