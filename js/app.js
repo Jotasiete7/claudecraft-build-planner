@@ -1415,37 +1415,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   }
-      const card = document.createElement('div');
-      card.className = 'bg-wurm-panel p-6 rounded border border-wurm-border hover:border-wurm-accent transition-all flex flex-col justify-between';
-      const preEncodedString = btoa(JSON.stringify(preset.buildPayload));
-
-      card.innerHTML = `
-        <div>
-          <div class="flex justify-between items-center mb-2">
-            <h3 class="font-serif text-base font-semibold text-wurm-text">${preset.title}</h3>
-            <span class="text-xs font-mono font-bold uppercase" style="color: ${preset.classColor}">${preset.className}</span>
-          </div>
-          <p class="text-xs text-wurm-muted leading-relaxed mb-4">${preset.desc}</p>
-        </div>
-        <div class="flex gap-3">
-          <button class="full-load-btn flex-1 py-2 bg-wurm-accent text-wurm-bg font-mono text-xs font-bold uppercase rounded hover:bg-wurm-accentDim">Carregar no Montador</button>
-          <button class="full-copy-string-btn px-4 py-2 bg-white/5 hover:bg-white/10 text-wurm-accent font-mono text-xs font-bold uppercase rounded border border-wurm-accent">📋 Copiar String</button>
-        </div>
-      `;
-
-      card.querySelector('.full-load-btn').addEventListener('click', () => {
-        loadPreset(preset);
-        switchTab('builder');
-      });
-
-      card.querySelector('.full-copy-string-btn').addEventListener('click', () => {
-        navigator.clipboard.writeText(preEncodedString);
-        showToast(`String da build "${preset.title}" copiada!`);
-      });
-
-      elements.fullPresetsGrid.appendChild(card);
-    });
-  }
 
   function loadPreset(preset) {
     state.selectedClass = preset.classKey || 'paladin';
