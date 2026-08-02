@@ -237,19 +237,16 @@
           <span id="activeClassHeaderTitle">TALENTOS PALADIN</span>
         </div>
         
-        <!-- Game Navigation Subtabs -->
+        <!-- Game Navigation Subtabs (3 Streamlined Steps) -->
         <div class="flex items-center gap-2 flex-wrap">
           <button class="game-subtab-btn active px-5 py-2 rounded text-xs font-mono font-bold uppercase tracking-wider border border-wurm-accent text-wurm-accent bg-wurm-accent/10" data-game-subtab="spec">
-            ESPECIALIZAÇÃO
+            1. ESPECIALIZAÇÃO
           </button>
           <button class="game-subtab-btn px-5 py-2 rounded text-xs font-mono font-bold uppercase tracking-wider border border-wurm-border text-wurm-muted hover:text-wurm-text bg-white/5" data-game-subtab="choices">
-            ESCOLHAS (6/6)
-          </button>
-          <button class="game-subtab-btn px-5 py-2 rounded text-xs font-mono font-bold uppercase tracking-wider border border-wurm-border text-wurm-muted hover:text-wurm-text bg-white/5" data-game-subtab="spellbook">
-            LIVRO DE FEITIÇOS
+            2. ESCOLHAS (6/6)
           </button>
           <button class="game-subtab-btn px-5 py-2 rounded text-xs font-mono font-bold uppercase tracking-wider border border-wurm-border text-wurm-muted hover:text-wurm-text bg-white/5" data-game-subtab="bis">
-            EQUIPAMENTOS BiS
+            3. EQUIPAMENTOS BiS
           </button>
         </div>
       </div>
@@ -288,22 +285,26 @@
           </div>
         </div>
 
-        <!-- Subtab 2: ESCOLHAS (6/6) -->
-        <div id="gameSubtabChoices" class="game-subtab-panel hidden space-y-4">
+        <!-- Subtab 2: ESCOLHAS (6/6) + INTEGRATED SPELLBOOK -->
+        <div id="gameSubtabChoices" class="game-subtab-panel hidden space-y-6">
           <div class="text-xs font-mono text-wurm-muted mb-2">Selecione 1 opção em cada uma das 6 linhas de nível para compor sua build:</div>
+          
+          <!-- 6 Choice Rows -->
           <div id="choicesRowsContainer" class="space-y-3">
             <!-- Rendered by JS -->
           </div>
-        </div>
 
-        <!-- Subtab 3: LIVRO DE FEITIÇOS -->
-        <div id="gameSubtabSpellbook" class="game-subtab-panel hidden space-y-4">
-          <div class="flex items-center justify-between border-b border-wurm-border pb-3">
-            <h3 id="spellbookTitleHeader" class="font-serif text-base font-bold text-wurm-accent">LIVRO DE FEITIÇOS — Habilidades</h3>
-            <span class="text-xs font-mono text-wurm-muted">Guia completo de feitiços e habilidades da classe</span>
-          </div>
-          <div id="spellbookGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <!-- Rendered by JS -->
+          <!-- Integrated Spellbook Section Directly inside Talent Choices -->
+          <div class="border-t border-wurm-border/80 pt-6 space-y-4">
+            <div class="flex items-center justify-between border-b border-wurm-border/60 pb-3">
+              <h3 id="spellbookTitleHeader" class="font-serif text-base font-bold text-wurm-accent flex items-center gap-2">
+                📖 Livro de Feitiços & Habilidades Base da Classe
+              </h3>
+              <span class="text-xs font-mono text-wurm-muted">Consulte as habilidades passivas e ativas enquanto escolhe os talentos</span>
+            </div>
+            <div id="spellbookGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <!-- Rendered by JS -->
+            </div>
           </div>
         </div>
 
