@@ -385,6 +385,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (elements.headerLogoLink) {
       elements.headerLogoLink.addEventListener('click', (e) => {
         e.preventDefault();
+        window.history.replaceState(null, '', window.location.pathname);
+        state.activeRoleFilter = 'all';
+        renderClassGallery();
         switchTab('gallery');
       });
     }
@@ -414,6 +417,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    if (tabName === 'gallery') {
+      renderClassGallery();
+    }
     if (tabName === 'builder') {
       renderClassQuickSwitcher();
       renderActiveBuilderWorkspace();
