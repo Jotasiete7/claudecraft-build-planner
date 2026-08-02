@@ -108,13 +108,6 @@
         Wiki de Itens
       </button>
     </nav>
-
-    <!-- Header Actions -->
-    <div class="flex items-center gap-3">
-      <button id="headerImportStringBtn" class="px-3.5 py-1.5 bg-wurm-accent/15 border border-wurm-accent text-wurm-accent hover:bg-wurm-accent hover:text-wurm-bg font-mono text-xs font-bold uppercase rounded transition-all flex items-center gap-1.5 shadow-md">
-        <span>📥</span> <span>Importar String do Jogo</span>
-      </button>
-    </div>
   </header>
 
   <!-- Main Container -->
@@ -273,11 +266,14 @@
           <input type="text" id="liveGameStringInput" readonly class="flex-grow bg-wurm-bg border border-wurm-border rounded px-3 py-1.5 text-xs font-mono text-emerald-300 focus:outline-none truncate" value="eyJ2Ijoy...">
         </div>
         <div class="flex items-center gap-2 flex-shrink-0">
+          <button id="headerImportStringBtn" class="px-3.5 py-1.5 bg-wurm-accent/15 border border-wurm-accent text-wurm-accent hover:bg-wurm-accent hover:text-wurm-bg font-mono text-xs font-bold uppercase rounded transition-all flex items-center gap-1.5 shadow-md cursor-pointer">
+            📥 Importar String
+          </button>
           <button id="saveBuildBtn" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold uppercase rounded flex items-center gap-1.5 shadow transition-all cursor-pointer">
             💾 Salvar Build
           </button>
-          <button id="copyLiveStringBtn" class="px-4 py-1.5 bg-wurm-accent text-wurm-bg hover:bg-wurm-accentDim font-mono text-xs font-bold uppercase rounded flex items-center gap-1.5 shadow transition-all flex-shrink-0">
-            📋 Copiar String para o Jogo
+          <button id="copyLiveStringBtn" class="px-4 py-1.5 bg-wurm-accent text-wurm-bg hover:bg-wurm-accentDim font-mono text-xs font-bold uppercase rounded flex items-center gap-1.5 shadow transition-all flex-shrink-0 cursor-pointer">
+            📋 Copiar String
           </button>
         </div>
       </div>

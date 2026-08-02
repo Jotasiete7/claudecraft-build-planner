@@ -72,45 +72,42 @@ async function fetchMetaBuildsFromSupabase(filters = {}) {
     const isColdStart = totalCount < 20;
 
     let query = supabaseClient
-      .from('build_popularity')
+      .from('builds')
       .select(`
-        build_id,
-        save_count,
-        share_count,
-        builds!inner (
-          id,
-          class_key,
-          spec_id,
-          title,
-          role,
-          patch_version,
-          verified_by_guild,
-          created_at
+        id,
+        class_key,
+        spec_id,
+        title,
+        role,
+        patch_version,
+        verified_by_guild,
+        created_at,
+        build_popularity (
+          save_count,
+          share_count
         )
       `);
 
     if (filters.classKey && filters.classKey !== 'all') {
-      query = query.eq('builds.class_key', filters.classKey);
+      query = query.eq('class_key', filters.classKey);
     }
     if (filters.role && filters.role !== 'all') {
-      query = query.eq('builds.role', filters.role);
+      query = query.eq('role', filters.role);
     }
     if (filters.patch === 'current') {
-      query = query.eq('builds.patch_version', 'v0.33.1');
+      query = query.eq('patch_version', 'v0.33.1');
     }
     if (filters.verifiedOnly) {
-      query = query.eq('builds.verified_by_guild', true);
+      query = query.eq('verified_by_guild', true);
     }
     if (filters.searchQuery) {
-      query = query.ilike('builds.title', `%${filters.searchQuery}%`);
+      query = query.ilike('title', `%${filters.searchQuery}%`);
     }
 
     if (isColdStart || filters.sortBy === 'recent') {
-      query = query.order('save_count', { ascending: false });
-    } else if (filters.sortBy === 'shares') {
-      query = query.order('share_count', { ascending: false });
+      query = query.order('created_at', { ascending: false });
     } else {
-      query = query.order('save_count', { ascending: false });
+      query = query.order('created_at', { ascending: false });
     }
 
     query = query.limit(30);
@@ -118,7 +115,23 @@ async function fetchMetaBuildsFromSupabase(filters = {}) {
     const { data, error } = await query;
     if (error) throw error;
 
-    return { data: data || [], isColdStart, totalCount, error: null };
+    // Transform PostgREST data structure
+    const formattedData = (data || []).map(item => ({
+      builds: {
+        id: item.id,
+        class_key: item.class_key,
+        spec_id: item.spec_id,
+        title: item.title,
+        role: item.role,
+        patch_version: item.patch_version,
+        verified_by_guild: item.verified_by_guild,
+        created_at: item.created_at
+      },
+      save_count: item.build_popularity ? item.build_popularity.save_count : 0,
+      share_count: item.build_popularity ? item.build_popularity.share_count : 0
+    }));
+
+    return { data: formattedData, isColdStart, totalCount, error: null };
   } catch (err) {
     return { data: [], isColdStart: true, totalCount: 0, error: err.message };
   }
