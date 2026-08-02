@@ -1548,5 +1548,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 2500);
   }
 
+  window.onI18nLanguageChange = () => {
+    renderClassGallery();
+    renderActiveBuilderWorkspace();
+    loadAndRenderMetaBuilds();
+  };
+
   init();
 });

@@ -93,21 +93,33 @@
       </button>
     </div>
 
-    <!-- Navigation Tabs -->
-    <nav class="hidden md:flex items-center gap-1">
-      <button class="nav-tab-btn active px-3.5 py-1.5 text-xs font-medium uppercase tracking-wider text-wurm-text hover:text-wurm-accent rounded transition-all" data-tab="gallery">
-        Galeria de Classes
-      </button>
-      <button class="nav-tab-btn px-3.5 py-1.5 text-xs font-medium uppercase tracking-wider text-wurm-muted hover:text-wurm-text rounded transition-all" data-tab="builder">
-        Montador de Talentos
-      </button>
-      <button class="nav-tab-btn px-3.5 py-1.5 text-xs font-medium uppercase tracking-wider text-wurm-muted hover:text-wurm-text rounded transition-all" data-tab="presets">
-        Builds Meta
-      </button>
-      <button class="nav-tab-btn px-3.5 py-1.5 text-xs font-medium uppercase tracking-wider text-wurm-muted hover:text-wurm-text rounded transition-all" data-tab="wiki">
-        Wiki de Itens
-      </button>
-    </nav>
+    <!-- Navigation Tabs & Language Selector -->
+    <div class="flex items-center gap-3">
+      <nav class="hidden md:flex items-center gap-1">
+        <button class="nav-tab-btn active px-3.5 py-1.5 text-xs font-medium uppercase tracking-wider text-wurm-text hover:text-wurm-accent rounded transition-all" data-tab="gallery" data-i18n="nav_gallery">
+          Galeria de Classes
+        </button>
+        <button class="nav-tab-btn px-3.5 py-1.5 text-xs font-medium uppercase tracking-wider text-wurm-muted hover:text-wurm-text rounded transition-all" data-tab="builder" data-i18n="nav_builder">
+          Montador de Talentos
+        </button>
+        <button class="nav-tab-btn px-3.5 py-1.5 text-xs font-medium uppercase tracking-wider text-wurm-muted hover:text-wurm-text rounded transition-all" data-tab="presets" data-i18n="nav_meta">
+          Builds Meta
+        </button>
+        <button class="nav-tab-btn px-3.5 py-1.5 text-xs font-medium uppercase tracking-wider text-wurm-muted hover:text-wurm-text rounded transition-all" data-tab="wiki" data-i18n="nav_wiki">
+          Wiki de Itens
+        </button>
+      </nav>
+
+      <!-- Language Selector Dropdown -->
+      <div class="flex items-center gap-1.5 border-l border-wurm-border pl-3">
+        <select id="headerLanguageSelect" onchange="setLanguage(this.value)" class="bg-wurm-bg border border-wurm-border rounded px-2 py-1 text-xs font-mono text-wurm-accent focus:outline-none cursor-pointer hover:border-wurm-accent transition-all">
+          <option value="pt">🇧🇷 PT</option>
+          <option value="en">🇺🇸 EN</option>
+          <option value="fr">🇫🇷 FR</option>
+          <option value="es">🇪🇸 ES</option>
+        </select>
+      </div>
+    </div>
   </header>
 
   <!-- Main Container -->
@@ -193,22 +205,22 @@
     <section id="classGallerySection" class="tab-panel active bg-wurm-panel border border-wurm-border rounded-lg p-6 shadow-2xl mb-8 space-y-6">
       <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-wurm-border pb-4">
         <div>
-          <h1 class="font-serif text-2xl font-bold text-wurm-text">Escolha sua Classe</h1>
-          <p class="text-xs text-wurm-muted mt-1 font-sans">Selecione uma das 9 classes para montar sua build e gerar a string oficial para o jogo real</p>
+          <h1 class="font-serif text-2xl font-bold text-wurm-text" data-i18n="choose_class">Escolha sua Classe</h1>
+          <p class="text-xs text-wurm-muted mt-1 font-sans" data-i18n="choose_class_sub">Selecione uma das 9 classes para montar sua build e gerar a string oficial para o jogo real</p>
         </div>
 
         <!-- Role Filter Buttons -->
         <div class="flex items-center gap-2 bg-wurm-bg p-1.5 rounded border border-wurm-border">
-          <button class="role-filter-btn active px-3 py-1.5 rounded text-xs font-mono font-bold uppercase transition-all bg-wurm-accent text-wurm-bg" data-role="all">
+          <button class="role-filter-btn active px-3 py-1.5 rounded text-xs font-mono font-bold uppercase transition-all bg-wurm-accent text-wurm-bg" data-role="all" data-i18n="role_all">
             Todos
           </button>
-          <button class="role-filter-btn px-3 py-1.5 rounded text-xs font-mono font-bold uppercase transition-all text-wurm-muted hover:text-wurm-text hover:bg-white/5" data-role="tank">
+          <button class="role-filter-btn px-3 py-1.5 rounded text-xs font-mono font-bold uppercase transition-all text-wurm-muted hover:text-wurm-text hover:bg-white/5" data-role="tank" data-i18n="role_tank">
             🛡️ Tank
           </button>
-          <button class="role-filter-btn px-3 py-1.5 rounded text-xs font-mono font-bold uppercase transition-all text-wurm-muted hover:text-wurm-text hover:bg-white/5" data-role="healer">
+          <button class="role-filter-btn px-3 py-1.5 rounded text-xs font-mono font-bold uppercase transition-all text-wurm-muted hover:text-wurm-text hover:bg-white/5" data-role="healer" data-i18n="role_healer">
             💚 Healer
           </button>
-          <button class="role-filter-btn px-3 py-1.5 rounded text-xs font-mono font-bold uppercase transition-all text-wurm-muted hover:text-wurm-text hover:bg-white/5" data-role="dps">
+          <button class="role-filter-btn px-3 py-1.5 rounded text-xs font-mono font-bold uppercase transition-all text-wurm-muted hover:text-wurm-text hover:bg-white/5" data-role="dps" data-i18n="role_dps">
             ⚔️ DPS
           </button>
         </div>
@@ -239,13 +251,13 @@
         
         <!-- Game Navigation Subtabs (3 Streamlined Steps) -->
         <div class="flex items-center gap-2 flex-wrap">
-          <button class="game-subtab-btn active px-5 py-2 rounded text-xs font-mono font-bold uppercase tracking-wider border border-wurm-accent text-wurm-accent bg-wurm-accent/10" data-game-subtab="spec">
+          <button class="game-subtab-btn active px-5 py-2 rounded text-xs font-mono font-bold uppercase tracking-wider border border-wurm-accent text-wurm-accent bg-wurm-accent/10" data-game-subtab="spec" data-i18n="step_spec">
             1. ESPECIALIZAÇÃO
           </button>
-          <button class="game-subtab-btn px-5 py-2 rounded text-xs font-mono font-bold uppercase tracking-wider border border-wurm-border text-wurm-muted hover:text-wurm-text bg-white/5" data-game-subtab="choices">
+          <button class="game-subtab-btn px-5 py-2 rounded text-xs font-mono font-bold uppercase tracking-wider border border-wurm-border text-wurm-muted hover:text-wurm-text bg-white/5" data-game-subtab="choices" data-i18n="step_choices">
             2. ESCOLHAS (6/6)
           </button>
-          <button class="game-subtab-btn px-5 py-2 rounded text-xs font-mono font-bold uppercase tracking-wider border border-wurm-border text-wurm-muted hover:text-wurm-text bg-white/5" data-game-subtab="bis">
+          <button class="game-subtab-btn px-5 py-2 rounded text-xs font-mono font-bold uppercase tracking-wider border border-wurm-border text-wurm-muted hover:text-wurm-text bg-white/5" data-game-subtab="bis" data-i18n="step_bis">
             3. EQUIPAMENTOS BiS
           </button>
         </div>
@@ -256,20 +268,20 @@
         <div class="flex items-center gap-3 flex-grow overflow-hidden">
           <div class="flex flex-col gap-0.5 flex-shrink-0">
             <span class="text-xs font-mono font-bold text-wurm-accent flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> String do Jogo (Ao Vivo):
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> <span data-i18n="live_string_label">String do Jogo (Ao Vivo):</span>
             </span>
             <span id="liveStringClassIndicator" class="text-[10px] font-mono font-semibold" style="color: #f58ca0">Paladin &bull; PROTECTION</span>
           </div>
           <input type="text" id="liveGameStringInput" readonly class="flex-grow bg-wurm-bg border border-wurm-border rounded px-3 py-1.5 text-xs font-mono text-emerald-300 focus:outline-none truncate" value="eyJ2Ijoy...">
         </div>
         <div class="flex items-center gap-2 flex-shrink-0">
-          <button id="headerImportStringBtn" class="px-3.5 py-1.5 bg-wurm-accent/15 border border-wurm-accent text-wurm-accent hover:bg-wurm-accent hover:text-wurm-bg font-mono text-xs font-bold uppercase rounded transition-all flex items-center gap-1.5 shadow-md cursor-pointer">
+          <button id="headerImportStringBtn" class="px-3.5 py-1.5 bg-wurm-accent/15 border border-wurm-accent text-wurm-accent hover:bg-wurm-accent hover:text-wurm-bg font-mono text-xs font-bold uppercase rounded transition-all flex items-center gap-1.5 shadow-md cursor-pointer" data-i18n="import_string">
             📥 Importar String
           </button>
-          <button id="saveBuildBtn" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold uppercase rounded flex items-center gap-1.5 shadow transition-all cursor-pointer">
+          <button id="saveBuildBtn" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold uppercase rounded flex items-center gap-1.5 shadow transition-all cursor-pointer" data-i18n="save_build">
             💾 Salvar Build
           </button>
-          <button id="copyLiveStringBtn" class="px-4 py-1.5 bg-wurm-accent text-wurm-bg hover:bg-wurm-accentDim font-mono text-xs font-bold uppercase rounded flex items-center gap-1.5 shadow transition-all flex-shrink-0 cursor-pointer">
+          <button id="copyLiveStringBtn" class="px-4 py-1.5 bg-wurm-accent text-wurm-bg hover:bg-wurm-accentDim font-mono text-xs font-bold uppercase rounded flex items-center gap-1.5 shadow transition-all flex-shrink-0 cursor-pointer" data-i18n="copy_string">
             📋 Copiar String
           </button>
         </div>
@@ -514,6 +526,7 @@
   <!-- App Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabaseClient.js"></script>
+  <script src="js/i18n/translations.js"></script>
   <script src="js/data/gameData.js"></script>
   <script src="js/data/presets.js"></script>
   <script src="js/app.js"></script>
