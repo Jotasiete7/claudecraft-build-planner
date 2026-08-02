@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS public.builds (
   class_key           TEXT NOT NULL,
   spec_id             TEXT NOT NULL,
   title               TEXT NOT NULL,
-  role                TEXT CHECK (role IN ('tank', 'healer', 'dps')),
+  "role"              TEXT CHECK ("role" IN ('tank', 'healer', 'dps')),
   patch_version       TEXT NOT NULL DEFAULT 'v0.33.1',
   verified_by_guild   BOOLEAN DEFAULT FALSE,
   created_at          TIMESTAMPTZ DEFAULT NOW()
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS public.build_popularity (
 
 -- Indexes
 CREATE INDEX IF NOT EXISTS idx_build_popularity_rank ON public.build_popularity (save_count DESC, share_count DESC);
-CREATE INDEX IF NOT EXISTS idx_builds_class_spec_role ON public.builds (class_key, spec_id, role);
+CREATE INDEX IF NOT EXISTS idx_builds_class_spec_role ON public.builds (class_key, spec_id, "role");
 CREATE INDEX IF NOT EXISTS idx_builds_patch ON public.builds (patch_version);
 CREATE INDEX IF NOT EXISTS idx_builds_created ON public.builds (created_at DESC);
 
