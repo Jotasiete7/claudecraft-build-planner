@@ -1,11 +1,10 @@
-﻿/**
+/**
  * Supabase Client Integration for A Guilda World of Claudecraft
  * Project URL: https://gjdbeipgqbjydenkppfq.supabase.co
  */
 
 const SUPABASE_URL = 'https://gjdbeipgqbjydenkppfq.supabase.co';
-// Cole a sua SUPABASE_ANON_KEY abaixo (disponÃ­vel no painel Supabase: Settings > API)
-const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || '';
+const SUPABASE_ANON_KEY = 'sb_publishable_qYHoYKKyw98Dku5oea1H4w_BH-FViSe';
 
 let supabaseClient = null;
 
