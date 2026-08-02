@@ -215,9 +215,14 @@
           </div>
           <input type="text" id="liveGameStringInput" readonly class="flex-grow bg-wurm-bg border border-wurm-border rounded px-3 py-1.5 text-xs font-mono text-emerald-300 focus:outline-none truncate" value="eyJ2Ijoy...">
         </div>
-        <button id="copyLiveStringBtn" class="px-4 py-1.5 bg-wurm-accent text-wurm-bg hover:bg-wurm-accentDim font-mono text-xs font-bold uppercase rounded flex items-center gap-1.5 shadow transition-all flex-shrink-0">
-          📋 Copiar String para o Jogo
-        </button>
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <button id="saveBuildBtn" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold uppercase rounded flex items-center gap-1.5 shadow transition-all cursor-pointer">
+            💾 Salvar Build
+          </button>
+          <button id="copyLiveStringBtn" class="px-4 py-1.5 bg-wurm-accent text-wurm-bg hover:bg-wurm-accentDim font-mono text-xs font-bold uppercase rounded flex items-center gap-1.5 shadow transition-all flex-shrink-0">
+            📋 Copiar String para o Jogo
+          </button>
+        </div>
       </div>
 
       <!-- Content Area -->
@@ -427,6 +432,24 @@
     <div id="ttSlot" class="text-[11px] text-wurm-muted font-mono uppercase"></div>
     <div id="ttStats" class="text-emerald-400 py-1 space-y-0.5"></div>
     <div id="ttSource" class="text-[10px] text-wurm-accentDim border-t border-wurm-border pt-1"></div>
+  </div>
+
+  <!-- Save Build Modal -->
+  <div id="saveBuildModalOverlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-wurm-panel border border-wurm-border rounded-lg p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-wurm-border pb-3">
+        <h3 class="font-serif text-base font-bold text-wurm-accent flex items-center gap-2">💾 Salvar Minha Build</h3>
+        <button id="closeSaveBuildModalBtn" class="text-wurm-muted hover:text-wurm-text text-xl">&times;</button>
+      </div>
+      <div>
+        <label class="block text-xs font-mono text-wurm-muted mb-1 uppercase tracking-wider">Nome da Sua Build:</label>
+        <input type="text" id="saveBuildNameInput" class="w-full bg-wurm-bg border border-wurm-border rounded px-3 py-2 text-sm text-wurm-text font-mono focus:border-wurm-accent focus:outline-none" placeholder="Ex: Paladin Holy Tank Raid 2026">
+      </div>
+      <div class="flex items-center justify-end gap-3 pt-2">
+        <button id="cancelSaveBuildBtn" class="px-4 py-2 text-xs font-mono font-bold bg-white/5 border border-wurm-border text-wurm-muted hover:text-wurm-text rounded cursor-pointer">CANCELAR</button>
+        <button id="confirmSaveBuildBtn" class="px-5 py-2 text-xs font-mono font-bold bg-emerald-600 hover:bg-emerald-500 text-white rounded cursor-pointer">SALVAR NO NAVEGADOR</button>
+      </div>
+    </div>
   </div>
 
   <!-- Toast Notification -->

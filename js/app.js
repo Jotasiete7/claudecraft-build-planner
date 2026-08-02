@@ -133,7 +133,14 @@ document.addEventListener('DOMContentLoaded', () => {
     wowTooltip: document.getElementById('wowTooltip'),
     toastNotification: document.getElementById('toastNotification'),
     toastMessage: document.getElementById('toastMessage'),
-    headerLogoLink: document.getElementById('headerLogoLink')
+    headerLogoLink: document.getElementById('headerLogoLink'),
+
+    saveBuildBtn: document.getElementById('saveBuildBtn'),
+    saveBuildModalOverlay: document.getElementById('saveBuildModalOverlay'),
+    saveBuildNameInput: document.getElementById('saveBuildNameInput'),
+    closeSaveBuildModalBtn: document.getElementById('closeSaveBuildModalBtn'),
+    cancelSaveBuildBtn: document.getElementById('cancelSaveBuildBtn'),
+    confirmSaveBuildBtn: document.getElementById('confirmSaveBuildBtn')
   };
 
   const SLOT_CONFIG_LEFT = [
@@ -193,6 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupLoadoutDropdown();
     setupGlobalImportTriggers();
     setupLiveStringBar();
+    setupSaveBuildModal();
     setupModals();
     preloadAllSkillIcons();
 
@@ -200,6 +208,50 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!hasDeepLink) {
       renderClassGallery();
       switchTab('gallery');
+    }
+  }
+
+  function setupSaveBuildModal() {
+    if (!elements.saveBuildBtn) return;
+
+    elements.saveBuildBtn.addEventListener('click', () => {
+      const classData = GAME_SPECS[state.selectedClass];
+      const specData = classData ? classData.specs.find(s => s.id === state.selectedSpec) : null;
+      const className = classData ? classData.className : 'Build';
+      const specName = specData ? specData.name : '';
+      elements.saveBuildNameInput.value = `${className} - ${specName} Custom`;
+      elements.saveBuildModalOverlay.classList.remove('hidden');
+    });
+
+    const closeModal = () => {
+      elements.saveBuildModalOverlay.classList.add('hidden');
+    };
+
+    if (elements.closeSaveBuildModalBtn) elements.closeSaveBuildModalBtn.addEventListener('click', closeModal);
+    if (elements.cancelSaveBuildBtn) elements.cancelSaveBuildBtn.addEventListener('click', closeModal);
+
+    if (elements.confirmSaveBuildBtn) {
+      elements.confirmSaveBuildBtn.addEventListener('click', () => {
+        const buildName = elements.saveBuildNameInput.value.trim() || 'Minha Build Customizada';
+        const buildString = exportOfficialBuildString();
+
+        const savedBuilds = JSON.parse(localStorage.getItem('claudecraft_user_builds') || '[]');
+        const newBuild = {
+          id: 'user_' + Date.now(),
+          name: buildName,
+          classKey: state.selectedClass,
+          specId: state.selectedSpec,
+          choices: { ...state.selectedChoices },
+          string: buildString,
+          createdAt: new Date().toLocaleDateString('pt-BR')
+        };
+
+        savedBuilds.unshift(newBuild);
+        localStorage.setItem('claudecraft_user_builds', JSON.stringify(savedBuilds));
+
+        closeModal();
+        showToast(`Build "${buildName}" salva com sucesso no navegador! 💾`);
+      });
     }
   }
 
