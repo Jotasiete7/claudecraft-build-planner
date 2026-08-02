@@ -211,6 +211,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function getOrCreateAnonId() {
+    let anonId = localStorage.getItem('claudecraft_anon_id');
+    if (!anonId) {
+      anonId = 'anon_' + Math.random().toString(36).substring(2, 15) + Date.now().toString(36);
+      localStorage.setItem('claudecraft_anon_id', anonId);
+    }
+    return anonId;
+  }
+
+  async function recordBuildAction(actionType, buildString, extraData = {}) {
+    const anonId = getOrCreateAnonId();
+    const discordId = localStorage.getItem('claudecraft_discord_id') || null;
+
+    try {
+      await fetch('/api/action', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          buildId: buildString,
+          anonId: anonId,
+          actionType: actionType,
+          discordId: discordId,
+          classKey: state.selectedClass,
+          specId: state.selectedSpec,
+          buildName: extraData.name || 'Custom Build'
+        })
+      });
+    } catch (e) {
+      // Silent background tracking
+    }
+  }
+
   function setupSaveBuildModal() {
     if (!elements.saveBuildBtn) return;
 
@@ -249,6 +281,8 @@ document.addEventListener('DOMContentLoaded', () => {
         savedBuilds.unshift(newBuild);
         localStorage.setItem('claudecraft_user_builds', JSON.stringify(savedBuilds));
 
+        recordBuildAction('save', buildString, { name: buildName });
+
         closeModal();
         showToast(`Build "${buildName}" salva com sucesso no navegador! 💾`);
       });
@@ -261,6 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.copyLiveStringBtn.addEventListener('click', () => {
         const liveString = exportOfficialBuildString();
         navigator.clipboard.writeText(liveString);
+        recordBuildAction('share', liveString);
         showToast('String oficial do jogo copiada para a área de transferência!');
       });
     }
