@@ -1298,6 +1298,8 @@ document.addEventListener('DOMContentLoaded', () => {
             state.selectedClass = metaState.activeClassKey;
           }
           switchTab('builder');
+          const builderWorkspace = document.getElementById('builderWorkspace');
+          if (builderWorkspace) builderWorkspace.scrollIntoView({ behavior: 'smooth' });
         });
       }
       return;
