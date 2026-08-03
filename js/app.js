@@ -478,7 +478,7 @@ document.addEventListener('DOMContentLoaded', () => {
               </div>
               <div>
                 <h3 class="font-serif text-lg font-bold text-wurm-text">${classData.className}</h3>
-                <div class="text-[10px] font-mono uppercase text-wurm-muted">${classData.armorType.toUpperCase()} ARMOR • ${classData.resource}</div>
+                <div class="text-[10px] font-mono uppercase text-wurm-muted">${classData.armorType.toUpperCase()} ${getI18nText('armor_label')} • ${classData.resource}</div>
               </div>
             </div>
           </div>
@@ -488,7 +488,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
 
         <button class="w-full py-2.5 rounded font-mono text-xs font-bold uppercase transition-all" style="background-color: ${classData.color}; color: #050505">
-          SELECIONAR TALENTOS
+          ${getI18nText('select_talents_btn')}
         </button>
       `;
 
@@ -1254,11 +1254,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Phase 4: Cold Start Header Rule
     if (titleText) {
-      if (isColdStart) {
-        titleText.textContent = '🆕 Builds Recentes da Comunidade';
-      } else {
-        titleText.textContent = '🔥 Builds Meta em Destaque';
-      }
+      titleText.textContent = getI18nText(isColdStart ? 'meta_recent_header' : 'meta_header');
     }
 
     // Phase 6: Error State
@@ -1281,10 +1277,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const emptyHTML = `
         <div class="col-span-full p-10 text-center bg-wurm-panel border border-wurm-border rounded-lg space-y-4">
           <div class="text-4xl">🏹</div>
-          <div class="font-serif text-lg text-wurm-text font-bold">Nenhuma build encontrada com estes filtros.</div>
-          <p class="text-xs text-wurm-muted max-w-md mx-auto">Que tal criar a sua e ser a primeira dessa combinação?</p>
+          <div class="font-serif text-lg text-wurm-text font-bold">${getI18nText('empty_meta_title')}</div>
+          <p class="text-xs text-wurm-muted max-w-md mx-auto">${getI18nText('empty_meta_sub')}</p>
           <button id="emptyStateCtaBtn" class="px-6 py-2.5 bg-wurm-accent text-wurm-bg hover:bg-wurm-accentDim font-mono text-xs font-bold uppercase rounded shadow transition-all cursor-pointer">
-            ⚒️ Criar Nova Build Agora
+            ${getI18nText('create_build_now')}
           </button>
         </div>
       `;
@@ -1323,7 +1319,7 @@ document.addEventListener('DOMContentLoaded', () => {
               </span>
             </div>
             <div class="flex items-center gap-2 text-[11px] font-mono text-wurm-muted mb-3">
-              <span>Especialização: <strong class="text-wurm-text">${(buildInfo.spec_id || '').toUpperCase()}</strong></span>
+              <span>Spec: <strong class="text-wurm-text">${(buildInfo.spec_id || '').toUpperCase()}</strong></span>
               <span>•</span>
               <span class="uppercase text-wurm-accent">${buildInfo.role || 'DPS'}</span>
               ${buildInfo.verified_by_guild ? '<span class="text-amber-400 font-bold">👑 Guilda</span>' : ''}
@@ -1333,14 +1329,14 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="space-y-3 border-t border-wurm-border pt-3">
             <div class="flex items-center justify-between text-xs font-mono">
               <span class="text-emerald-400 font-bold">💾 ${item.save_count || 0} Saves</span>
-              <span class="text-wurm-accent font-bold">📋 ${item.share_count || 0} Compartilhamentos</span>
+              <span class="text-wurm-accent font-bold">📋 ${item.share_count || 0} Shares</span>
             </div>
             <div class="flex gap-2">
               <button class="preset-load-btn flex-1 py-2 bg-white/5 hover:bg-white/10 text-wurm-text font-mono text-xs font-bold uppercase rounded border border-wurm-border transition-all cursor-pointer">
-                Carregar no Site
+                ${getI18nText('load_on_site')}
               </button>
-              <button class="preset-copy-btn px-3 py-2 bg-wurm-accent/15 hover:bg-wurm-accent hover:text-wurm-bg text-wurm-accent font-mono text-xs font-bold uppercase rounded border border-wurm-accent transition-all cursor-pointer" title="Copiar String do Jogo">
-                📋 String
+              <button class="preset-copy-btn px-3 py-2 bg-wurm-accent/15 hover:bg-wurm-accent hover:text-wurm-bg text-wurm-accent font-mono text-xs font-bold uppercase rounded border border-wurm-accent transition-all cursor-pointer" title="Copiar String">
+                ${getI18nText('copy_string_short')}
               </button>
             </div>
           </div>
@@ -1372,13 +1368,13 @@ document.addEventListener('DOMContentLoaded', () => {
         <table class="w-full text-left font-mono text-xs border-collapse">
           <thead>
             <tr class="border-b border-wurm-border text-wurm-accent uppercase text-[10px] bg-white/5">
-              <th class="p-3">Build</th>
-              <th class="p-3">Classe</th>
-              <th class="p-3">Spec</th>
-              <th class="p-3">Role</th>
-              <th class="p-3 text-center">Saves</th>
-              <th class="p-3 text-center">Shares</th>
-              <th class="p-3 text-right">Ação</th>
+              <th class="p-3">${getI18nText('table_build')}</th>
+              <th class="p-3">${getI18nText('table_class')}</th>
+              <th class="p-3">${getI18nText('table_spec')}</th>
+              <th class="p-3">${getI18nText('table_role')}</th>
+              <th class="p-3 text-center">${getI18nText('table_saves')}</th>
+              <th class="p-3 text-center">${getI18nText('table_shares')}</th>
+              <th class="p-3 text-right">${getI18nText('table_action')}</th>
             </tr>
           </thead>
           <tbody>
@@ -1395,7 +1391,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   <td class="p-3 text-center text-wurm-accent font-bold">${item.share_count || 0}</td>
                   <td class="p-3 text-right">
                     <button class="list-load-btn px-2.5 py-1 bg-wurm-accent/15 border border-wurm-accent text-wurm-accent text-[11px] font-bold uppercase rounded hover:bg-wurm-accent hover:text-wurm-bg" data-string="${b.id}">
-                      Carregar
+                      ${getI18nText('table_load')}
                     </button>
                   </td>
                 </tr>
