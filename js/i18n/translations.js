@@ -72,7 +72,12 @@ const TRANSLATIONS = {
     table_load: "Carregar",
 
     load_on_site: "Carregar no Site",
-    copy_string_short: "\u{1F4CB} String"
+    copy_string_short: "\u{1F4CB} String",
+
+    wiki_banner_title: "\u{1F4D6} Wiki de Itens & Banco de Dados em Expans\u00E3o",
+    wiki_banner_sub: "Estamos catalogando os atributos, iLvls e fontes de drop de todos os equipamentos do jogo. Em breve o banco de dados completo estar\u00E1 dispon\u00EDvel aqui.",
+    wiki_bis_preview: "Itens BiS Recomendados (Pr\u00E9via)",
+    wiki_status_badge: "\u{26A1} Sincronizando com Supabase..."
   },
   en: {
     nav_gallery: "Class Gallery",
@@ -142,7 +147,12 @@ const TRANSLATIONS = {
     table_load: "Load",
 
     load_on_site: "Load on Site",
-    copy_string_short: "\u{1F4CB} String"
+    copy_string_short: "\u{1F4CB} String",
+
+    wiki_banner_title: "\u{1F4D6} Item Wiki & Database Expanding",
+    wiki_banner_sub: "We are cataloging stats, iLvls, and drop sources for all in-game equipment. The full searchable database will be live here soon.",
+    wiki_bis_preview: "Recommended BiS Items (Preview)",
+    wiki_status_badge: "\u{26A1} Syncing with Supabase..."
   },
   fr: {
     nav_gallery: "Galerie de Classes",
@@ -212,7 +222,12 @@ const TRANSLATIONS = {
     table_load: "Charger",
 
     load_on_site: "Charger sur le Site",
-    copy_string_short: "\u{1F4CB} String"
+    copy_string_short: "\u{1F4CB} String",
+
+    wiki_banner_title: "\u{1F4D6} Wiki d'Objets & Base de Donn\u00E9es en Expansion",
+    wiki_banner_sub: "Nous cataloguons les statistiques, iLvls et sources de drop de tous les \u00E9quipements du jeu. La base de donn\u00E9es compl\u00E8te sera disponible ici tr\u00E8s bient\u00F4t.",
+    wiki_bis_preview: "Objets BiS Recommand\u00E9s (Aper\u00E7u)",
+    wiki_status_badge: "\u{26A1} Synchronisation Supabase..."
   },
   es: {
     nav_gallery: "Galer\u00EDa de Clases",
@@ -282,7 +297,12 @@ const TRANSLATIONS = {
     table_load: "Cargar",
 
     load_on_site: "Cargar en el Sitio",
-    copy_string_short: "\u{1F4CB} String"
+    copy_string_short: "\u{1F4CB} String",
+
+    wiki_banner_title: "\u{1F4D6} Wiki de Objetos y Base de Datos en Expansi\u00F3n",
+    wiki_banner_sub: "Estamos catalogando las estad\u00EDsticas, iLvls y fuentes de loteo de todo el equipo del juego. La base de datos completa estar\u00E1 disponible aqu\u00ED pronto.",
+    wiki_bis_preview: "Objetos BiS Recomendados (Vista previa)",
+    wiki_status_badge: "\u{26A1} Sincronizando con Supabase..."
   }
 };
 

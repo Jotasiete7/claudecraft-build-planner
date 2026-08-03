@@ -424,9 +424,24 @@
 
     <!-- SECTION 4: Wiki Tab -->
     <section id="wikiTab" class="tab-panel hidden space-y-6">
-      <div class="border-b border-wurm-border pb-4">
-        <h2 class="font-serif text-xl font-bold text-wurm-accent">Wiki de Itens de World of Claudecraft</h2>
+      <!-- Option A: Professional "Under Expansion" Banner -->
+      <div class="bg-wurm-panel border border-wurm-accent/40 rounded-lg p-6 space-y-3 shadow-xl">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-wurm-accent/15 border border-wurm-accent flex items-center justify-center text-xl flex-shrink-0">
+            📖
+          </div>
+          <div>
+            <h2 class="font-serif text-lg font-bold text-wurm-accent" data-i18n="wiki_banner_title">📖 Wiki de Itens & Banco de Dados em Expansão</h2>
+            <p class="text-xs text-wurm-muted font-sans mt-0.5" data-i18n="wiki_banner_sub">Estamos catalogando os atributos, iLvls e fontes de drop de todos os equipamentos do jogo. Em breve o banco de dados completo estará disponível aqui.</p>
+          </div>
+        </div>
       </div>
+
+      <div class="border-b border-wurm-border/60 pb-3 flex items-center justify-between">
+        <h3 class="font-serif text-sm font-bold text-wurm-text uppercase" data-i18n="wiki_bis_preview">Itens Recomendados BiS (Prévia)</h3>
+        <span class="text-[11px] font-mono text-wurm-accent font-bold" data-i18n="wiki_status_badge">⚡ Sincronizando com Supabase...</span>
+      </div>
+
       <div id="wikiItemsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </section>
 
