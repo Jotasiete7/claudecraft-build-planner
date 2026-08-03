@@ -1507,35 +1507,6 @@ document.addEventListener('DOMContentLoaded', () => {
     showToast('Texto para Discord copiado!');
   });
 
-  // Wiki
-  function setupWiki() {
-    renderWikiItems();
-  }
-
-  function renderWikiItems() {
-    elements.wikiItemsGrid.innerHTML = '';
-    GAME_ITEMS.forEach(item => {
-      const rarityColor = getRarityColor(item.quality);
-      const card = document.createElement('div');
-      card.className = 'bg-wurm-panel p-4 rounded border border-wurm-border hover:border-wurm-accent transition-all flex flex-col justify-between';
-
-      card.innerHTML = `
-        <div class="flex items-start gap-3">
-          <div class="w-10 h-10 rounded bg-wurm-bg border flex items-center justify-center text-sm overflow-hidden flex-shrink-0" style="border-color: ${rarityColor}">
-            ${item.iconUrl ? `<img src="${item.iconUrl}" class="w-full h-full object-cover">` : '🎒'}
-          </div>
-          <div>
-            <div class="font-serif font-bold text-sm mb-1" style="color: ${rarityColor}">${item.name}</div>
-            <div class="text-[10px] font-mono text-wurm-accent mb-2">iLvl ${item.ilvl} | ${item.slot.toUpperCase()}</div>
-          </div>
-        </div>
-        <div class="text-[10px] text-wurm-muted border-t border-wurm-border pt-2 font-mono mt-3">${item.source}</div>
-      `;
-
-      elements.wikiItemsGrid.appendChild(card);
-    });
-  }
-
   function showToast(msg) {
     elements.toastMessage.textContent = msg;
     elements.toastNotification.classList.remove('hidden');
