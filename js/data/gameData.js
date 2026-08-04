@@ -1053,7 +1053,15 @@ const GAME_SPECS = {
       }
     ],
     spellbook: [
-      { id: 'starfire', name: 'Starfire', type: 'Spell', cost: '110 Mana', cooldown: '3.0s cast', iconUrl: getSkillIconUrl('druid', 'starfire'), desc: 'Calls down star beam dealing heavy Arcane damage.' }
+      { id: 'bear_form', name: 'Bear Form', type: 'Shapeshift', cost: '120 Mana', cooldown: 'Instant', iconUrl: getSkillIconUrl('druid', 'bear_form'), desc: 'Shapeshift into a bear: armor +130%, greatly increased attack power, your attacks build rage and generate 30% more threat. Cast again to return to caster form.' },
+      { id: 'maul', name: 'Maul', type: 'Physical Attack', cost: '15 Rage', cooldown: 'Instant', iconUrl: getSkillIconUrl('druid', 'maul'), desc: 'A vicious strike dealing heavy physical damage in Bear Form.' },
+      { id: 'swipe', name: 'Swipe', type: 'Physical Attack', cost: '20 Rage', cooldown: 'Instant', iconUrl: getSkillIconUrl('druid', 'swipe'), desc: 'Swipe nearby enemies dealing physical damage to up to 3 targets.' },
+      { id: 'starfire', name: 'Starfire', type: 'Spell', cost: '110 Mana', cooldown: '3.0s cast', iconUrl: getSkillIconUrl('druid', 'starfire'), desc: 'Calls down star beam dealing heavy Arcane damage.' },
+      { id: 'wrath', name: 'Wrath', type: 'Spell', cost: '65 Mana', cooldown: '1.5s cast', iconUrl: getSkillIconUrl('druid', 'wrath'), desc: 'Hurls a ball of Nature energy at the target.' },
+      { id: 'moonfire', name: 'Moonfire', type: 'Spell', cost: '75 Mana', cooldown: 'Instant', iconUrl: getSkillIconUrl('druid', 'moonfire'), desc: 'Burns the enemy with Lunar damage and additional damage over 12 sec.' },
+      { id: 'rejuvenation', name: 'Rejuvenation', type: 'Heal', cost: '90 Mana', cooldown: 'Instant', iconUrl: getSkillIconUrl('druid', 'rejuvenation'), desc: 'Heals the target over 12 sec.' },
+      { id: 'regrowth', name: 'Regrowth', type: 'Heal', cost: '140 Mana', cooldown: '1.5s cast', iconUrl: getSkillIconUrl('druid', 'regrowth'), desc: 'Heals a friendly target instantly and over 21 sec.' },
+      { id: 'tranquility', name: 'Tranquility', type: 'Heal', cost: '250 Mana', cooldown: '3.0m', iconUrl: getSkillIconUrl('druid', 'tranquility'), desc: 'Causes rain of healing energy to heal all party members within 30 yd every 2 sec for 8 sec.' }
     ]
   }
 };
