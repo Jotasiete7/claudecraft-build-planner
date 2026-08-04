@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
         recordBuildAction('save', buildString, { name: buildName });
 
         closeModal();
-        showToast(`Build "${buildName}" salva com sucesso no navegador! 💾`);
+        showToast(getI18nText('toast_saved_success', { name: buildName }));
       });
     }
   }
@@ -296,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const liveString = exportOfficialBuildString();
         navigator.clipboard.writeText(liveString);
         recordBuildAction('share', liveString);
-        showToast('String oficial do jogo copiada para a área de transferência!');
+        showToast(getI18nText('toast_string_copied'));
       });
     }
   }
@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
           state.selectedClass = targetClass;
         }
         switchTab('builder');
-        showToast('Build carregada via Link Direto!');
+        showToast(getI18nText('toast_link_loaded'));
         return true;
       }
     }
@@ -837,16 +837,16 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.confirmGameImportBtn.addEventListener('click', () => {
       const str = elements.gameImportTextarea.value.trim();
       if (!str) {
-        showToast('Por favor, cole uma string de build válida.');
+        showToast(getI18nText('toast_invalid_string'));
         return;
       }
       const result = importOfficialBuildStringDetailed(str);
       if (result.success) {
         elements.gameImportModalOverlay.classList.add('hidden');
         switchTab('builder');
-        showToast('Build oficial importada com sucesso!');
+        showToast(getI18nText('toast_import_success'));
       } else {
-        showToast(`Erro: ${result.error}`);
+        showToast(getI18nText('toast_error', { error: result.error }));
       }
     });
 
@@ -866,7 +866,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     elements.copyGameExportBtn.addEventListener('click', () => {
       navigator.clipboard.writeText(elements.gameExportTextarea.value);
-      showToast('String oficial do jogo copiada!');
+      showToast(getI18nText('toast_short_string_copied'));
     });
 
     elements.closeGameExportModalBtn.addEventListener('click', () => {
@@ -885,7 +885,7 @@ document.addEventListener('DOMContentLoaded', () => {
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      showToast('Arquivo .wocbuild baixado!');
+      showToast(getI18nText('toast_file_downloaded'));
     });
 
     elements.menuUploadFileBtn.addEventListener('click', () => {
@@ -901,9 +901,9 @@ document.addEventListener('DOMContentLoaded', () => {
           const payload = JSON.parse(event.target.result);
           loadBuildFromPayload(payload);
           switchTab('builder');
-          showToast(`Arquivo "${file.name}" carregado!`);
+          showToast(getI18nText('toast_file_loaded', { name: file.name }));
         } catch {
-          showToast('Erro ao ler arquivo.');
+          showToast(getI18nText('toast_file_error'));
         }
       };
       reader.readAsText(file);
@@ -914,7 +914,7 @@ document.addEventListener('DOMContentLoaded', () => {
       renderChoiceRows();
       recalculateStats();
       updateUrlHashState();
-      showToast('Pontos de escolha redefinidos.');
+      showToast(getI18nText('toast_points_reset'));
     });
   }
 
@@ -1030,7 +1030,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderPaperdollSlots();
         recalculateStats();
         closeDrawer();
-        showToast(`Equipado: ${item.name}`);
+        showToast(getI18nText('toast_equipped', { name: item.name }));
       });
 
       elements.drawerItemList.appendChild(card);
@@ -1346,16 +1346,16 @@ document.addEventListener('DOMContentLoaded', () => {
           const success = importOfficialBuildString(buildInfo.id);
           if (success) {
             switchTab('builder');
-            showToast(`Build "${buildInfo.title}" carregada!`);
+            showToast(getI18nText('toast_build_loaded', { name: buildInfo.title }));
           } else {
-            showToast('Erro ao carregar build.');
+            showToast(getI18nText('toast_build_load_error'));
           }
         });
 
         card.querySelector('.preset-copy-btn').addEventListener('click', () => {
           navigator.clipboard.writeText(buildInfo.id);
           recordSupabaseAction('share', buildInfo.id);
-          showToast(`String da build "${buildInfo.title}" copiada!`);
+          showToast(getI18nText('toast_build_string_copied', { name: buildInfo.title }));
         });
 
         cardsContainer.appendChild(card);
@@ -1407,7 +1407,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const ok = importOfficialBuildString(str);
           if (ok) {
             switchTab('builder');
-            showToast('Build carregada no montador!');
+            showToast(getI18nText('toast_builder_loaded'));
           }
         });
       });
@@ -1426,7 +1426,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderActiveBuilderWorkspace();
     switchTab('builder');
     updateUrlHashState();
-    showToast(`Build "${preset.title}" carregada!`);
+    showToast(getI18nText('toast_preset_loaded', { name: preset.title }));
   }
 
   // Tooltip
@@ -1468,14 +1468,14 @@ document.addEventListener('DOMContentLoaded', () => {
   elements.hypeBuildBtn.addEventListener('click', () => {
     const presetId = 'pala_tank_meta';
     if (state.votedBuilds.has(presetId)) {
-      showToast('Você já votou nesta build!');
+      showToast(getI18nText('toast_already_voted'));
       return;
     }
     state.hypeCounts[presetId] = (state.hypeCounts[presetId] || 1420) + 1;
     state.votedBuilds.add(presetId);
     localStorage.setItem('aguilda_voted_builds', JSON.stringify(Array.from(state.votedBuilds)));
     elements.buildHypeCount.textContent = state.hypeCounts[presetId].toLocaleString();
-    showToast('🔥 Hype adicionado!');
+    showToast(getI18nText('toast_hype_added'));
   });
 
   elements.shareUrlBtn.addEventListener('click', openShareModal);
@@ -1504,7 +1504,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   elements.copyMarkdownBtn.addEventListener('click', () => {
     navigator.clipboard.writeText(elements.discordMarkdownTextarea.value);
-    showToast('Texto para Discord copiado!');
+    showToast(getI18nText('toast_discord_copied'));
   });
 
   function showToast(msg) {

@@ -296,7 +296,7 @@
 
         <!-- Subtab 2: ESCOLHAS (6/6) + INTEGRATED SPELLBOOK -->
         <div id="gameSubtabChoices" class="game-subtab-panel hidden space-y-6">
-          <div class="text-xs font-mono text-wurm-muted mb-2">Selecione 1 opção em cada uma das 6 linhas de nível para compor sua build:</div>
+          <div class="text-xs font-mono text-wurm-muted mb-2" data-i18n="choices_sub_instruction">Selecione 1 opção em cada uma das 6 linhas de nível para compor sua build:</div>
           
           <!-- 6 Choice Rows -->
           <div id="choicesRowsContainer" class="space-y-3">
@@ -306,10 +306,10 @@
           <!-- Integrated Spellbook Section Directly inside Talent Choices -->
           <div class="border-t border-wurm-border/80 pt-6 space-y-4">
             <div class="flex items-center justify-between border-b border-wurm-border/60 pb-3">
-              <h3 id="spellbookTitleHeader" class="font-serif text-base font-bold text-wurm-accent flex items-center gap-2">
+              <h3 id="spellbookTitleHeader" class="font-serif text-base font-bold text-wurm-accent flex items-center gap-2" data-i18n="spellbook_title">
                 📖 Livro de Feitiços & Habilidades Base da Classe
               </h3>
-              <span class="text-xs font-mono text-wurm-muted">Consulte as habilidades passivas e ativas enquanto escolhe os talentos</span>
+              <span class="text-xs font-mono text-wurm-muted" data-i18n="spellbook_sub">Consulte as habilidades passivas e ativas enquanto escolhe os talentos</span>
             </div>
             <div id="spellbookGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <!-- Rendered by JS -->
@@ -329,7 +329,7 @@
             <div class="bg-wurm-bg p-6 rounded border border-wurm-border space-y-4">
               <div class="flex items-center justify-between border-b border-wurm-border pb-3 font-mono text-xs text-wurm-accent uppercase font-bold">
                 <span>Atributos Totais da Build</span>
-                <span>iLvl Médio: <strong id="statILvl" class="text-wurm-text">88</strong></span>
+                <span><span data-i18n="stat_avg_ilvl">iLvl Médio:</span> <strong id="statILvl" class="text-wurm-text">88</strong></span>
               </div>
               <div class="grid grid-cols-2 gap-3 pt-2 font-mono text-xs">
                 <div class="bg-wurm-panel p-3 rounded border border-wurm-border">
@@ -341,16 +341,16 @@
                   <div id="statResource" class="text-base font-bold text-wurm-text mt-0.5">1.400</div>
                 </div>
                 <div class="bg-wurm-panel p-3 rounded border border-wurm-border">
-                  <div class="text-[10px] text-wurm-muted uppercase">Armadura</div>
+                  <div class="text-[10px] text-wurm-muted uppercase" data-i18n="armor_label">Armadura</div>
                   <div id="statArmor" class="text-base font-bold text-wurm-text mt-0.5">1.450</div>
                 </div>
                 <div class="bg-wurm-panel p-3 rounded border border-wurm-border">
-                  <div class="text-[10px] text-wurm-muted uppercase">Crítico</div>
+                  <div class="text-[10px] text-wurm-muted uppercase" data-i18n="stat_crit">Crítico</div>
                   <div id="statCrit" class="text-base font-bold text-wurm-text mt-0.5">18.5%</div>
                 </div>
               </div>
               <div class="flex gap-3 pt-2">
-                <button id="applyBiSBtn" class="flex-1 py-2 text-xs font-mono font-bold bg-wurm-accent text-wurm-bg rounded hover:bg-wurm-accentDim">⭐ Aplicar Set BiS Recomendado</button>
+                <button id="applyBiSBtn" class="flex-1 py-2 text-xs font-mono font-bold bg-wurm-accent text-wurm-bg rounded hover:bg-wurm-accentDim" data-i18n="apply_bis_set">⭐ Aplicar Set BiS Recomendado</button>
               </div>
             </div>
           </div>
@@ -429,7 +429,7 @@
         <button id="closeGameImportModalBtn" class="text-wurm-muted hover:text-wurm-text text-xl">&times;</button>
       </div>
       <div class="space-y-2">
-        <label class="text-xs font-mono text-wurm-text">Cole uma string de build exportada do jogo (começa com eyJ2...):</label>
+        <label class="text-xs font-mono text-wurm-text" data-i18n="import_modal_instruction">Cole uma string de build exportada do jogo (começa com eyJ2...):</label>
         <textarea id="gameImportTextarea" rows="4" placeholder="eyJ2IjoyLCJjIjoicGFsYWRpbiIsInMiOiJwcm90ZWN0aW9uIiwiciI6eyJ..." class="w-full bg-wurm-bg border border-wurm-border rounded p-3 text-xs text-wurm-accent font-mono focus:outline-none focus:border-wurm-accent"></textarea>
       </div>
       <div class="flex justify-end gap-3 pt-2">

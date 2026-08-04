@@ -21,6 +21,7 @@ const TRANSLATIONS = {
     step_spec: "1. ESPECIALIZA\u00C7\u00C3O",
     step_choices: "2. ESCOLHAS (6/6)",
     step_bis: "3. EQUIPAMENTOS BiS",
+    choices_sub_instruction: "Selecione 1 op\u00E7\u00E3o em cada uma das 6 linhas de n\u00EDvel para compor sua build:",
     
     live_string_label: "String do Jogo (Ao Vivo):",
     select_talents_btn: "SELECIONAR TALENTOS",
@@ -34,7 +35,7 @@ const TRANSLATIONS = {
     sort_shares: "\u{1F4CB} Mais Compartilhadas",
     sort_recent: "\u{23F1}\uFE0F Mais Recentes",
     
-    patch_current: "Patch v0.33.1 (Atual)",
+    patch_current: "Patch v0.34.0 (Atual)",
     patch_all: "Todos os Patches",
     
     view_cards: "\u{1F4B4} Cards",
@@ -58,9 +59,13 @@ const TRANSLATIONS = {
     save_modal_placeholder: "Ex: Paladin Holy Tank Raid 2026",
     save_modal_cancel: "CANCELAR",
     save_modal_save: "SALVAR NO NAVEGADOR",
+    import_modal_instruction: "Cole uma string de build exportada do jogo (come\u00E7a com eyJ2...):",
 
     armor_label: "ARMADURA",
     primary_stat_label: "ATRIBUTO PRIM\u00C1RIO",
+    stat_avg_ilvl: "iLvl M\u00E9dio:",
+    stat_crit: "Cr\u00EDtico",
+    apply_bis_set: "\u{26A1} Aplicar Set BiS Recomendado",
 
     table_build: "Build",
     table_class: "Classe",
@@ -77,7 +82,29 @@ const TRANSLATIONS = {
     wiki_banner_title: "\u{1F4D6} Wiki de Itens & Banco de Dados em Expans\u00E3o",
     wiki_banner_sub: "Estamos catalogando os atributos, iLvls e fontes de drop de todos os equipamentos do jogo. Em breve o banco de dados completo estar\u00E1 dispon\u00EDvel aqui.",
     wiki_bis_preview: "Itens BiS Recomendados (Pr\u00E9via)",
-    wiki_status_badge: "\u{26A1} Sincronizando com Supabase..."
+    wiki_status_badge: "\u{26A1} Sincronizando com Supabase...",
+
+    // Mensagens de Toast Notifica\u00E7\u00F5es (PT)
+    toast_saved_success: "Build \"{name}\" salva com sucesso no navegador! \u{1F4BE}",
+    toast_string_copied: "String oficial do jogo copiada para a \u00E1rea de transfer\u00EAncia!",
+    toast_link_loaded: "Build carregada via Link Direto!",
+    toast_invalid_string: "Por favor, cole uma string de build v\u00E1lida.",
+    toast_import_success: "Build oficial importada com sucesso!",
+    toast_error: "Erro: {error}",
+    toast_short_string_copied: "String oficial do jogo copiada!",
+    toast_file_downloaded: "Arquivo .wocbuild baixado!",
+    toast_file_loaded: "Arquivo \"{name}\" carregado!",
+    toast_file_error: "Erro ao ler arquivo.",
+    toast_points_reset: "Pontos de escolha redefinidos.",
+    toast_equipped: "Equipado: {name}",
+    toast_build_loaded: "Build \"{name}\" carregada!",
+    toast_build_load_error: "Erro ao carregar build.",
+    toast_build_string_copied: "String da build \"{name}\" copiada!",
+    toast_builder_loaded: "Build carregada no montador!",
+    toast_preset_loaded: "Build \"{name}\" carregada!",
+    toast_already_voted: "Voc\u00EA j\u00E1 votou nesta build!",
+    toast_hype_added: "\u{1F525} Hype adicionado!",
+    toast_discord_copied: "Texto para Discord copiado!"
   },
   en: {
     nav_gallery: "Class Gallery",
@@ -96,6 +123,7 @@ const TRANSLATIONS = {
     step_spec: "1. SPECIALIZATION",
     step_choices: "2. TALENTS (6/6)",
     step_bis: "3. BiS GEAR",
+    choices_sub_instruction: "Select 1 option on each of the 6 level rows to construct your build:",
     
     live_string_label: "Live Game String:",
     select_talents_btn: "SELECT TALENTS",
@@ -109,7 +137,7 @@ const TRANSLATIONS = {
     sort_shares: "\u{1F4CB} Most Shared",
     sort_recent: "\u{23F1}\uFE0F Most Recent",
     
-    patch_current: "Patch v0.33.1 (Current)",
+    patch_current: "Patch v0.34.0 (Current)",
     patch_all: "All Patches",
     
     view_cards: "\u{1F4B4} Cards",
@@ -133,9 +161,13 @@ const TRANSLATIONS = {
     save_modal_placeholder: "E.g. Paladin Holy Tank Raid 2026",
     save_modal_cancel: "CANCEL",
     save_modal_save: "SAVE TO BROWSER",
+    import_modal_instruction: "Paste an exported in-game build string (starts with eyJ2...):",
 
     armor_label: "ARMOR",
     primary_stat_label: "PRIMARY STAT",
+    stat_avg_ilvl: "Avg iLvl:",
+    stat_crit: "Critical Strike",
+    apply_bis_set: "\u{26A1} Apply Recommended BiS Set",
 
     table_build: "Build",
     table_class: "Class",
@@ -152,7 +184,29 @@ const TRANSLATIONS = {
     wiki_banner_title: "\u{1F4D6} Item Wiki & Database Expanding",
     wiki_banner_sub: "We are cataloging stats, iLvls, and drop sources for all in-game equipment. The full searchable database will be live here soon.",
     wiki_bis_preview: "Recommended BiS Items (Preview)",
-    wiki_status_badge: "\u{26A1} Syncing with Supabase..."
+    wiki_status_badge: "\u{26A1} Syncing with Supabase...",
+
+    // Toast Notifications (EN)
+    toast_saved_success: "Build \"{name}\" saved to browser successfully! \u{1F4BE}",
+    toast_string_copied: "Official game string copied to clipboard!",
+    toast_link_loaded: "Build loaded via Direct Link!",
+    toast_invalid_string: "Please paste a valid build string.",
+    toast_import_success: "Official build imported successfully!",
+    toast_error: "Error: {error}",
+    toast_short_string_copied: "Official game string copied!",
+    toast_file_downloaded: ".wocbuild file downloaded!",
+    toast_file_loaded: "File \"{name}\" loaded!",
+    toast_file_error: "Error reading file.",
+    toast_points_reset: "Talent choices reset.",
+    toast_equipped: "Equipped: {name}",
+    toast_build_loaded: "Build \"{name}\" loaded!",
+    toast_build_load_error: "Error loading build.",
+    toast_build_string_copied: "Build \"{name}\" string copied!",
+    toast_builder_loaded: "Build loaded into builder!",
+    toast_preset_loaded: "Build \"{name}\" loaded!",
+    toast_already_voted: "You have already voted for this build!",
+    toast_hype_added: "\u{1F525} Hype added!",
+    toast_discord_copied: "Discord text copied!"
   },
   fr: {
     nav_gallery: "Galerie de Classes",
@@ -171,6 +225,7 @@ const TRANSLATIONS = {
     step_spec: "1. SP\u00C9CIALISATION",
     step_choices: "2. TALENTS (6/6)",
     step_bis: "3. \u00C9QUIPEMENT BiS",
+    choices_sub_instruction: "S\u00E9lectionnez 1 option sur chacune des 6 lignes pour cr\u00E9er votre build :",
     
     live_string_label: "String du Jeu En Direct:",
     select_talents_btn: "S\u00C9LECTIONNER TALENTS",
@@ -184,7 +239,7 @@ const TRANSLATIONS = {
     sort_shares: "\u{1F4CB} Plus Partag\u00E9s",
     sort_recent: "\u{23F1}\uFE0F Plus R\u00E9cents",
     
-    patch_current: "Patch v0.33.1 (Actuel)",
+    patch_current: "Patch v0.34.0 (Actuel)",
     patch_all: "Tous les Patches",
     
     view_cards: "\u{1F4B4} Cartes",
@@ -208,9 +263,13 @@ const TRANSLATIONS = {
     save_modal_placeholder: "Ex: Paladin Sacr\u00E9 Tank Raid 2026",
     save_modal_cancel: "ANNULER",
     save_modal_save: "ENREGISTRER",
+    import_modal_instruction: "Collez un string de build export\u00E9 du jeu (commence par eyJ2...):",
 
     armor_label: "ARMURE",
     primary_stat_label: "STAT PRIMAIRE",
+    stat_avg_ilvl: "iLvl Moyen:",
+    stat_crit: "Coup Critique",
+    apply_bis_set: "\u{26A1} Appliquer le Set BiS Recommand\u00E9",
 
     table_build: "Build",
     table_class: "Classe",
@@ -227,7 +286,29 @@ const TRANSLATIONS = {
     wiki_banner_title: "\u{1F4D6} Wiki d'Objets & Base de Donn\u00E9es en Expansion",
     wiki_banner_sub: "Nous cataloguons les statistiques, iLvls et sources de drop de tous les \u00E9quipements du jeu. La base de donn\u00E9es compl\u00E8te sera disponible ici tr\u00E8s bient\u00F4t.",
     wiki_bis_preview: "Objets BiS Recommand\u00E9s (Aper\u00E7u)",
-    wiki_status_badge: "\u{26A1} Synchronisation Supabase..."
+    wiki_status_badge: "\u{26A1} Synchronisation Supabase...",
+
+    // Toast Notifications (FR)
+    toast_saved_success: "Build \"{name}\" enregistr\u00E9 avec succ\u00E8s ! \u{1F4BE}",
+    toast_string_copied: "String officielle copi\u00E9e dans le presse-papiers !",
+    toast_link_loaded: "Build charg\u00E9 via Lien Direct !",
+    toast_invalid_string: "Veuillez coller un string de build valide.",
+    toast_import_success: "Build officiel import\u00E9 avec succ\u00E8s !",
+    toast_error: "Erreur : {error}",
+    toast_short_string_copied: "String officielle copi\u00E9e !",
+    toast_file_downloaded: "Fichier .wocbuild t\u00E9l\u00E9charg\u00E9 !",
+    toast_file_loaded: "Fichier \"{name}\" charg\u00E9 !",
+    toast_file_error: "Erreur de lecture du fichier.",
+    toast_points_reset: "Choix de talents r\u00E9initialis\u00E9s.",
+    toast_equipped: "\u00C9quip\u00E9 : {name}",
+    toast_build_loaded: "Build \"{name}\" charg\u00E9 !",
+    toast_build_load_error: "Erreur lors du chargement du build.",
+    toast_build_string_copied: "String du build \"{name}\" copi\u00E9 !",
+    toast_builder_loaded: "Build charg\u00E9 dans le simulateur !",
+    toast_preset_loaded: "Build \"{name}\" charg\u00E9 !",
+    toast_already_voted: "Vous avez d\u00E9j\u00E0 vot\u00E9 pour ce build !",
+    toast_hype_added: "\u{1F525} Hype ajout\u00E9 !",
+    toast_discord_copied: "Texte Discord copi\u00E9 !"
   },
   es: {
     nav_gallery: "Galer\u00EDa de Clases",
@@ -246,6 +327,7 @@ const TRANSLATIONS = {
     step_spec: "1. ESPECIALIZACI\u00D3N",
     step_choices: "2. TALENTOS (6/6)",
     step_bis: "3. EQUIPO BiS",
+    choices_sub_instruction: "Selecciona 1 opci\u00F3n en cada una de las 6 filas para armar tu build:",
     
     live_string_label: "String del Juego En Vivo:",
     select_talents_btn: "SELECCIONAR TALENTOS",
@@ -259,7 +341,7 @@ const TRANSLATIONS = {
     sort_shares: "\u{1F4CB} M\u00E1s Compartidas",
     sort_recent: "\u{23F1}\uFE0F M\u00E1s Recientes",
     
-    patch_current: "Parche v0.33.1 (Actual)",
+    patch_current: "Parche v0.34.0 (Actual)",
     patch_all: "Todos los Parches",
     
     view_cards: "\u{1F4B4} Tarjetas",
@@ -283,9 +365,13 @@ const TRANSLATIONS = {
     save_modal_placeholder: "Ej: Palad\u00EDn Sagrado Tanque 2026",
     save_modal_cancel: "CANCELAR",
     save_modal_save: "GUARDAR EN NAVEGADOR",
+    import_modal_instruction: "Pega una string de build exportada del juego (empieza con eyJ2...):",
 
     armor_label: "ARMADURA",
     primary_stat_label: "ESTAD\u00CDSTICA PRIMARIA",
+    stat_avg_ilvl: "iLvl Medio:",
+    stat_crit: "Cr\u00EDtico",
+    apply_bis_set: "\u{26A1} Aplicar Set BiS Recomendado",
 
     table_build: "Build",
     table_class: "Clase",
@@ -302,7 +388,29 @@ const TRANSLATIONS = {
     wiki_banner_title: "\u{1F4D6} Wiki de Objetos y Base de Datos en Expansi\u00F3n",
     wiki_banner_sub: "Estamos catalogando las estad\u00EDsticas, iLvls y fuentes de loteo de todo el equipo del juego. La base de datos completa estar\u00E1 disponible aqu\u00ED pronto.",
     wiki_bis_preview: "Objetos BiS Recomendados (Vista previa)",
-    wiki_status_badge: "\u{26A1} Sincronizando con Supabase..."
+    wiki_status_badge: "\u{26A1} Sincronizando con Supabase...",
+
+    // Toast Notifications (ES)
+    toast_saved_success: "\u00A1Build \"{name}\" guardada con \u00E9xito en el navegador! \u{1F4BE}",
+    toast_string_copied: "\u00A1String oficial del juego copiada al portapapeles!",
+    toast_link_loaded: "\u00A1Build cargada mediante Enlace Directo!",
+    toast_invalid_string: "Por favor, pega una string de build v\u00E1lida.",
+    toast_import_success: "\u00A1Build oficial importada con \u00E9xito!",
+    toast_error: "Error: {error}",
+    toast_short_string_copied: "\u00A1String oficial del juego copiada!",
+    toast_file_downloaded: "\u00A1Archivo .wocbuild descargado!",
+    toast_file_loaded: "\u00A1Archivo \"{name}\" cargado!",
+    toast_file_error: "Error al leer el archivo.",
+    toast_points_reset: "Puntos de talentos reiniciados.",
+    toast_equipped: "Equipado: {name}",
+    toast_build_loaded: "\u00A1Build \"{name}\" cargada!",
+    toast_build_load_error: "Error al cargar la build.",
+    toast_build_string_copied: "\u00A1String de la build \"{name}\" copiada!",
+    toast_builder_loaded: "\u00A1Build cargada en el creador!",
+    toast_preset_loaded: "\u00A1Build \"{name}\" cargada!",
+    toast_already_voted: "\u00A1Ya has votado por esta build!",
+    toast_hype_added: "\u00A1\u{1F525} Hype a\u00F1adido!",
+    toast_discord_copied: "\u00A1Texto de Discord copiado!"
   }
 };
 
@@ -316,9 +424,13 @@ function getBrowserLanguage() {
   return 'pt';
 }
 
-function getI18nText(key) {
+function getI18nText(key, params = {}) {
   const dict = TRANSLATIONS[currentLanguage] || TRANSLATIONS.pt;
-  return dict[key] || TRANSLATIONS.pt[key] || key;
+  let text = dict[key] || TRANSLATIONS.pt[key] || key;
+  for (const p in params) {
+    text = text.replace(new RegExp(`\\{${p}\\}`, 'g'), params[p]);
+  }
+  return text;
 }
 
 function setLanguage(lang) {
