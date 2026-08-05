@@ -1342,8 +1342,32 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    // Apply strict filtering across combined data (local + remote)
+    if (metaState.activeClassKey && metaState.activeClassKey !== 'all') {
+      data = data.filter(item => item.builds && item.builds.class_key && item.builds.class_key.toLowerCase() === metaState.activeClassKey.toLowerCase());
+    }
+
+    if (metaState.activeRole && metaState.activeRole !== 'all') {
+      data = data.filter(item => {
+        if (!item.builds) return false;
+        const role = getRoleForClassSpec(item.builds.class_key, item.builds.spec_id);
+        return role.toLowerCase() === metaState.activeRole.toLowerCase();
+      });
+    }
+
     if (metaState.myBuildsOnly) {
       data = data.filter(item => item.builds && item.builds.isLocal);
+    }
+
+    if (metaState.searchQuery) {
+      const q = metaState.searchQuery.toLowerCase();
+      data = data.filter(item => {
+        if (!item.builds) return false;
+        const t = (item.builds.title || '').toLowerCase();
+        const c = (item.builds.class_key || '').toLowerCase();
+        const s = (item.builds.spec_id || '').toLowerCase();
+        return t.includes(q) || c.includes(q) || s.includes(q);
+      });
     }
 
     // Phase 4: Cold Start Header Rule

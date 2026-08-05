@@ -142,9 +142,6 @@ async function fetchMetaBuildsFromSupabase(filters = {}) {
     if (filters.classKey && filters.classKey !== 'all') {
       buildsQuery = buildsQuery.eq('class_key', filters.classKey);
     }
-    if (filters.role && filters.role !== 'all') {
-      buildsQuery = buildsQuery.eq('role', filters.role);
-    }
     if (filters.searchQuery) {
       buildsQuery = buildsQuery.ilike('title', `%${filters.searchQuery}%`);
     }
