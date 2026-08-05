@@ -863,9 +863,9 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.statArmor.textContent = baseArmor;
     elements.statCrit.textContent = `${baseCrit.toFixed(1)}%`;
 
-    elements.buildTitleHeader.textContent = specObj ? `${classData.className} - ${specObj.name}` : 'Build Customizada';
+    elements.buildTitleHeader.textContent = specObj ? `${classData.className} - ${specObj.name}` : getI18nText('default_build_name');
     elements.avatarClassIcon.textContent = classData ? classData.icon : '⚔️';
-    elements.buildHypeCount.textContent = (state.hypeCounts['pala_tank_meta'] || 1420).toLocaleString();
+    elements.buildHypeCount.textContent = (state.currentBuildHype || 0).toLocaleString();
   }
 
   // Loadout Dropdown & Base64 String Protocol (Version 2)
@@ -1327,8 +1327,8 @@ document.addEventListener('DOMContentLoaded', () => {
         created_at: b.createdAt || new Date().toISOString(),
         isLocal: true
       },
-      save_count: 1,
-      share_count: 1
+      save_count: 0,
+      share_count: 0
     }));
 
     let data = [...(supabaseData || [])];
@@ -1583,18 +1583,19 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.wowTooltip.classList.add('hidden');
   }
 
-  // Hype & Share
-  elements.hypeBuildBtn.addEventListener('click', () => {
-    const presetId = 'pala_tank_meta';
-    if (state.votedBuilds.has(presetId)) {
+  // Real-Time Hype & Share Integration via Supabase RPC
+  elements.hypeBuildBtn.addEventListener('click', async () => {
+    const buildString = exportOfficialBuildString();
+    const res = await recordSupabaseShareBuild(buildString);
+
+    if (res && res.success && res.countedTowardShare) {
+      state.currentBuildHype = res.totalShares || 1;
+      elements.buildHypeCount.textContent = state.currentBuildHype.toLocaleString();
+      showToast(getI18nText('toast_hype_added'));
+      loadAndRenderMetaBuilds();
+    } else {
       showToast(getI18nText('toast_already_voted'));
-      return;
     }
-    state.hypeCounts[presetId] = (state.hypeCounts[presetId] || 1420) + 1;
-    state.votedBuilds.add(presetId);
-    localStorage.setItem('aguilda_voted_builds', JSON.stringify(Array.from(state.votedBuilds)));
-    elements.buildHypeCount.textContent = state.hypeCounts[presetId].toLocaleString();
-    showToast(getI18nText('toast_hype_added'));
   });
 
   elements.shareUrlBtn.addEventListener('click', openShareModal);

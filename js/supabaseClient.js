@@ -176,8 +176,8 @@ async function fetchMetaBuildsFromSupabase(filters = {}) {
           verified_by_guild: item.verified_by_guild,
           created_at: item.created_at
         },
-        save_count: pop.save_count || 1,
-        share_count: pop.share_count || 1
+        save_count: pop.save_count || 0,
+        share_count: pop.share_count || 0
       };
     });
 
