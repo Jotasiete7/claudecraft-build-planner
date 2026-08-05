@@ -120,7 +120,9 @@ const TRANSLATIONS = {
     default_build_name: "Minha Build Customizada",
     builder_sample_skills: "Habilidades de Exemplo",
     save_name_conflict_error: "\u26A0\uFE0F O nome \"{name}\" j\u00E1 pertence a outra build da comunidade com talentos diferentes. Escolha um nome \u00FAnico.",
-    save_checking_title: "\u23F3 Verificando nome..."
+    save_checking_title: "\u23F3 Verificando nome...",
+    delete_local_tooltip: "Remover do seu dispositivo",
+    toast_local_deleted: "\uD83D\uDDD1\uFE0F Build \"{name}\" removida do seu dispositivo."
   },
   en: {
     nav_gallery: "Class Gallery",
@@ -238,7 +240,9 @@ const TRANSLATIONS = {
     default_build_name: "My Custom Build",
     builder_sample_skills: "Sample Abilities",
     save_name_conflict_error: "\u26A0\uFE0F The name \"{name}\" is already used by another community build with different talents. Please choose a unique name.",
-    save_checking_title: "\u23F3 Checking name..."
+    save_checking_title: "\u23F3 Checking name...",
+    delete_local_tooltip: "Remove from your device",
+    toast_local_deleted: "\uD83D\uDDD1\uFE0F Build \"{name}\" removed from your device."
   },
   fr: {
     nav_gallery: "Galerie de Classes",
@@ -356,7 +360,9 @@ const TRANSLATIONS = {
     default_build_name: "Mon Build Personnalis\u00E9",
     builder_sample_skills: "Comp\u00E9tences Exemples",
     save_name_conflict_error: "\u26A0\uFE0F Le nom \"{name}\" est d\u00E9j\u00E0 utilis\u00E9 par un autre build avec des talents diff\u00E9rents. Choisissez un nom unique.",
-    save_checking_title: "\u23F3 V\u00E9rification du nom..."
+    save_checking_title: "\u23F3 V\u00E9rification du nom...",
+    delete_local_tooltip: "Supprimer de votre appareil",
+    toast_local_deleted: "\uD83D\uDDD1\uFE0F Build \"{name}\" supprim\u00E9 de votre appareil."
   },
   es: {
     nav_gallery: "Galer\u00EDa de Clases",
@@ -474,7 +480,9 @@ const TRANSLATIONS = {
     default_build_name: "Mi Build Personalizada",
     builder_sample_skills: "Habilidades de Ejemplo",
     save_name_conflict_error: "\u26A0\uFE0F El nombre \"{name}\" ya pertenece a otra build con talentos diferentes. Elige un nombre \u00FAnico.",
-    save_checking_title: "\u23F3 Verificando nombre..."
+    save_checking_title: "\u23F3 Verificando nombre...",
+    delete_local_tooltip: "Eliminar de tu dispositivo",
+    toast_local_deleted: "\uD83D\uDDD1\uFE0F Build \"{name}\" eliminada de tu dispositivo."
   }
 };
 

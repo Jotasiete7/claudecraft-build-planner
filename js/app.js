@@ -1493,7 +1493,12 @@ document.addEventListener('DOMContentLoaded', () => {
               <span>•</span>
               <span class="uppercase text-wurm-accent">${getRoleForClassSpec(buildInfo.class_key, buildInfo.spec_id)}</span>
               ${buildInfo.verified_by_guild ? '<span class="text-amber-400 font-bold">👑 Guilda</span>' : ''}
-              ${buildInfo.isLocal ? `<span class="bg-emerald-950/80 border border-emerald-500/50 text-emerald-400 font-bold px-1.5 py-0.5 rounded text-[10px]">${getI18nText('saved_locally_badge')}</span>` : ''}
+              ${buildInfo.isLocal ? `
+                <div class="inline-flex items-center gap-1 bg-emerald-950/80 border border-emerald-500/50 text-emerald-400 font-bold px-1.5 py-0.5 rounded text-[10px]">
+                  <span>${getI18nText('saved_locally_badge')}</span>
+                  <button class="preset-delete-local-btn text-emerald-400 hover:text-red-400 ml-1 transition-colors cursor-pointer" title="${getI18nText('delete_local_tooltip')}">🗑️</button>
+                </div>
+              ` : ''}
             </div>
           </div>
 
@@ -1512,6 +1517,22 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
           </div>
         `;
+
+        const deleteLocalBtn = card.querySelector('.preset-delete-local-btn');
+        if (deleteLocalBtn) {
+          deleteLocalBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const savedBuilds = JSON.parse(localStorage.getItem('claudecraft_user_builds') || '[]');
+            const updatedBuilds = savedBuilds.filter(b => {
+              const bStr = b.string || b.buildString || b.id;
+              const bName = b.name || '';
+              return bStr !== buildInfo.id && bName !== buildInfo.title;
+            });
+            localStorage.setItem('claudecraft_user_builds', JSON.stringify(updatedBuilds));
+            showToast(getI18nText('toast_local_deleted', { name: buildInfo.title }));
+            loadAndRenderMetaBuilds();
+          });
+        }
 
         card.querySelector('.preset-load-btn').addEventListener('click', () => {
           const success = importOfficialBuildString(buildInfo.id);
