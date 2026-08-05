@@ -1283,6 +1283,14 @@ document.addEventListener('DOMContentLoaded', () => {
       verifiedOnly: metaState.verifiedOnly
     });
 
+    function getRoleForClassSpec(classKey, specId) {
+      if (!classKey || !specId) return 'DPS';
+      const classData = GAME_SPECS[classKey.toLowerCase()];
+      if (!classData || !classData.specs) return 'DPS';
+      const specObj = classData.specs.find(s => s.id.toLowerCase() === specId.toLowerCase());
+      return specObj ? (specObj.role || 'DPS').toUpperCase() : 'DPS';
+    }
+
     const rawLocalBuilds = JSON.parse(localStorage.getItem('claudecraft_user_builds') || '[]');
     const formattedLocalBuilds = rawLocalBuilds.map(b => ({
       builds: {
@@ -1290,7 +1298,7 @@ document.addEventListener('DOMContentLoaded', () => {
         class_key: b.classKey,
         spec_id: b.specId,
         title: b.name,
-        role: 'dps',
+        role: getRoleForClassSpec(b.classKey, b.specId),
         patch_version: 'v0.34.0',
         verified_by_guild: false,
         created_at: b.createdAt || new Date().toISOString(),
@@ -1384,9 +1392,9 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="flex items-center gap-2 text-[11px] font-mono text-wurm-muted mb-3 flex-wrap">
               <span>Spec: <strong class="text-wurm-text">${(buildInfo.spec_id || '').toUpperCase()}</strong></span>
               <span>•</span>
-              <span class="uppercase text-wurm-accent">${buildInfo.role || 'DPS'}</span>
+              <span class="uppercase text-wurm-accent">${getRoleForClassSpec(buildInfo.class_key, buildInfo.spec_id)}</span>
               ${buildInfo.verified_by_guild ? '<span class="text-amber-400 font-bold">👑 Guilda</span>' : ''}
-              ${buildInfo.isLocal ? '<span class="bg-emerald-950/80 border border-emerald-500/50 text-emerald-400 font-bold px-1.5 py-0.5 rounded text-[10px]">💾 Salva Local</span>' : ''}
+              ${buildInfo.isLocal ? `<span class="bg-emerald-950/80 border border-emerald-500/50 text-emerald-400 font-bold px-1.5 py-0.5 rounded text-[10px]">${getI18nText('saved_locally_badge')}</span>` : ''}
             </div>
           </div>
 
@@ -1447,10 +1455,10 @@ document.addEventListener('DOMContentLoaded', () => {
               const classData = GAME_SPECS[b.class_key] || { className: b.class_key, color: '#d4b483' };
               return `
                 <tr class="border-b border-wurm-border/40 hover:bg-white/5 transition-all">
-                  <td class="p-3 font-serif font-bold text-wurm-text">${b.title || 'Build Customizada'} ${b.verified_by_guild ? '👑' : ''}</td>
+                  <td class="p-3 font-serif font-bold text-wurm-text">${b.title || 'Build Customizada'} ${b.verified_by_guild ? '👑' : ''} ${b.isLocal ? `<span class="text-emerald-400 text-[10px] ml-1">(${getI18nText('saved_locally_badge')})</span>` : ''}</td>
                   <td class="p-3" style="color: ${classData.color}">${classData.className}</td>
                   <td class="p-3 text-wurm-muted uppercase">${b.spec_id || '-'}</td>
-                  <td class="p-3 uppercase text-wurm-accent">${b.role || 'dps'}</td>
+                  <td class="p-3 uppercase text-wurm-accent">${getRoleForClassSpec(b.class_key, b.spec_id)}</td>
                   <td class="p-3 text-center text-emerald-400 font-bold">${item.save_count || 0}</td>
                   <td class="p-3 text-center text-wurm-accent font-bold">${item.share_count || 0}</td>
                   <td class="p-3 text-right">
