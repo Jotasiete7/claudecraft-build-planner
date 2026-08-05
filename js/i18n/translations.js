@@ -110,7 +110,15 @@ const TRANSLATIONS = {
     toast_saved_hype_subtitle: "\u{1F525} Essa combina\u00E7\u00E3o de talentos \u00E9 popular na comunidade! (+1 Hype)",
     toast_offline_synced: "\u{23F3} {count} build(s) salvas offline foram sincronizadas com a nuvem!",
     saved_locally_badge: "\u{1F4BE} Salva Local",
-    share_generating_link: "\u{23F3} Gerando link compacto..."
+    share_generating_link: "\u{23F3} Gerando link compacto...",
+    builder_talents_header: "TALENTOS {class}",
+    builder_spellbook_header: "LIVRO DE FEITI\u00C7OS \u2014 Habilidades de {class}",
+    spec_card_desc: "Especializa\u00E7\u00E3o de {class} focada em {role}. Habilidade assinatura: {ability}.",
+    spec_primary_stat: "ATRIBUTO PRIM\u00C1RIO",
+    spec_btn_selected: "SELECIONADO",
+    spec_btn_view: "VER TALENTOS",
+    default_build_name: "Minha Build Customizada",
+    builder_sample_skills: "Habilidades de Exemplo"
   },
   en: {
     nav_gallery: "Class Gallery",
@@ -218,7 +226,15 @@ const TRANSLATIONS = {
     toast_saved_hype_subtitle: "\u{1F525} This talent combination is popular in the community! (+1 Hype)",
     toast_offline_synced: "\u{23F3} {count} offline build(s) synced with the cloud!",
     saved_locally_badge: "\u{1F4BE} Saved Locally",
-    share_generating_link: "\u{23F3} Generating compact link..."
+    share_generating_link: "\u{23F3} Generating compact link...",
+    builder_talents_header: "TALENTS {class}",
+    builder_spellbook_header: "SPELLBOOK \u2014 {class} Abilities",
+    spec_card_desc: "{class} specialization focused on {role}. Signature ability: {ability}.",
+    spec_primary_stat: "PRIMARY STAT",
+    spec_btn_selected: "SELECTED",
+    spec_btn_view: "VIEW TALENTS",
+    default_build_name: "My Custom Build",
+    builder_sample_skills: "Sample Abilities"
   },
   fr: {
     nav_gallery: "Galerie de Classes",
@@ -326,7 +342,15 @@ const TRANSLATIONS = {
     toast_saved_hype_subtitle: "\u{1F525} Cette combinaison est populaire dans la communaut\u00E9 ! (+1 Hype)",
     toast_offline_synced: "\u{23F3} {count} build(s) hors-ligne synchronis\u00E9(s) avec le nuage !",
     saved_locally_badge: "\u{1F4BE} Enregistr\u00E9 Localement",
-    share_generating_link: "\u{23F3} G\u00E9n\u00E9ration du lien compact..."
+    share_generating_link: "\u{23F3} G\u00E9n\u00E9ration du lien compact...",
+    builder_talents_header: "TALENTS {class}",
+    builder_spellbook_header: "GRIMOIRE \u2014 Comp\u00E9tences de {class}",
+    spec_card_desc: "Sp\u00E9cialisation de {class} orient\u00E9e vers {role}. Comp\u00E9tence signature : {ability}.",
+    spec_primary_stat: "ATTRIBUT PRINCIPAL",
+    spec_btn_selected: "S\u00C9LECTIONN\u00C9",
+    spec_btn_view: "VOIR LES TALENTS",
+    default_build_name: "Mon Build Personnalis\u00E9",
+    builder_sample_skills: "Comp\u00E9tences Exemples"
   },
   es: {
     nav_gallery: "Galer\u00EDa de Clases",
@@ -434,7 +458,15 @@ const TRANSLATIONS = {
     toast_saved_hype_subtitle: "\u{1F525} \u00A1Esta combinaci\u00F3n de talentos es popular en la comunidad! (+1 Hype)",
     toast_offline_synced: "\u{23F3} \u00A1{count} build(s) guardada(s) offline se sincronizaron con la nube!",
     saved_locally_badge: "\u{1F4BE} Guardada Localmente",
-    share_generating_link: "\u{23F3} Generando enlace compacto..."
+    share_generating_link: "\u{23F3} Generando enlace compacto...",
+    builder_talents_header: "TALENTOS {class}",
+    builder_spellbook_header: "GRIMORIO \u2014 Habilidades de {class}",
+    spec_card_desc: "Especializaci\u00F3n de {class} centrada en {role}. Habilidad emblema: {ability}.",
+    spec_primary_stat: "ATRIBUTO PRINCIPAL",
+    spec_btn_selected: "SELECCIONADO",
+    spec_btn_view: "VER TALENTOS",
+    default_build_name: "Mi Build Personalizada",
+    builder_sample_skills: "Habilidades de Ejemplo"
   }
 };
 

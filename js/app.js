@@ -217,37 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
     switchTab('gallery');
   }
 
-  function getOrCreateAnonId() {
-    let anonId = localStorage.getItem('claudecraft_anon_id');
-    if (!anonId) {
-      anonId = 'anon_' + Math.random().toString(36).substring(2, 15) + Date.now().toString(36);
-      localStorage.setItem('claudecraft_anon_id', anonId);
-    }
-    return anonId;
-  }
-
-  async function recordBuildAction(actionType, buildString, extraData = {}) {
-    const anonId = getOrCreateAnonId();
-    const discordId = localStorage.getItem('claudecraft_discord_id') || null;
-
-    try {
-      await fetch('/api/action', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          buildId: buildString,
-          anonId: anonId,
-          actionType: actionType,
-          discordId: discordId,
-          classKey: state.selectedClass,
-          specId: state.selectedSpec,
-          buildName: extraData.name || 'Custom Build'
-        })
-      });
-    } catch (e) {
-      // Silent background tracking
-    }
-  }
+  // getOrCreateAnonId is defined in supabaseClient.js (shared global scope) — no duplicate needed here.
 
   function setupSaveBuildModal() {
     if (!elements.saveBuildBtn) return;
@@ -270,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (elements.confirmSaveBuildBtn) {
       elements.confirmSaveBuildBtn.addEventListener('click', async () => {
-        const buildName = elements.saveBuildNameInput.value.trim() || 'Minha Build Customizada';
+        const buildName = elements.saveBuildNameInput.value.trim() || getI18nText('default_build_name');
         const buildString = exportOfficialBuildString();
 
         const savedBuilds = JSON.parse(localStorage.getItem('claudecraft_user_builds') || '[]');
@@ -607,8 +577,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const classData = GAME_SPECS[state.selectedClass];
     if (!classData) return;
 
-    elements.activeClassHeaderTitle.textContent = `TALENTOS ${classData.className.toUpperCase()}`;
-    elements.spellbookTitleHeader.textContent = `LIVRO DE FEITIÇOS — Habilidades de ${classData.className}`;
+    elements.activeClassHeaderTitle.textContent = getI18nText('builder_talents_header', { class: classData.className.toUpperCase() });
+    elements.spellbookTitleHeader.textContent = getI18nText('builder_spellbook_header', { class: classData.className });
 
     renderSpecCards();
     renderChoiceRows();
@@ -674,24 +644,24 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           <h3 class="font-serif text-lg font-bold text-wurm-text">${spec.name}</h3>
           <div class="text-xs font-mono text-wurm-accent uppercase mb-3 font-semibold">${spec.roleIcon} ${spec.role}</div>
-          <p class="text-xs text-wurm-muted leading-relaxed mb-4">Especialização de ${classData.className} focada em ${spec.role.toLowerCase()}. Habilidade assinatura: <strong class="text-wurm-text">${spec.signatureAbility}</strong>.</p>
+          <p class="text-xs text-wurm-muted leading-relaxed mb-4">${getI18nText('spec_card_desc', { class: classData.className, role: spec.role.toLowerCase(), ability: spec.signatureAbility })}</p>
           
           <div class="inline-block px-3 py-1 bg-white/5 border border-wurm-border rounded font-mono text-xs text-wurm-muted mb-4">
-            ATRIBUTO PRIMÁRIO <strong class="text-wurm-accent">${spec.primaryStat}</strong>
+            ${getI18nText('spec_primary_stat')} <strong class="text-wurm-accent">${spec.primaryStat}</strong>
           </div>
 
           <div class="p-3 bg-wurm-bg rounded border border-wurm-border text-left text-xs font-mono text-wurm-text mb-6">
             <strong class="text-wurm-accent">${spec.passive.split('—')[0]}</strong> — ${spec.passive.split('—')[1] || ''}
           </div>
 
-          <div class="text-[11px] font-mono text-wurm-muted uppercase tracking-wider mb-2 font-semibold">Habilidades de Exemplo</div>
+          <div class="text-[11px] font-mono text-wurm-muted uppercase tracking-wider mb-2 font-semibold">${getI18nText('builder_sample_skills')}</div>
           <div class="flex justify-center gap-3 mb-6">
             ${sampleSkillsHTML}
           </div>
         </div>
 
         <button class="w-full py-2.5 rounded font-mono text-xs font-bold uppercase transition-all ${isSelected ? 'bg-wurm-accent text-wurm-bg' : 'bg-red-950/60 hover:bg-red-900 border border-red-800 text-red-200'}">
-          ${isSelected ? 'SELECIONADO' : 'VER TALENTOS'}
+          ${isSelected ? getI18nText('spec_btn_selected') : getI18nText('spec_btn_view')}
         </button>
       `;
 
@@ -1713,5 +1683,5 @@ document.addEventListener('DOMContentLoaded', () => {
     loadAndRenderMetaBuilds();
   };
 
-  init();
+  init().catch(console.error);
 });
