@@ -217,7 +217,38 @@ document.addEventListener('DOMContentLoaded', () => {
     switchTab('gallery');
   }
 
-  // getOrCreateAnonId is defined in supabaseClient.js (shared global scope) — no duplicate needed here.
+  async function checkTitleConflict(buildName, buildString) {
+    const nameLower = buildName.trim().toLowerCase();
+
+    // 1. Check Local Builds in localStorage
+    const savedBuilds = JSON.parse(localStorage.getItem('claudecraft_user_builds') || '[]');
+    const localConflict = savedBuilds.find(b => {
+      const bName = (b.name || '').trim().toLowerCase();
+      const bStr = b.string || b.buildString || b.id;
+      return bName === nameLower && bStr !== buildString;
+    });
+    if (localConflict) return true;
+
+    // 2. Check Supabase Remote Builds
+    if (typeof supabaseClient !== 'undefined' && supabaseClient) {
+      try {
+        const { data } = await supabaseClient
+          .from('builds')
+          .select('id, title')
+          .ilike('title', nameLower)
+          .limit(5);
+
+        if (data && data.length > 0) {
+          const remoteConflict = data.find(item =>
+            (item.title || '').trim().toLowerCase() === nameLower && item.id !== buildString
+          );
+          if (remoteConflict) return true;
+        }
+      } catch {}
+    }
+
+    return false;
+  }
 
   function setupSaveBuildModal() {
     if (!elements.saveBuildBtn) return;
@@ -228,7 +259,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const className = classData ? classData.className : 'Build';
       const specName = specData ? specData.name : '';
       elements.saveBuildNameInput.value = `${className} - ${specName} Custom`;
+      const errorNotice = document.getElementById('saveBuildErrorNotice');
+      if (errorNotice) errorNotice.classList.add('hidden');
       elements.saveBuildModalOverlay.classList.remove('hidden');
+      elements.saveBuildNameInput.focus();
     });
 
     const closeModal = () => {
@@ -242,6 +276,23 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.confirmSaveBuildBtn.addEventListener('click', async () => {
         const buildName = elements.saveBuildNameInput.value.trim() || getI18nText('default_build_name');
         const buildString = exportOfficialBuildString();
+        const errorNotice = document.getElementById('saveBuildErrorNotice');
+
+        if (errorNotice) errorNotice.classList.add('hidden');
+
+        // Check for name conflict with a DIFFERENT talent build
+        const hasConflict = await checkTitleConflict(buildName, buildString);
+        if (hasConflict) {
+          if (errorNotice) {
+            errorNotice.textContent = getI18nText('save_name_conflict_error', { name: buildName });
+            errorNotice.classList.remove('hidden');
+          }
+          // Suggest (v2) suffix and highlight input
+          elements.saveBuildNameInput.value = `${buildName} (v2)`;
+          elements.saveBuildNameInput.focus();
+          elements.saveBuildNameInput.select();
+          return; // BLOCK SAVE UNTIL RENAME!
+        }
 
         const savedBuilds = JSON.parse(localStorage.getItem('claudecraft_user_builds') || '[]');
         const newBuild = {

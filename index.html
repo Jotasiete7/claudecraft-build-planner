@@ -524,6 +524,8 @@
         <label class="block text-xs font-mono text-wurm-muted mb-1 uppercase tracking-wider">Nome da Sua Build:</label>
         <input type="text" id="saveBuildNameInput" class="w-full bg-wurm-bg border border-wurm-border rounded px-3 py-2 text-sm text-wurm-text font-mono focus:border-wurm-accent focus:outline-none" placeholder="Ex: Paladin Holy Tank Raid 2026">
       </div>
+      <div id="saveBuildErrorNotice" class="hidden p-3 bg-amber-950/80 border border-amber-500/60 rounded text-amber-200 text-xs font-mono leading-relaxed space-y-1">
+      </div>
       <div class="flex items-center justify-end gap-3 pt-2">
         <button id="cancelSaveBuildBtn" class="px-4 py-2 text-xs font-mono font-bold bg-white/5 border border-wurm-border text-wurm-muted hover:text-wurm-text rounded cursor-pointer">CANCELAR</button>
         <button id="confirmSaveBuildBtn" class="px-5 py-2 text-xs font-mono font-bold bg-emerald-600 hover:bg-emerald-500 text-white rounded cursor-pointer">SALVAR NO NAVEGADOR</button>
@@ -536,12 +538,12 @@
     <span>✨</span> <span id="toastMessage"></span>
   </div>
 
-  <!-- App Scripts (with cache busting version v0.34.7) -->
+  <!-- App Scripts (with cache busting version v0.34.8) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabaseClient.js?v=0.34.7"></script>
-  <script src="js/i18n/translations.js?v=0.34.7"></script>
-  <script src="js/data/gameData.js?v=0.34.7"></script>
-  <script src="js/data/presets.js?v=0.34.7"></script>
-  <script src="js/app.js?v=0.34.7"></script>
+  <script src="js/supabaseClient.js?v=0.34.8"></script>
+  <script src="js/i18n/translations.js?v=0.34.8"></script>
+  <script src="js/data/gameData.js?v=0.34.8"></script>
+  <script src="js/data/presets.js?v=0.34.8"></script>
+  <script src="js/app.js?v=0.34.8"></script>
 </body>
 </html>

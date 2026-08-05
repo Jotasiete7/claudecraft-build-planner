@@ -118,7 +118,9 @@ const TRANSLATIONS = {
     spec_btn_selected: "SELECIONADO",
     spec_btn_view: "VER TALENTOS",
     default_build_name: "Minha Build Customizada",
-    builder_sample_skills: "Habilidades de Exemplo"
+    builder_sample_skills: "Habilidades de Exemplo",
+    save_name_conflict_error: "\u26A0\uFE0F O nome \"{name}\" j\u00E1 pertence a outra build da comunidade com talentos diferentes. Escolha um nome \u00FAnico.",
+    save_checking_title: "\u23F3 Verificando nome..."
   },
   en: {
     nav_gallery: "Class Gallery",
@@ -234,7 +236,9 @@ const TRANSLATIONS = {
     spec_btn_selected: "SELECTED",
     spec_btn_view: "VIEW TALENTS",
     default_build_name: "My Custom Build",
-    builder_sample_skills: "Sample Abilities"
+    builder_sample_skills: "Sample Abilities",
+    save_name_conflict_error: "\u26A0\uFE0F The name \"{name}\" is already used by another community build with different talents. Please choose a unique name.",
+    save_checking_title: "\u23F3 Checking name..."
   },
   fr: {
     nav_gallery: "Galerie de Classes",
@@ -350,7 +354,9 @@ const TRANSLATIONS = {
     spec_btn_selected: "S\u00C9LECTIONN\u00C9",
     spec_btn_view: "VOIR LES TALENTS",
     default_build_name: "Mon Build Personnalis\u00E9",
-    builder_sample_skills: "Comp\u00E9tences Exemples"
+    builder_sample_skills: "Comp\u00E9tences Exemples",
+    save_name_conflict_error: "\u26A0\uFE0F Le nom \"{name}\" est d\u00E9j\u00E0 utilis\u00E9 par un autre build avec des talents diff\u00E9rents. Choisissez un nom unique.",
+    save_checking_title: "\u23F3 V\u00E9rification du nom..."
   },
   es: {
     nav_gallery: "Galer\u00EDa de Clases",
@@ -466,7 +472,9 @@ const TRANSLATIONS = {
     spec_btn_selected: "SELECCIONADO",
     spec_btn_view: "VER TALENTOS",
     default_build_name: "Mi Build Personalizada",
-    builder_sample_skills: "Habilidades de Ejemplo"
+    builder_sample_skills: "Habilidades de Ejemplo",
+    save_name_conflict_error: "\u26A0\uFE0F El nombre \"{name}\" ya pertenece a otra build con talentos diferentes. Elige un nombre \u00FAnico.",
+    save_checking_title: "\u23F3 Verificando nombre..."
   }
 };
 
