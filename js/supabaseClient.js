@@ -172,7 +172,7 @@ async function fetchMetaBuildsFromSupabase(filters = {}) {
           spec_id: item.spec_id,
           title: item.title,
           role: item.role || 'dps',
-          patch_version: item.patch_version || 'v0.34.0',
+          patch_version: item.patch_version || (typeof CURRENT_GAME_VERSION !== 'undefined' ? CURRENT_GAME_VERSION : 'v0.34.0'),
           verified_by_guild: item.verified_by_guild,
           created_at: item.created_at
         },

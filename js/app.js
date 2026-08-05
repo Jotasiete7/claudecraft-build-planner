@@ -303,6 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
           choices: { ...state.selectedChoices },
           string: buildString,
           createdAt: new Date().toLocaleDateString('pt-BR'),
+          patchVersion: typeof CURRENT_GAME_VERSION !== 'undefined' ? CURRENT_GAME_VERSION : 'v0.34.0',
           synced: false
         };
 
@@ -1373,7 +1374,7 @@ document.addEventListener('DOMContentLoaded', () => {
         spec_id: b.specId,
         title: b.name,
         role: getRoleForClassSpec(b.classKey, b.specId),
-        patch_version: 'v0.34.0',
+        patch_version: b.patchVersion || (typeof CURRENT_GAME_VERSION !== 'undefined' ? CURRENT_GAME_VERSION : 'v0.34.0'),
         verified_by_guild: false,
         created_at: b.createdAt || new Date().toISOString(),
         isLocal: true
