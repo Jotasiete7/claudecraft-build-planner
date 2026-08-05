@@ -105,7 +105,10 @@ const TRANSLATIONS = {
     toast_preset_loaded: "Build \"{name}\" carregada!",
     toast_already_voted: "Voc\u00EA j\u00E1 votou nesta build!",
     toast_hype_added: "\u{1F525} Hype adicionado!",
-    toast_discord_copied: "Texto para Discord copiado!"
+    toast_discord_copied: "Texto para Discord copiado!",
+    toast_saved_local_title: "\u{1F4BE} Salva no seu dispositivo como \"{name}\"",
+    toast_saved_hype_subtitle: "\u{1F525} Essa combina\u00E7\u00E3o de talentos \u00E9 popular na comunidade! (+1 Hype)",
+    toast_offline_synced: "\u{23F3} {count} build(s) salvas offline foram sincronizadas com a nuvem!"
   },
   en: {
     nav_gallery: "Class Gallery",
@@ -208,7 +211,10 @@ const TRANSLATIONS = {
     toast_preset_loaded: "Build \"{name}\" loaded!",
     toast_already_voted: "You have already voted for this build!",
     toast_hype_added: "\u{1F525} Hype added!",
-    toast_discord_copied: "Discord text copied!"
+    toast_discord_copied: "Discord text copied!",
+    toast_saved_local_title: "\u{1F4BE} Saved to your device as \"{name}\"",
+    toast_saved_hype_subtitle: "\u{1F525} This talent combination is popular in the community! (+1 Hype)",
+    toast_offline_synced: "\u{23F3} {count} offline build(s) synced with the cloud!"
   },
   fr: {
     nav_gallery: "Galerie de Classes",
@@ -311,7 +317,10 @@ const TRANSLATIONS = {
     toast_preset_loaded: "Build \"{name}\" charg\u00E9 !",
     toast_already_voted: "Vous avez d\u00E9j\u00E0 vot\u00E9 pour ce build !",
     toast_hype_added: "\u{1F525} Hype ajout\u00E9 !",
-    toast_discord_copied: "Texte Discord copi\u00E9 !"
+    toast_discord_copied: "Texte Discord copi\u00E9 !",
+    toast_saved_local_title: "\u{1F4BE} Enregistr\u00E9 sur votre appareil sous \"{name}\"",
+    toast_saved_hype_subtitle: "\u{1F525} Cette combinaison est populaire dans la communaut\u00E9 ! (+1 Hype)",
+    toast_offline_synced: "\u{23F3} {count} build(s) hors-ligne synchronis\u00E9(s) avec le nuage !"
   },
   es: {
     nav_gallery: "Galer\u00EDa de Clases",
@@ -414,7 +423,10 @@ const TRANSLATIONS = {
     toast_preset_loaded: "\u00A1Build \"{name}\" cargada!",
     toast_already_voted: "\u00A1Ya has votado por esta build!",
     toast_hype_added: "\u00A1\u{1F525} Hype a\u00F1adido!",
-    toast_discord_copied: "\u00A1Texto de Discord copiado!"
+    toast_discord_copied: "\u00A1Texto de Discord copiado!",
+    toast_saved_local_title: "\u{1F4BE} Guardada en tu dispositivo como \"{name}\"",
+    toast_saved_hype_subtitle: "\u{1F525} \u00A1Esta combinaci\u00F3n de talentos es popular en la comunidad! (+1 Hype)",
+    toast_offline_synced: "\u{23F3} \u00A1{count} build(s) guardada(s) offline se sincronizaron con la nube!"
   }
 };
 

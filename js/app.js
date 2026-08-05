@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (elements.cancelSaveBuildBtn) elements.cancelSaveBuildBtn.addEventListener('click', closeModal);
 
     if (elements.confirmSaveBuildBtn) {
-      elements.confirmSaveBuildBtn.addEventListener('click', () => {
+      elements.confirmSaveBuildBtn.addEventListener('click', async () => {
         const buildName = elements.saveBuildNameInput.value.trim() || 'Minha Build Customizada';
         const buildString = exportOfficialBuildString();
 
@@ -275,16 +275,37 @@ document.addEventListener('DOMContentLoaded', () => {
           specId: state.selectedSpec,
           choices: { ...state.selectedChoices },
           string: buildString,
-          createdAt: new Date().toLocaleDateString('pt-BR')
+          createdAt: new Date().toLocaleDateString('pt-BR'),
+          synced: false
         };
 
         savedBuilds.unshift(newBuild);
         localStorage.setItem('claudecraft_user_builds', JSON.stringify(savedBuilds));
 
-        recordBuildAction('save', buildString, { name: buildName });
-
         closeModal();
-        showToast(getI18nText('toast_saved_success', { name: buildName }));
+
+        // RPC Save Call to Supabase (Atomic & Idempotent)
+        const rpcResult = await recordSupabaseSaveBuild({
+          string: buildString,
+          classKey: state.selectedClass,
+          specId: state.selectedSpec,
+          name: buildName,
+          choices: state.selectedChoices
+        });
+
+        if (rpcResult && rpcResult.success) {
+          newBuild.synced = true;
+          localStorage.setItem('claudecraft_user_builds', JSON.stringify(savedBuilds));
+        }
+
+        const titleText = getI18nText('toast_saved_local_title', { name: buildName });
+        if (rpcResult && rpcResult.countedTowardHype) {
+          const subText = getI18nText('toast_saved_hype_subtitle');
+          showToast(titleText, subText);
+        } else {
+          showToast(titleText);
+        }
+
         loadAndRenderMetaBuilds();
       });
     }
@@ -296,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.copyLiveStringBtn.addEventListener('click', () => {
         const liveString = exportOfficialBuildString();
         navigator.clipboard.writeText(liveString);
-        recordBuildAction('share', liveString);
+        recordSupabaseShareBuild(liveString);
         showToast(getI18nText('toast_string_copied'));
       });
     }
@@ -1550,13 +1571,52 @@ document.addEventListener('DOMContentLoaded', () => {
     showToast(getI18nText('toast_discord_copied'));
   });
 
-  function showToast(msg) {
-    elements.toastMessage.textContent = msg;
+  function showToast(titleMsg, subMsg = null) {
+    if (subMsg) {
+      elements.toastMessage.innerHTML = `
+        <div class="font-bold">${titleMsg}</div>
+        <div class="text-[11px] opacity-90 font-normal mt-0.5">${subMsg}</div>
+      `;
+    } else {
+      elements.toastMessage.textContent = titleMsg;
+    }
     elements.toastNotification.classList.remove('hidden');
     setTimeout(() => {
       elements.toastNotification.classList.add('hidden');
-    }, 2500);
+    }, subMsg ? 4000 : 2500);
   }
+
+  async function flushOfflineBuildsQueue() {
+    if (!navigator.onLine) return;
+    const savedBuilds = JSON.parse(localStorage.getItem('claudecraft_user_builds') || '[]');
+    let syncedCount = 0;
+
+    for (let i = 0; i < savedBuilds.length; i++) {
+      const b = savedBuilds[i];
+      if (!b.synced) {
+        const res = await recordSupabaseSaveBuild({
+          string: b.string,
+          classKey: b.classKey,
+          specId: b.specId,
+          name: b.name,
+          choices: b.choices
+        });
+        if (res && res.success) {
+          savedBuilds[i].synced = true;
+          syncedCount++;
+        }
+      }
+    }
+
+    if (syncedCount > 0) {
+      localStorage.setItem('claudecraft_user_builds', JSON.stringify(savedBuilds));
+      showToast(getI18nText('toast_offline_synced', { count: syncedCount }));
+      loadAndRenderMetaBuilds();
+    }
+  }
+
+  window.addEventListener('online', flushOfflineBuildsQueue);
+  flushOfflineBuildsQueue();
 
   window.onI18nLanguageChange = () => {
     renderClassGallery();
