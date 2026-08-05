@@ -1648,21 +1648,34 @@ document.addEventListener('DOMContentLoaded', () => {
   async function flushOfflineBuildsQueue() {
     if (!navigator.onLine) return;
     const savedBuilds = JSON.parse(localStorage.getItem('claudecraft_user_builds') || '[]');
+    if (savedBuilds.length === 0) return;
+
     let syncedCount = 0;
 
     for (let i = 0; i < savedBuilds.length; i++) {
       const b = savedBuilds[i];
       if (!b.synced) {
-        const res = await recordSupabaseSaveBuild({
-          string: b.string,
-          classKey: b.classKey,
-          specId: b.specId,
-          name: b.name,
-          choices: b.choices
-        });
-        if (res && res.success) {
-          savedBuilds[i].synced = true;
-          syncedCount++;
+        let bString = b.string || b.buildString;
+        if (!bString && b.id && b.id.startsWith('ey')) bString = b.id;
+        if (!bString && b.classKey && b.specId && b.choices) {
+          try {
+            bString = btoa(JSON.stringify({ v: 2, c: b.classKey, s: b.specId, r: b.choices }));
+          } catch {}
+        }
+
+        if (bString) {
+          const res = await recordSupabaseSaveBuild({
+            string: bString,
+            classKey: b.classKey || 'unknown',
+            specId: b.specId || 'unknown',
+            name: b.name || 'Build Customizada',
+            choices: b.choices || {}
+          });
+          if (res && res.success) {
+            savedBuilds[i].synced = true;
+            savedBuilds[i].string = bString;
+            syncedCount++;
+          }
         }
       }
     }

@@ -28,11 +28,20 @@ function getOrCreateAnonId() {
 async function recordSupabaseSaveBuild(buildData) {
   if (!supabaseClient) return { success: false, error: 'Supabase offline' };
 
+  let buildStr = buildData.string || buildData.buildString;
+  if (!buildStr && buildData.classKey && buildData.specId && buildData.choices) {
+    try {
+      buildStr = btoa(JSON.stringify({ v: 2, c: buildData.classKey, s: buildData.specId, r: buildData.choices }));
+    } catch {}
+  }
+
+  if (!buildStr) return { success: false, error: 'String de build invalida' };
+
   const anonId = getOrCreateAnonId();
 
   try {
     const { data, error } = await supabaseClient.rpc('save_build', {
-      p_build_id: buildData.string,
+      p_build_id: buildStr,
       p_class_key: buildData.classKey || 'unknown',
       p_spec_id: buildData.specId || 'unknown',
       p_title: buildData.name || 'Build Customizada',
@@ -41,8 +50,7 @@ async function recordSupabaseSaveBuild(buildData) {
     });
 
     if (error) {
-      // Fallback if RPC function is not yet created in Supabase SQL editor
-      await registerBuildFallback(buildData, anonId, 'save');
+      await registerBuildFallback({ ...buildData, string: buildStr }, anonId, 'save');
       return { success: true, isDuplicate: false, originalTitle: buildData.name, countedTowardHype: true };
     }
 
