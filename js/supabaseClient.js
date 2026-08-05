@@ -121,43 +121,37 @@ async function fetchMetaBuildsFromSupabase(filters = {}) {
   if (!supabaseClient) return { data: [], isColdStart: true, totalCount: 0, error: 'Supabase client not initialized' };
 
   try {
-    let query = supabaseClient.from('builds').select('*, build_popularity(save_count, share_count)');
+    let buildsQuery = supabaseClient.from('builds').select('*');
 
     if (filters.classKey && filters.classKey !== 'all') {
-      query = query.eq('class_key', filters.classKey);
+      buildsQuery = buildsQuery.eq('class_key', filters.classKey);
     }
     if (filters.role && filters.role !== 'all') {
-      query = query.eq('role', filters.role);
+      buildsQuery = buildsQuery.eq('role', filters.role);
     }
     if (filters.searchQuery) {
-      query = query.ilike('title', `%${filters.searchQuery}%`);
+      buildsQuery = buildsQuery.ilike('title', `%${filters.searchQuery}%`);
     }
 
-    query = query.order('created_at', { ascending: false }).limit(30);
+    buildsQuery = buildsQuery.order('created_at', { ascending: false }).limit(30);
 
-    const { data, error } = await query;
-    if (error) {
-      // Fallback query if join fails
-      const fallbackRes = await supabaseClient.from('builds').select('*').limit(30);
-      const formatted = (fallbackRes.data || []).map(item => ({
-        builds: {
-          id: item.id,
-          class_key: item.class_key,
-          spec_id: item.spec_id,
-          title: item.title,
-          role: item.role || 'dps',
-          patch_version: item.patch_version || 'v0.34.0',
-          verified_by_guild: item.verified_by_guild,
-          created_at: item.created_at
-        },
-        save_count: 1,
-        share_count: 1
-      }));
-      return { data: formatted, isColdStart: true, totalCount: formatted.length, error: null };
+    const { data: buildsData, error: buildsError } = await buildsQuery;
+    if (buildsError || !buildsData || buildsData.length === 0) {
+      return { data: [], isColdStart: true, totalCount: 0, error: null };
     }
 
-    const formattedData = (data || []).map(item => {
-      const pop = (item.build_popularity && item.build_popularity[0]) || {};
+    // Fetch popularity metrics safely in parallel
+    const buildIds = buildsData.map(b => b.id);
+    const { data: popData } = await supabaseClient
+      .from('build_popularity')
+      .select('build_id, save_count, share_count')
+      .in('build_id', buildIds);
+
+    const popMap = new Map();
+    (popData || []).forEach(p => popMap.set(p.build_id, p));
+
+    const formattedData = buildsData.map(item => {
+      const pop = popMap.get(item.id) || {};
       return {
         builds: {
           id: item.id,
