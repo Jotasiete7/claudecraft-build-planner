@@ -1,0 +1,6 @@
+# Cloudflare Pages SPA Redirect Rules
+# Serve index.html for all /b/* slug routes (compact build URLs)
+/b/*   /index.html   200
+
+# Catch-all fallback for SPA navigation
+/*     /index.html   200

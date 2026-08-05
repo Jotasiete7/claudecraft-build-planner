@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function init() {
+  async function init() {
     setupNavigation();
     setupEcosystemMenu();
     setupGalleryRoleFilters();
@@ -204,11 +204,17 @@ document.addEventListener('DOMContentLoaded', () => {
     setupModals();
     preloadAllSkillIcons();
 
-    const hasDeepLink = handleUrlDeepLink();
-    if (!hasDeepLink) {
-      renderClassGallery();
-      switchTab('gallery');
-    }
+    // 1. Try compact /b/{slug} path first
+    const hasSlugLink = await handleSlugDeepLink();
+    if (hasSlugLink) return;
+
+    // 2. Fallback: legacy #class/base64 hash (backwards compatible)
+    const hasHashLink = handleUrlDeepLink();
+    if (hasHashLink) return;
+
+    // 3. No deep link — show gallery
+    renderClassGallery();
+    switchTab('gallery');
   }
 
   function getOrCreateAnonId() {
@@ -350,6 +356,53 @@ document.addEventListener('DOMContentLoaded', () => {
     if (elements.menuImportStringBtn) elements.menuImportStringBtn.addEventListener('click', openImportModal);
   }
 
+  // --- Compact URL Slug Utilities -------------------------------------------
+
+  /**
+   * Generates a deterministic slug: e.g. "warrior-fury-6xk3"
+   * Uses SHA-256 so the same build always maps to the same slug.
+   */
+  async function generateSlug(classKey, specId, buildString) {
+    try {
+      const msgBuffer = new TextEncoder().encode(buildString);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hex4 = hashArray.slice(0, 2).map(b => b.toString(16).padStart(2, '0')).join('');
+      const classPart = (classKey || 'woc').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 10);
+      const specPart  = (specId || 'unknown').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 12);
+      return `${classPart}-${specPart}-${hex4}`;
+    } catch {
+      return `${classKey}-${specId}-${Date.now().toString(36)}`;
+    }
+  }
+
+  /**
+   * Handles /b/{slug} path-based deep links.
+   * Resolves via Supabase, loads the build, then rewrites URL cleanly.
+   */
+  async function handleSlugDeepLink() {
+    const path = window.location.pathname;
+    const match = path.match(/^\/b\/([a-z0-9-]+)$/);
+    if (!match) return false;
+
+    const slug = match[1];
+    window.history.replaceState(null, '', '/');
+
+    const result = await resolveSlugFromSupabase(slug);
+    if (!result || !result.found || !result.build_id) return false;
+
+    const success = importOfficialBuildString(result.build_id);
+    if (success) {
+      switchTab('builder');
+      showToast(getI18nText('toast_link_loaded'));
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Handles legacy #class/base64 hash deep links — no old links break.
+   */
   function handleUrlDeepLink() {
     const hash = window.location.hash.replace('#', '').trim();
     if (!hash) return false;
@@ -1553,21 +1606,49 @@ document.addEventListener('DOMContentLoaded', () => {
   elements.shareUrlBtn.addEventListener('click', openShareModal);
   elements.copyDiscordBtn.addEventListener('click', openShareModal);
 
-  function openShareModal() {
+  async function openShareModal() {
     updateUrlHashState();
-    const url = window.location.href;
     const stringResult = exportOfficialBuildString();
-    elements.shareUrlInput.value = url;
     const classData = GAME_SPECS[state.selectedClass];
     const specObj = classData ? classData.specs.find(s => s.id === state.selectedSpec) : null;
 
-    const markdownText = `⚔️ **Build [A GUILDA]: ${classData ? classData.className : ''} - ${specObj ? specObj.name : ''}**
-📊 **Status:** iLvl ${elements.statILvl.textContent} | HP: ${elements.statHP.textContent} | ${elements.resourceLabelTitle.textContent}: ${elements.statResource.textContent}
-🔑 **String Oficial do Jogo:** \`${stringResult}\`
-🔗 **Ver & Testar Build:** ${url}`;
+    // Show modal immediately with long URL while slug resolves async
+    const longUrl = window.location.href;
+    elements.shareUrlInput.value = getI18nText('share_generating_link') || 'Generating compact link...';
+    elements.shareModalOverlay.classList.remove('hidden');
+
+    // Build compact URL via deterministic slug
+    const slug = await generateSlug(state.selectedClass, state.selectedSpec, stringResult);
+    const compactUrl = `${window.location.origin}/b/${slug}`;
+
+    if (navigator.onLine) {
+      // Ensure build exists in DB before persisting slug (both idempotent)
+      const buildTitle = (classData ? classData.className : state.selectedClass)
+        + ' - ' + (specObj ? specObj.name : state.selectedSpec);
+      await recordSupabaseSaveBuild({
+        string: stringResult,
+        classKey: state.selectedClass,
+        specId: state.selectedSpec,
+        name: buildTitle,
+        choices: state.selectedChoices
+      });
+      await saveSlugToSupabase(slug, stringResult);
+      elements.shareUrlInput.value = compactUrl;
+    } else {
+      // Offline fallback: use the long URL
+      elements.shareUrlInput.value = longUrl;
+    }
+
+    const shareUrl = navigator.onLine ? compactUrl : longUrl;
+
+    const markdownText = [
+      `\u2694\uFE0F **Build [A GUILDA]: ${classData ? classData.className : ''} - ${specObj ? specObj.name : ''}**`,
+      `\uD83D\uDCCA **Status:** iLvl ${elements.statILvl.textContent} | HP: ${elements.statHP.textContent} | ${elements.resourceLabelTitle.textContent}: ${elements.statResource.textContent}`,
+      `\uD83D\uDD11 **String Oficial do Jogo:** \`${stringResult}\``,
+      `\uD83D\uDD17 **Ver & Testar Build:** ${shareUrl}`
+    ].join('\n');
 
     elements.discordMarkdownTextarea.value = markdownText;
-    elements.shareModalOverlay.classList.remove('hidden');
   }
 
   function closeShareModal() {

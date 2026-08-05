@@ -179,3 +179,39 @@ async function fetchMetaBuildsFromSupabase(filters = {}) {
     return { data: [], isColdStart: true, totalCount: 0, error: null };
   }
 }
+
+/**
+ * Persists a compact slug → build_id mapping via RPC.
+ * Idempotent: same build always produces same slug; ON CONFLICT DO NOTHING.
+ * Returns the authoritative slug for this build_id (may differ if collision).
+ */
+async function saveSlugToSupabase(slug, buildId) {
+  if (!supabaseClient) return { success: false, slug: null };
+  try {
+    const { data, error } = await supabaseClient.rpc('save_build_slug', {
+      p_slug: slug,
+      p_build_id: buildId
+    });
+    if (error || !data) return { success: false, slug: slug };
+    return { success: true, slug: data.slug || slug };
+  } catch {
+    return { success: false, slug: null };
+  }
+}
+
+/**
+ * Resolves a compact slug back to its build_id + full build data.
+ * Returns { found, build_id, build } or { found: false }.
+ */
+async function resolveSlugFromSupabase(slug) {
+  if (!supabaseClient) return { found: false };
+  try {
+    const { data, error } = await supabaseClient.rpc('resolve_slug', {
+      p_slug: slug
+    });
+    if (error || !data) return { found: false };
+    return data;
+  } catch {
+    return { found: false };
+  }
+}

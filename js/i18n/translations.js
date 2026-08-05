@@ -109,7 +109,8 @@ const TRANSLATIONS = {
     toast_saved_local_title: "\u{1F4BE} Salva no seu dispositivo como \"{name}\"",
     toast_saved_hype_subtitle: "\u{1F525} Essa combina\u00E7\u00E3o de talentos \u00E9 popular na comunidade! (+1 Hype)",
     toast_offline_synced: "\u{23F3} {count} build(s) salvas offline foram sincronizadas com a nuvem!",
-    saved_locally_badge: "\u{1F4BE} Salva Local"
+    saved_locally_badge: "\u{1F4BE} Salva Local",
+    share_generating_link: "\u{23F3} Gerando link compacto..."
   },
   en: {
     nav_gallery: "Class Gallery",
@@ -216,7 +217,8 @@ const TRANSLATIONS = {
     toast_saved_local_title: "\u{1F4BE} Saved to your device as \"{name}\"",
     toast_saved_hype_subtitle: "\u{1F525} This talent combination is popular in the community! (+1 Hype)",
     toast_offline_synced: "\u{23F3} {count} offline build(s) synced with the cloud!",
-    saved_locally_badge: "\u{1F4BE} Saved Locally"
+    saved_locally_badge: "\u{1F4BE} Saved Locally",
+    share_generating_link: "\u{23F3} Generating compact link..."
   },
   fr: {
     nav_gallery: "Galerie de Classes",
@@ -323,7 +325,8 @@ const TRANSLATIONS = {
     toast_saved_local_title: "\u{1F4BE} Enregistr\u00E9 sur votre appareil sous \"{name}\"",
     toast_saved_hype_subtitle: "\u{1F525} Cette combinaison est populaire dans la communaut\u00E9 ! (+1 Hype)",
     toast_offline_synced: "\u{23F3} {count} build(s) hors-ligne synchronis\u00E9(s) avec le nuage !",
-    saved_locally_badge: "\u{1F4BE} Enregistr\u00E9 Localement"
+    saved_locally_badge: "\u{1F4BE} Enregistr\u00E9 Localement",
+    share_generating_link: "\u{23F3} G\u00E9n\u00E9ration du lien compact..."
   },
   es: {
     nav_gallery: "Galer\u00EDa de Clases",
@@ -430,7 +433,8 @@ const TRANSLATIONS = {
     toast_saved_local_title: "\u{1F4BE} Guardada en tu dispositivo como \"{name}\"",
     toast_saved_hype_subtitle: "\u{1F525} \u00A1Esta combinaci\u00F3n de talentos es popular en la comunidad! (+1 Hype)",
     toast_offline_synced: "\u{23F3} \u00A1{count} build(s) guardada(s) offline se sincronizaron con la nube!",
-    saved_locally_badge: "\u{1F4BE} Guardada Localmente"
+    saved_locally_badge: "\u{1F4BE} Guardada Localmente",
+    share_generating_link: "\u{23F3} Generando enlace compacto..."
   }
 };
 
