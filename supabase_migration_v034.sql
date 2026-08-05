@@ -15,6 +15,11 @@ CREATE TABLE IF NOT EXISTS builds (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
+-- Ensure columns exist if table was created in older schema version
+ALTER TABLE builds ADD COLUMN IF NOT EXISTS choices JSONB DEFAULT '{}'::jsonb;
+ALTER TABLE builds ADD COLUMN IF NOT EXISTS patch_version TEXT DEFAULT 'v0.34.0';
+ALTER TABLE builds ADD COLUMN IF NOT EXISTS verified_by_guild BOOLEAN DEFAULT false;
+
 CREATE TABLE IF NOT EXISTS build_actions (
   id BIGSERIAL PRIMARY KEY,
   build_id TEXT NOT NULL REFERENCES builds(id) ON DELETE CASCADE,
