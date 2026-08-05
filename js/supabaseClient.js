@@ -35,23 +35,31 @@ async function recordSupabaseSaveBuild(buildData) {
     } catch {}
   }
 
-  if (!buildStr) return { success: false, error: 'String de build invalida' };
+  if (!buildStr) return { success: false, error: 'String de build inválida' };
+
+  let choicesObj = buildData.choices || {};
+  if (typeof choicesObj === 'string') {
+    try { choicesObj = JSON.parse(choicesObj); } catch { choicesObj = {}; }
+  }
+  if (typeof choicesObj !== 'object' || Array.isArray(choicesObj) || !choicesObj) {
+    choicesObj = {};
+  }
 
   const anonId = getOrCreateAnonId();
 
   try {
     const { data, error } = await supabaseClient.rpc('save_build', {
-      p_build_id: buildStr,
-      p_class_key: buildData.classKey || 'unknown',
-      p_spec_id: buildData.specId || 'unknown',
-      p_title: buildData.name || 'Build Customizada',
-      p_choices: buildData.choices || {},
-      p_anon_id: anonId
+      p_build_id: String(buildStr),
+      p_class_key: String(buildData.classKey || 'unknown'),
+      p_spec_id: String(buildData.specId || 'unknown'),
+      p_title: String(buildData.name || 'Build Customizada'),
+      p_choices: choicesObj,
+      p_anon_id: String(anonId)
     });
 
     if (error) {
-      await registerBuildFallback({ ...buildData, string: buildStr }, anonId, 'save');
-      return { success: true, isDuplicate: false, originalTitle: buildData.name, countedTowardHype: true };
+      console.warn('save_build RPC warning:', error);
+      return { success: false, error: error.message };
     }
 
     return {
