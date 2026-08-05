@@ -42,13 +42,29 @@ ALTER TABLE builds ENABLE ROW LEVEL SECURITY;
 ALTER TABLE build_actions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE build_popularity ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Public Read Access Builds" ON builds FOR SELECT USING (true);
-CREATE POLICY "Public Insert Access Builds" ON builds FOR INSERT WITH CHECK (true);
+GRANT ALL ON TABLE builds TO anon, authenticated, service_role;
+GRANT ALL ON TABLE build_actions TO anon, authenticated, service_role;
+GRANT ALL ON TABLE build_popularity TO anon, authenticated, service_role;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO anon, authenticated, service_role;
 
-CREATE POLICY "Public Read Access Actions" ON build_actions FOR SELECT USING (true);
-CREATE POLICY "Public Insert Access Actions" ON build_actions FOR INSERT WITH CHECK (true);
+DROP POLICY IF EXISTS "Public Read Access Builds" ON builds;
+DROP POLICY IF EXISTS "Public Insert Access Builds" ON builds;
+DROP POLICY IF EXISTS "Public Update Access Builds" ON builds;
+CREATE POLICY "Public Read Access Builds" ON builds FOR SELECT TO public USING (true);
+CREATE POLICY "Public Insert Access Builds" ON builds FOR INSERT TO public WITH CHECK (true);
+CREATE POLICY "Public Update Access Builds" ON builds FOR UPDATE TO public USING (true);
 
-CREATE POLICY "Public Read Access Popularity" ON build_popularity FOR SELECT USING (true);
+DROP POLICY IF EXISTS "Public Read Access Actions" ON build_actions;
+DROP POLICY IF EXISTS "Public Insert Access Actions" ON build_actions;
+CREATE POLICY "Public Read Access Actions" ON build_actions FOR SELECT TO public USING (true);
+CREATE POLICY "Public Insert Access Actions" ON build_actions FOR INSERT TO public WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Public Read Access Popularity" ON build_popularity;
+DROP POLICY IF EXISTS "Public Insert Access Popularity" ON build_popularity;
+DROP POLICY IF EXISTS "Public Update Access Popularity" ON build_popularity;
+CREATE POLICY "Public Read Access Popularity" ON build_popularity FOR SELECT TO public USING (true);
+CREATE POLICY "Public Insert Access Popularity" ON build_popularity FOR INSERT TO public WITH CHECK (true);
+CREATE POLICY "Public Update Access Popularity" ON build_popularity FOR UPDATE TO public USING (true);
 
 -- 2. RPC Function: save_build (Idempotent Save & Hype Ledger)
 CREATE OR REPLACE FUNCTION save_build(
@@ -131,3 +147,8 @@ BEGIN
     'totalShares', COALESCE(v_current_shares, 1)
   );
 END; $$;
+
+-- GRANT EXECUTE ON RPC FUNCTIONS FOR ANON & AUTHENTICATED
+GRANT EXECUTE ON FUNCTION save_build(text, text, text, text, jsonb, text) TO anon, authenticated, service_role;
+GRANT EXECUTE ON FUNCTION share_build(text, text) TO anon, authenticated, service_role;
+
