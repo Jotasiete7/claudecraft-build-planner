@@ -41,6 +41,7 @@ const TRANSLATIONS = {
     view_cards: "\u{1F4B4} Cards",
     view_table: "\u{1F4CB} Tabela",
     only_guild: "\u{1F451} Apenas Guilda",
+    only_my_builds: "\u{1F4BE} Minhas Builds",
     
     role_all: "TODOS",
     role_tank: "\u{1F6E1}\uFE0F TANK",
@@ -143,6 +144,7 @@ const TRANSLATIONS = {
     view_cards: "\u{1F4B4} Cards",
     view_table: "\u{1F4CB} Table",
     only_guild: "\u{1F451} Guild Only",
+    only_my_builds: "\u{1F4BE} My Builds",
     
     role_all: "ALL",
     role_tank: "\u{1F6E1}\uFE0F TANK",
@@ -245,6 +247,7 @@ const TRANSLATIONS = {
     view_cards: "\u{1F4B4} Cartes",
     view_table: "\u{1F4CB} Tableau",
     only_guild: "\u{1F451} Guilde Uniquement",
+    only_my_builds: "\u{1F4BE} Mes Builds",
     
     role_all: "TOUS",
     role_tank: "\u{1F6E1}\uFE0F TANK",
@@ -347,6 +350,7 @@ const TRANSLATIONS = {
     view_cards: "\u{1F4B4} Tarjetas",
     view_table: "\u{1F4CB} Tabla",
     only_guild: "\u{1F451} Solo Hermandad",
+    only_my_builds: "\u{1F4BE} Mis Builds",
     
     role_all: "TODOS",
     role_tank: "\u{1F6E1}\uFE0F TANK",

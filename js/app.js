@@ -285,6 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         closeModal();
         showToast(getI18nText('toast_saved_success', { name: buildName }));
+        loadAndRenderMetaBuilds();
       });
     }
   }
@@ -1054,6 +1055,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sortBy: 'saves',
     patchFilter: 'current',
     verifiedOnly: false,
+    myBuildsOnly: false,
     viewMode: localStorage.getItem('claudecraft_meta_view_mode') || 'cards'
   };
 
@@ -1135,6 +1137,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (verifiedToggle) {
       verifiedToggle.addEventListener('change', (e) => {
         metaState.verifiedOnly = e.target.checked;
+        loadAndRenderMetaBuilds();
+      });
+    }
+
+    const myBuildsToggle = document.getElementById('metaMyBuildsToggle');
+    if (myBuildsToggle) {
+      myBuildsToggle.addEventListener('change', (e) => {
+        metaState.myBuildsOnly = e.target.checked;
         loadAndRenderMetaBuilds();
       });
     }
@@ -1243,7 +1253,7 @@ document.addEventListener('DOMContentLoaded', () => {
       `).join('');
     }
 
-    const { data, isColdStart, totalCount, error } = await fetchMetaBuildsFromSupabase({
+    const { data: supabaseData, isColdStart, totalCount, error } = await fetchMetaBuildsFromSupabase({
       classKey: metaState.activeClassKey,
       role: metaState.activeRole,
       searchQuery: metaState.searchQuery,
@@ -1251,6 +1261,38 @@ document.addEventListener('DOMContentLoaded', () => {
       patch: metaState.patchFilter,
       verifiedOnly: metaState.verifiedOnly
     });
+
+    const rawLocalBuilds = JSON.parse(localStorage.getItem('claudecraft_user_builds') || '[]');
+    const formattedLocalBuilds = rawLocalBuilds.map(b => ({
+      builds: {
+        id: b.string || b.id,
+        class_key: b.classKey,
+        spec_id: b.specId,
+        title: b.name,
+        role: 'dps',
+        patch_version: 'v0.34.0',
+        verified_by_guild: false,
+        created_at: b.createdAt || new Date().toISOString(),
+        isLocal: true
+      },
+      save_count: 1,
+      share_count: 1
+    }));
+
+    let data = [...(supabaseData || [])];
+
+    formattedLocalBuilds.forEach(lb => {
+      const existing = data.find(item => item.builds && (item.builds.id === lb.builds.id || item.builds.title === lb.builds.title));
+      if (existing) {
+        if (existing.builds) existing.builds.isLocal = true;
+      } else {
+        data.unshift(lb);
+      }
+    });
+
+    if (metaState.myBuildsOnly) {
+      data = data.filter(item => item.builds && item.builds.isLocal);
+    }
 
     // Phase 4: Cold Start Header Rule
     if (titleText) {
@@ -1318,11 +1360,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 ${classData.className}
               </span>
             </div>
-            <div class="flex items-center gap-2 text-[11px] font-mono text-wurm-muted mb-3">
+            <div class="flex items-center gap-2 text-[11px] font-mono text-wurm-muted mb-3 flex-wrap">
               <span>Spec: <strong class="text-wurm-text">${(buildInfo.spec_id || '').toUpperCase()}</strong></span>
               <span>•</span>
               <span class="uppercase text-wurm-accent">${buildInfo.role || 'DPS'}</span>
               ${buildInfo.verified_by_guild ? '<span class="text-amber-400 font-bold">👑 Guilda</span>' : ''}
+              ${buildInfo.isLocal ? '<span class="bg-emerald-950/80 border border-emerald-500/50 text-emerald-400 font-bold px-1.5 py-0.5 rounded text-[10px]">💾 Salva Local</span>' : ''}
             </div>
           </div>
 
