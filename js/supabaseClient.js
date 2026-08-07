@@ -59,6 +59,19 @@ async function recordSupabaseSaveBuild(buildData) {
 
     if (error) {
       console.warn('save_build RPC warning:', error);
+      const { error: insertErr } = await supabaseClient
+        .from('builds')
+        .upsert({
+          id: String(buildStr),
+          class_key: String(buildData.classKey || 'unknown'),
+          spec_id: String(buildData.specId || 'unknown'),
+          title: String(buildData.name || 'Build Customizada'),
+          choices: choicesObj,
+          patch_version: typeof CURRENT_GAME_VERSION !== 'undefined' ? CURRENT_GAME_VERSION : 'v0.35.0'
+        });
+      if (!insertErr) {
+        return { success: true, isDuplicate: false, originalTitle: buildData.name, countedTowardHype: true, totalSaves: 1 };
+      }
       return { success: false, error: error.message };
     }
 

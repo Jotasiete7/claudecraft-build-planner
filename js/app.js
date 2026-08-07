@@ -521,7 +521,7 @@ document.addEventListener('DOMContentLoaded', () => {
       renderClassQuickSwitcher();
       renderActiveBuilderWorkspace();
     }
-    if (tabName === 'presets') renderFullPresetsGrid();
+    if (tabName === 'presets') loadAndRenderMetaBuilds();
     if (tabName === 'wiki') renderWikiItems();
   }
 
@@ -548,42 +548,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderClassGallery() {
     elements.classGalleryGrid.innerHTML = '';
+    const dict = TRANSLATIONS[currentLang] || TRANSLATIONS.pt;
 
     Object.keys(GAME_SPECS).forEach(classKey => {
-      const classData = GAME_SPECS[classKey];
-
-      const matchesFilter = state.activeRoleFilter === 'all' || classData.specs.some(s => s.roleType === state.activeRoleFilter);
-      if (!matchesFilter) return;
+      const cls = GAME_SPECS[classKey];
+      if (state.activeRoleFilter !== 'all') {
+        const hasRole = cls.specs.some(s => (s.role || '').toLowerCase() === state.activeRoleFilter.toLowerCase());
+        if (!hasRole) return;
+      }
 
       const card = document.createElement('div');
-      card.className = 'class-card bg-wurm-panel p-6 rounded-lg cursor-pointer transition-all flex flex-col justify-between';
-      card.style.borderColor = `${classData.color}40`;
+      card.className = 'class-card p-5 rounded border border-wurm-border bg-wurm-panel hover:border-wurm-accent cursor-pointer transition-all flex flex-col justify-between';
+      card.style.borderColor = `${cls.color}40`;
 
-      const specsTagsHTML = classData.specs.map(spec => `
-        <div class="px-2.5 py-1 rounded bg-white/5 border border-wurm-border text-[11px] font-mono flex items-center gap-1.5" style="color: ${classData.color}">
-          <span>${spec.roleIcon}</span>
-          <span class="font-bold">${spec.name}</span>
-        </div>
+      const specListHtml = cls.specs.map(s => `
+        <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-wurm-text border border-wurm-border">
+          ${s.roleIcon || '⚔️'} ${s.name}
+        </span>
       `).join('');
 
       card.innerHTML = `
         <div>
-          <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-lg bg-wurm-bg border flex items-center justify-center text-2xl" style="border-color: ${classData.color}">
-                ${classData.icon}
-              </div>
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2.5">
+              <span class="text-2xl">${cls.icon}</span>
               <div>
-                <h3 class="font-serif text-lg font-bold text-wurm-text">${classData.className}</h3>
-                <div class="text-[10px] font-mono uppercase text-wurm-muted">${classData.armorType.toUpperCase()} ${getI18nText('armor_label')} • ${classData.resource}</div>
+                <h3 class="font-serif font-bold text-base text-wurm-text">${cls.className}</h3>
+                <span class="text-[10px] font-mono uppercase tracking-wider text-wurm-muted">${cls.armorType} • ${cls.resource}</span>
               </div>
             </div>
           </div>
-          <div class="flex flex-wrap gap-2 mb-6">
-            ${specsTagsHTML}
-          </div>
-        </div>
-
         <button class="w-full py-2.5 rounded font-mono text-xs font-bold uppercase transition-all" style="background-color: ${classData.color}; color: #050505">
           ${getI18nText('select_talents_btn')}
         </button>
@@ -1693,15 +1687,19 @@ document.addEventListener('DOMContentLoaded', () => {
       // Ensure build exists in DB before persisting slug (both idempotent)
       const buildTitle = (classData ? classData.className : state.selectedClass)
         + ' - ' + (specObj ? specObj.name : state.selectedSpec);
-      await recordSupabaseSaveBuild({
+      const saveRes = await recordSupabaseSaveBuild({
         string: stringResult,
         classKey: state.selectedClass,
         specId: state.selectedSpec,
         name: buildTitle,
         choices: state.selectedChoices
       });
-      await saveSlugToSupabase(slug, stringResult);
-      elements.shareUrlInput.value = compactUrl;
+      if (saveRes && saveRes.success) {
+        await saveSlugToSupabase(slug, stringResult);
+        elements.shareUrlInput.value = compactUrl;
+      } else {
+        elements.shareUrlInput.value = longUrl;
+      }
     } else {
       // Offline fallback: use the long URL
       elements.shareUrlInput.value = longUrl;
