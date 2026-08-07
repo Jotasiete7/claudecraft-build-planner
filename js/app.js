@@ -548,7 +548,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderClassGallery() {
     elements.classGalleryGrid.innerHTML = '';
-    const dict = TRANSLATIONS[currentLang] || TRANSLATIONS.pt;
 
     Object.keys(GAME_SPECS).forEach(classKey => {
       const cls = GAME_SPECS[classKey];
@@ -578,16 +577,23 @@ document.addEventListener('DOMContentLoaded', () => {
               </div>
             </div>
           </div>
-        <button class="w-full py-2.5 rounded font-mono text-xs font-bold uppercase transition-all" style="background-color: ${classData.color}; color: #050505">
+          <div class="flex flex-wrap gap-1.5 my-3">${specListHtml}</div>
+        </div>
+        <button class="w-full py-2.5 rounded font-mono text-xs font-bold uppercase transition-all" style="background-color: ${cls.color}; color: #050505">
           ${getI18nText('select_talents_btn')}
         </button>
       `;
 
       card.addEventListener('click', () => {
         state.selectedClass = classKey;
-        state.selectedSpec = classData.specs[0].id;
+        if (cls.specs && cls.specs.length > 0) {
+          state.selectedSpec = cls.specs[0].id;
+        }
         state.selectedChoices = {};
+        renderClassQuickSwitcher();
+        renderActiveBuilderWorkspace();
         switchTab('builder');
+        updateUrlHashState();
       });
 
       elements.classGalleryGrid.appendChild(card);
