@@ -25,6 +25,12 @@
   <meta name="twitter:image"       content="https://raw.githubusercontent.com/Jotasiete7/claudecraft-build-planner/main/public/og-cover.png">
   <meta name="twitter:image:alt"   content="World of Claudecraft Build Planner — A Guilda">
   
+  <!-- Preconnect & DNS Prefetch for External APIs & CDNs -->
+  <link rel="dns-prefetch" href="https://gjdbeipgqbjydenkppfq.supabase.co">
+  <link rel="preconnect" href="https://gjdbeipgqbjydenkppfq.supabase.co" crossorigin>
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  
   <!-- Fonts: Playfair Display, Inter, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -538,12 +544,12 @@
     <span>✨</span> <span id="toastMessage"></span>
   </div>
 
-  <!-- App Scripts (with cache busting version v0.35.0) -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabaseClient.js?v=0.35.0"></script>
-  <script src="js/i18n/translations.js?v=0.35.0"></script>
-  <script src="js/data/gameData.js?v=0.35.0"></script>
-  <script src="js/data/presets.js?v=0.35.0"></script>
-  <script src="js/app.js?v=0.35.0"></script>
+  <!-- App Scripts (with defer loading and cache busting version v0.35.0) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="js/supabaseClient.js?v=0.35.0" defer></script>
+  <script src="js/i18n/translations.js?v=0.35.0" defer></script>
+  <script src="js/data/gameData.js?v=0.35.0" defer></script>
+  <script src="js/data/presets.js?v=0.35.0" defer></script>
+  <script src="js/app.js?v=0.35.0" defer></script>
 </body>
 </html>
