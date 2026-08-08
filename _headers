@@ -1,12 +1,12 @@
 # Cloudflare Pages Caching & Performance Headers
 
-# Static JS and CSS assets (1 year immutable cache)
+# JS and CSS assets (Revalidate on deploy for instant updates)
 /js/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=0, must-revalidate
   X-Content-Type-Options: nosniff
 
 /css/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=0, must-revalidate
   X-Content-Type-Options: nosniff
 
 /public/*

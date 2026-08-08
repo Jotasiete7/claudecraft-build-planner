@@ -699,24 +699,11 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `).join('');
 
+      const passiveKey = `passive_${state.selectedClass}_${spec.id}`;
+      const passiveDesc = getI18nText(passiveKey) !== passiveKey ? getI18nText(passiveKey) : spec.passive;
+      const passiveParts = passiveDesc.split('—');
+
       card.innerHTML = `
-        <div>
-          <div class="w-14 h-14 rounded-lg bg-wurm-accent/10 border border-wurm-accent text-wurm-accent text-3xl flex items-center justify-center mx-auto mb-3">
-            ${spec.roleIcon}
-          </div>
-          <h3 class="font-serif text-lg font-bold text-wurm-text">${spec.name}</h3>
-          <div class="text-xs font-mono text-wurm-accent uppercase mb-3 font-semibold">${spec.roleIcon} ${spec.role}</div>
-          <p class="text-xs text-wurm-muted leading-relaxed mb-4">${getI18nText('spec_card_desc', { class: classData.className, role: spec.role.toLowerCase(), ability: spec.signatureAbility })}</p>
-          
-          <div class="inline-block px-3 py-1 bg-white/5 border border-wurm-border rounded font-mono text-xs text-wurm-muted mb-4">
-            ${getI18nText('spec_primary_stat')} <strong class="text-wurm-accent">${spec.primaryStat}</strong>
-          </div>
-
-          const passiveKey = `passive_${state.selectedClass}_${spec.id}`;
-          const passiveDesc = getI18nText(passiveKey) !== passiveKey ? getI18nText(passiveKey) : spec.passive;
-          const passiveParts = passiveDesc.split('—');
-
-          card.innerHTML = `
         <div>
           <div class="w-14 h-14 rounded-lg bg-wurm-accent/10 border border-wurm-accent text-wurm-accent text-3xl flex items-center justify-center mx-auto mb-3">
             ${spec.roleIcon}
