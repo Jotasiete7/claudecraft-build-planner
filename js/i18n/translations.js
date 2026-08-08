@@ -679,7 +679,15 @@ function getBrowserLanguage() {
 
 function getI18nText(key, params = {}) {
   const dict = TRANSLATIONS[currentLanguage] || TRANSLATIONS.pt;
-  let text = dict[key] || TRANSLATIONS.pt[key] || key;
+  let text = dict[key];
+
+  // For talent descriptions (desc_*) in English, do not fall back to Portuguese
+  if (!text && currentLanguage === 'en' && key.startsWith('desc_')) {
+    text = key;
+  } else if (!text) {
+    text = TRANSLATIONS.pt[key] || key;
+  }
+
   for (const p in params) {
     text = text.replace(new RegExp(`\\{${p}\\}`, 'g'), params[p]);
   }

@@ -807,8 +807,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         optCard.addEventListener('mousemove', moveTooltip);
         optCard.addEventListener('mouseleave', hideTooltip);
-        optCard.addEventListener('mousemove', moveTooltip);
-        optCard.addEventListener('mouseleave', hideTooltip);
 
         optCard.addEventListener('click', () => {
           state.selectedChoices[row.level] = opt.id;
