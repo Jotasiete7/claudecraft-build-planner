@@ -204,6 +204,16 @@ document.addEventListener('DOMContentLoaded', () => {
     setupModals();
     preloadAllSkillIcons();
 
+    window.onI18nLanguageChange = () => {
+      renderClassGallery();
+      renderClassQuickSwitcher();
+      renderActiveBuilderWorkspace();
+      renderChoiceRows();
+      renderSpecCards();
+      renderSpellbook();
+      loadAndRenderMetaBuilds();
+    };
+
     // 1. Try compact /b/{slug} path first
     const hasSlugLink = await handleSlugDeepLink();
     if (hasSlugLink) return;
@@ -702,8 +712,25 @@ document.addEventListener('DOMContentLoaded', () => {
             ${getI18nText('spec_primary_stat')} <strong class="text-wurm-accent">${spec.primaryStat}</strong>
           </div>
 
+          const passiveKey = `passive_${state.selectedClass}_${spec.id}`;
+          const passiveDesc = getI18nText(passiveKey) !== passiveKey ? getI18nText(passiveKey) : spec.passive;
+          const passiveParts = passiveDesc.split('—');
+
+          card.innerHTML = `
+        <div>
+          <div class="w-14 h-14 rounded-lg bg-wurm-accent/10 border border-wurm-accent text-wurm-accent text-3xl flex items-center justify-center mx-auto mb-3">
+            ${spec.roleIcon}
+          </div>
+          <h3 class="font-serif text-lg font-bold text-wurm-text">${spec.name}</h3>
+          <div class="text-xs font-mono text-wurm-accent uppercase mb-3 font-semibold">${spec.roleIcon} ${spec.role}</div>
+          <p class="text-xs text-wurm-muted leading-relaxed mb-4">${getI18nText('spec_card_desc', { class: classData.className, role: spec.role.toLowerCase(), ability: spec.signatureAbility })}</p>
+          
+          <div class="inline-block px-3 py-1 bg-white/5 border border-wurm-border rounded font-mono text-xs text-wurm-muted mb-4">
+            ${getI18nText('spec_primary_stat')} <strong class="text-wurm-accent">${spec.primaryStat}</strong>
+          </div>
+
           <div class="p-3 bg-wurm-bg rounded border border-wurm-border text-left text-xs font-mono text-wurm-text mb-6">
-            <strong class="text-wurm-accent">${spec.passive.split('—')[0]}</strong> — ${spec.passive.split('—')[1] || ''}
+            <strong class="text-wurm-accent">${passiveParts[0]}</strong> — ${passiveParts[1] || ''}
           </div>
 
           <div class="text-[11px] font-mono text-wurm-muted uppercase tracking-wider mb-2 font-semibold">${getI18nText('builder_sample_skills')}</div>
@@ -772,21 +799,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const isSelected = state.selectedChoices[row.level] === opt.id;
         const optCard = document.createElement('div');
         optCard.className = `p-3 rounded-md border flex items-center gap-3 cursor-pointer transition-all ${isSelected ? 'border-wurm-accent bg-wurm-accent/15 shadow-md shadow-wurm-accent/20 choice-selected' : 'border-wurm-border bg-wurm-bg hover:border-wurm-accent/50'}`;
+        
+        const descKey = `desc_${opt.id}`;
+        const optDesc = getI18nText(descKey) !== descKey ? getI18nText(descKey) : opt.desc;
+
         optCard.setAttribute('data-tooltip-name', opt.name);
-        optCard.setAttribute('data-tooltip-desc', opt.desc);
+        optCard.setAttribute('data-tooltip-desc', optDesc);
         
         optCard.innerHTML = `
           <img src="${opt.iconUrl}" alt="${opt.name}" class="w-8 h-8 rounded border border-wurm-border object-cover flex-shrink-0" onerror="this.src='https://raw.githubusercontent.com/levy-street/world-of-claudecraft/main/public/favicon-32x32.png'">
           <div class="overflow-hidden">
             <div class="font-mono text-xs font-bold text-wurm-text truncate">${opt.name}</div>
-            <div class="text-[10px] text-wurm-muted line-clamp-2">${opt.desc}</div>
+            <div class="text-[10px] text-wurm-muted line-clamp-2">${optDesc}</div>
           </div>
         `;
 
         // Skill tooltip on hover
         optCard.addEventListener('mouseenter', (e) => {
-          showSkillTooltip(e, opt.name, opt.desc);
+          showSkillTooltip(e, opt.name, optDesc);
         });
+        optCard.addEventListener('mousemove', moveTooltip);
+        optCard.addEventListener('mouseleave', hideTooltip);
         optCard.addEventListener('mousemove', moveTooltip);
         optCard.addEventListener('mouseleave', hideTooltip);
 
