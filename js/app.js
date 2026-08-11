@@ -1500,11 +1500,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         card.innerHTML = `
           <div>
-            <div class="flex items-center justify-between mb-2">
-              <span class="font-serif text-base font-bold text-wurm-text">${buildInfo.title || 'Build Sem Nome'}</span>
-              <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded font-bold" style="background-color: ${classData.color}20; color: ${classData.color}">
-                ${classData.className}
-              </span>
+            <div class="flex items-center justify-between mb-2 gap-2">
+              <span class="font-serif text-base font-bold text-wurm-text truncate">${buildInfo.title || 'Build Sem Nome'}</span>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <span class="text-[10px] font-mono px-1.5 py-0.5 rounded font-bold bg-amber-950/80 border border-amber-500/40 text-amber-300">
+                  ${buildInfo.patch_version || 'v0.36.0'}
+                </span>
+                <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded font-bold" style="background-color: ${classData.color}20; color: ${classData.color}">
+                  ${classData.className}
+                </span>
+              </div>
             </div>
             <div class="flex items-center gap-2 text-[11px] font-mono text-wurm-muted mb-3 flex-wrap">
               <span>Spec: <strong class="text-wurm-text">${(buildInfo.spec_id || '').toUpperCase()}</strong></span>
@@ -1582,6 +1587,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <th class="p-3">${getI18nText('table_class')}</th>
               <th class="p-3">${getI18nText('table_spec')}</th>
               <th class="p-3">${getI18nText('table_role')}</th>
+              <th class="p-3">${getI18nText('table_patch')}</th>
               <th class="p-3 text-center">${getI18nText('table_saves')}</th>
               <th class="p-3 text-center">${getI18nText('table_shares')}</th>
               <th class="p-3 text-right">${getI18nText('table_action')}</th>
@@ -1597,6 +1603,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   <td class="p-3" style="color: ${classData.color}">${classData.className}</td>
                   <td class="p-3 text-wurm-muted uppercase">${b.spec_id || '-'}</td>
                   <td class="p-3 uppercase text-wurm-accent">${getRoleForClassSpec(b.class_key, b.spec_id)}</td>
+                  <td class="p-3 font-mono text-[10px]"><span class="bg-amber-950/80 border border-amber-500/40 text-amber-300 px-1.5 py-0.5 rounded font-bold">${b.patch_version || 'v0.36.0'}</span></td>
                   <td class="p-3 text-center text-emerald-400 font-bold">${item.save_count || 0}</td>
                   <td class="p-3 text-center text-wurm-accent font-bold">${item.share_count || 0}</td>
                   <td class="p-3 text-right">

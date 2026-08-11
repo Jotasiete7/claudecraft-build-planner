@@ -261,6 +261,7 @@ const TRANSLATIONS = {
     table_saves: "Saves",
     table_shares: "Shares",
     table_action: "A\u00E7\u00E3o",
+    table_patch: "Patch",
     table_load: "Carregar",
 
     load_on_site: "Carregar no Site",
@@ -382,6 +383,7 @@ const TRANSLATIONS = {
     table_saves: "Saves",
     table_shares: "Shares",
     table_action: "Action",
+    table_patch: "Patch",
     table_load: "Load",
 
     load_on_site: "Load on Site",
@@ -503,6 +505,7 @@ const TRANSLATIONS = {
     table_saves: "Sauvegardes",
     table_shares: "Partages",
     table_action: "Action",
+    table_patch: "Patch",
     table_load: "Charger",
 
     load_on_site: "Charger sur le Site",
@@ -810,6 +813,7 @@ const TRANSLATIONS = {
     table_saves: "Guardados",
     table_shares: "Compartidos",
     table_action: "Acci\u00F3n",
+    table_patch: "Patch",
     table_load: "Cargar",
 
     load_on_site: "Cargar en el Sitio",
