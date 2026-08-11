@@ -5,7 +5,7 @@
  */
 
 const REPO_ASSET_BASE = 'https://raw.githubusercontent.com/levy-street/world-of-claudecraft/main/public/ui';
-const CURRENT_GAME_VERSION = 'v0.35.0';
+const CURRENT_GAME_VERSION = 'v0.36.0';
 
 function getSkillIconUrl(classKey, iconName) {
   return `${REPO_ASSET_BASE}/skills/${classKey}/${iconName}.webp`;
@@ -79,7 +79,7 @@ const GAME_SPECS = {
       {
         level: 5,
         options: [
-          { id: 'war_row_double_charge', name: 'Double Charge', iconUrl: getSkillIconUrl('warrior', 'double_charge'), desc: 'Your Charge stores 2 uses, so you can charge twice in a row.' },
+          { id: 'war_row_intervene', name: 'Intervene', iconUrl: getSkillIconUrl('warrior', 'intervene'), desc: 'Run at high speed toward an ally, intercepting the next physical attack made against them.' },
           { id: 'war_row_pursuit', name: 'Pursuit', iconUrl: getSkillIconUrl('warrior', 'pursuit'), desc: 'Each enemy you kill grants 30% movement speed for 6 sec.' },
           { id: 'war_row_crushing_charge', name: 'Crushing Charge', iconUrl: getSkillIconUrl('warrior', 'crushing_charge'), desc: 'Your Charge also roots the target for 4 sec and slows it by 50% for 15 sec.' }
         ]

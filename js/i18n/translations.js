@@ -35,7 +35,7 @@ const TRANSLATIONS = {
     sort_shares: "\u{1F4CB} Mais Compartilhadas",
     sort_recent: "\u{23F1}\uFE0F Mais Recentes",
     
-    patch_current: "Patch v0.35.0 (Atual)",
+    patch_current: "Patch v0.36.0 (Atual)",
     patch_all: "Todos os Patches",
     
     view_cards: "\u{1F4B4} Cards",
@@ -50,7 +50,7 @@ const TRANSLATIONS = {
 
     // Descrições de Habilidades & Talentos (PT-BR) - Nomes mantidos em Inglês Original
     // Warrior
-    desc_war_row_double_charge: "Sua Investida (Charge) armazena 2 cargas, permitindo avançar duas vezes seguidas.",
+    desc_war_row_intervene: "Avance rapidamente em direção a um aliado, interceptando o próximo ataque físico recebido por ele.",
     desc_war_row_pursuit: "Cada inimigo derrotado concede 30% de velocidade de movimento por 6 seg.",
     desc_war_row_crushing_charge: "Sua Investida enraíza o alvo por 4 seg e reduz a velocidade dele em 50% por 15 seg.",
     desc_war_row_second_wind: "Abaixo de 35% de vida, você regenera 1,5% da sua vida máxima por segundo.",
@@ -336,7 +336,7 @@ const TRANSLATIONS = {
     sort_shares: "\u{1F4CB} Most Shared",
     sort_recent: "\u{23F1}\uFE0F Most Recent",
     
-    patch_current: "Patch v0.35.0 (Current)",
+    patch_current: "Patch v0.36.0 (Current)",
     patch_all: "All Patches",
     
     view_cards: "\u{1F4B4} Cards",
@@ -456,7 +456,7 @@ const TRANSLATIONS = {
     sort_shares: "\u{1F4CB} Plus Partag\u00E9s",
     sort_recent: "\u{23F1}\uFE0F Plus R\u00E9cents",
     
-    patch_current: "Patch v0.35.0 (Actuel)",
+    patch_current: "Patch v0.36.0 (Actuel)",
     patch_all: "Tous les Patches",
     
     view_cards: "\u{1F4B4} Cartes",
@@ -547,7 +547,7 @@ const TRANSLATIONS = {
 
     // Descrições de Habilidades & Talentos (FR) - Noms conservés en Anglais
     // Warrior
-    desc_war_row_double_charge: "Votre Charge stocke 2 charges, vous permettant de charger deux fois de suite.",
+    desc_war_row_intervene: "Foncez à grande vitesse vers un allié, interceptant la prochaine attaque physique contre lui.",
     desc_war_row_pursuit: "Chaque ennemi tué vous donne 30% de vitesse de déplacement pendant 6 s.",
     desc_war_row_crushing_charge: "Votre Charge immobilise la cible pendant 4 s et la ralentit de 50% pendant 15 s.",
     desc_war_row_second_wind: "Sous 35% de points de vie, vous régénérez 1,5% de vos points de vie maximum par seconde.",
@@ -757,7 +757,7 @@ const TRANSLATIONS = {
     sort_shares: "\u{1F4CB} M\u00E1s Compartidas",
     sort_recent: "\u{23F1}\uFE0F M\u00E1s Recientes",
     
-    patch_current: "Parche v0.35.0 (Actual)",
+    patch_current: "Parche v0.36.0 (Actual)",
     patch_all: "Todos los Parches",
     
     view_cards: "\u{1F4B4} Tarjetas",
@@ -848,7 +848,7 @@ const TRANSLATIONS = {
 
     // Descrições de Habilidades & Talentos (ES) - Nombres conservados en Inglés
     // Warrior
-    desc_war_row_double_charge: "Tu Carga almacena 2 cargas, permitiéndote cargar dos veces seguidas.",
+    desc_war_row_intervene: "Avanza a gran velocidad hacia un aliado, interceptando el siguiente ataque físico en su contra.",
     desc_war_row_pursuit: "Cada enemigo derrotado otorga un 30% de velocidad de movimiento durante 6 s.",
     desc_war_row_crushing_charge: "Tu Carga enraíza al objetivo durante 4 s y lo ralentiza un 50% durante 15 s.",
     desc_war_row_second_wind: "Por debajo del 35% de salud, regeneras un 1.5% de tu salud máxima por segundo.",
