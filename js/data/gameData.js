@@ -5,7 +5,7 @@
  */
 
 const REPO_ASSET_BASE = 'https://raw.githubusercontent.com/levy-street/world-of-claudecraft/main/public/ui';
-const CURRENT_GAME_VERSION = 'v0.36.0';
+const CURRENT_GAME_VERSION = 'v0.37.1';
 
 function getSkillIconUrl(classKey, iconName) {
   return `${REPO_ASSET_BASE}/skills/${classKey}/${iconName}.webp`;

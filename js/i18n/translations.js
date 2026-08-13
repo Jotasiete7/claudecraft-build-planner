@@ -35,7 +35,7 @@ const TRANSLATIONS = {
     sort_shares: "\u{1F4CB} Mais Compartilhadas",
     sort_recent: "\u{23F1}\uFE0F Mais Recentes",
     
-    patch_current: "Patch v0.36.0 (Atual)",
+    patch_current: "Patch v0.37.1 (Atual)",
     patch_all: "Todos os Patches",
     
     view_cards: "\u{1F4B4} Cards",
@@ -343,7 +343,7 @@ const TRANSLATIONS = {
     sort_shares: "\u{1F4CB} Most Shared",
     sort_recent: "\u{23F1}\uFE0F Most Recent",
     
-    patch_current: "Patch v0.36.0 (Current)",
+    patch_current: "Patch v0.37.1 (Current)",
     patch_all: "All Patches",
     
     view_cards: "\u{1F4B4} Cards",
@@ -465,7 +465,7 @@ const TRANSLATIONS = {
     sort_shares: "\u{1F4CB} Plus Partag\u00E9s",
     sort_recent: "\u{23F1}\uFE0F Plus R\u00E9cents",
     
-    patch_current: "Patch v0.36.0 (Actuel)",
+    patch_current: "Patch v0.37.1 (Actuel)",
     patch_all: "Tous les Patches",
     
     view_cards: "\u{1F4B4} Cartes",
@@ -773,7 +773,7 @@ const TRANSLATIONS = {
     sort_shares: "\u{1F4CB} M\u00E1s Compartidas",
     sort_recent: "\u{23F1}\uFE0F M\u00E1s Recientes",
     
-    patch_current: "Parche v0.36.0 (Actual)",
+    patch_current: "Parche v0.37.1 (Actual)",
     patch_all: "Todos los Parches",
     
     view_cards: "\u{1F4B4} Tarjetas",
