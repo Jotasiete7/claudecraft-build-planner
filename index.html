@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A Guilda | World of Claudecraft — 9-Class Build Planner & Live String Exporter</title>
-  <meta name="description" content="The official A Guilda hub for World of Claudecraft. Build any class loadout across 9 specs, pick talents, preview BiS gear and export your official game string instantly.">
+  <title>A Guilda | World of Claudecraft — 9-Class Build Planner & Live String Exporter (v0.38.0)</title>
+  <meta name="description" content="The official A Guilda hub for World of Claudecraft v0.38.0. Build any class loadout across 9 specs, pick talents, preview BiS gear and export your official game string instantly.">
 
   <!-- Open Graph (Discord, Facebook, LinkedIn, WhatsApp) -->
   <meta property="og:type"        content="website">
   <meta property="og:locale"      content="en_US">
   <meta property="og:site_name"   content="A Guilda — WoC Build Planner">
-  <meta property="og:title"       content="A Guilda | World of Claudecraft Build Planner">
-  <meta property="og:description" content="Build any class loadout across 9 specs, pick talents, preview BiS gear and export your official game string instantly. Free & community-powered.">
+  <meta property="og:title"       content="A Guilda | World of Claudecraft v0.38.0 Build Planner">
+  <meta property="og:description" content="Build any class loadout across 9 specs in World of Claudecraft v0.38.0, pick talents, preview BiS gear and export your official game string instantly. Free & community-powered.">
   <meta property="og:url"         content="https://claudecraft-build-planner.pages.dev">
   <meta property="og:image"       content="https://raw.githubusercontent.com/Jotasiete7/claudecraft-build-planner/main/public/og-cover.png">
   <meta property="og:image:width"  content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt"   content="World of Claudecraft Build Planner — A Guilda">
+  <meta property="og:image:alt"   content="World of Claudecraft Build Planner v0.38.0 — A Guilda">
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card"        content="summary_large_image">
-  <meta name="twitter:title"       content="A Guilda | World of Claudecraft Build Planner">
-  <meta name="twitter:description" content="Build any class loadout across 9 specs, pick talents and export your official game string instantly.">
+  <meta name="twitter:title"       content="A Guilda | World of Claudecraft v0.38.0 Build Planner">
+  <meta name="twitter:description" content="Build any class loadout across 9 specs in World of Claudecraft v0.38.0, pick talents and export your official game string instantly.">
   <meta name="twitter:image"       content="https://raw.githubusercontent.com/Jotasiete7/claudecraft-build-planner/main/public/og-cover.png">
   <meta name="twitter:image:alt"   content="World of Claudecraft Build Planner — A Guilda">
   
@@ -181,7 +181,9 @@
             </select>
 
             <select id="metaPatchSelect" class="bg-wurm-bg border border-wurm-border text-wurm-text font-mono text-xs rounded px-3 py-2 focus:outline-none cursor-pointer">
-              <option value="current" data-i18n="patch_current">Patch v0.36.0 (Atual)</option>
+              <option value="current" data-i18n="patch_current">Patch v0.38.0 (Atual)</option>
+              <option value="v0.38.0">Patch v0.38.0</option>
+              <option value="v0.34.0">Patch v0.34.0 (Legado)</option>
               <option value="all" data-i18n="patch_all">Todos os Patches</option>
             </select>
           </div>
@@ -544,12 +546,12 @@
     <span>✨</span> <span id="toastMessage"></span>
   </div>
 
-  <!-- App Scripts (with defer loading and cache busting version v0.37.1) -->
+  <!-- App Scripts (with defer loading and cache busting version v0.38.0) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-  <script src="js/supabaseClient.js?v=0.37.1" defer></script>
-  <script src="js/i18n/translations.js?v=0.37.1" defer></script>
-  <script src="js/data/gameData.js?v=0.37.1" defer></script>
-  <script src="js/data/presets.js?v=0.37.1" defer></script>
-  <script src="js/app.js?v=0.37.1" defer></script>
+  <script src="js/supabaseClient.js?v=0.38.0" defer></script>
+  <script src="js/i18n/translations.js?v=0.38.0" defer></script>
+  <script src="js/data/gameData.js?v=0.38.0" defer></script>
+  <script src="js/data/presets.js?v=0.38.0" defer></script>
+  <script src="js/app.js?v=0.38.0" defer></script>
 </body>
 </html>

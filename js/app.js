@@ -1504,7 +1504,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <span class="font-serif text-base font-bold text-wurm-text truncate">${buildInfo.title || 'Build Sem Nome'}</span>
               <div class="flex items-center gap-1.5 shrink-0">
                 <span class="text-[10px] font-mono px-1.5 py-0.5 rounded font-bold bg-amber-950/80 border border-amber-500/40 text-amber-300">
-                  ${buildInfo.patch_version || 'v0.36.0'}
+                  ${buildInfo.patch_version || (typeof CURRENT_GAME_VERSION !== 'undefined' ? CURRENT_GAME_VERSION : 'v0.38.0')}
                 </span>
                 <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded font-bold" style="background-color: ${classData.color}20; color: ${classData.color}">
                   ${classData.className}
@@ -1603,7 +1603,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   <td class="p-3" style="color: ${classData.color}">${classData.className}</td>
                   <td class="p-3 text-wurm-muted uppercase">${b.spec_id || '-'}</td>
                   <td class="p-3 uppercase text-wurm-accent">${getRoleForClassSpec(b.class_key, b.spec_id)}</td>
-                  <td class="p-3 font-mono text-[10px]"><span class="bg-amber-950/80 border border-amber-500/40 text-amber-300 px-1.5 py-0.5 rounded font-bold">${b.patch_version || 'v0.36.0'}</span></td>
+                  <td class="p-3 font-mono text-[10px]"><span class="bg-amber-950/80 border border-amber-500/40 text-amber-300 px-1.5 py-0.5 rounded font-bold">${b.patch_version || (typeof CURRENT_GAME_VERSION !== 'undefined' ? CURRENT_GAME_VERSION : 'v0.38.0')}</span></td>
                   <td class="p-3 text-center text-emerald-400 font-bold">${item.save_count || 0}</td>
                   <td class="p-3 text-center text-wurm-accent font-bold">${item.share_count || 0}</td>
                   <td class="p-3 text-right">
