@@ -439,6 +439,7 @@ const GAME_SPECS = {
         options: [
           { id: 'mag_r8_warded', name: 'Warded', iconUrl: getSkillIconUrl('mage', 'warded'), desc: 'While your personal barrier is up you take 15% less damage, and it heals its bearer for 10% of your maximum health when it breaks after absorbing.' },
           { id: 'mag_warded', name: 'Warded', iconUrl: getSkillIconUrl('mage', 'temporal_rift'), desc: 'Casting your personal barrier breaks roots affecting you.' },
+          { id: 'mag_r8_temporal_rift', name: 'Shifting Ward', iconUrl: getSkillIconUrl('mage', 'temporal_rift'), desc: 'Casting your personal barrier breaks roots affecting you.' },
           { id: 'mag_r8_greater_invis', name: 'Greater Invisibility', iconUrl: getSkillIconUrl('mage', 'greater_invisibility'), desc: 'Grants Greater Invisibility: vanish for 20 sec and remove 2 damage-over-time effects. When the invisibility ends, take 90% less damage for 2 sec.' },
         ]
       },
@@ -573,6 +574,7 @@ const GAME_SPECS = {
           { id: 'rog_r14_dusk_economy', name: 'Dusk Economy', iconUrl: getSkillIconUrl('rogue', 'stealth'), desc: 'Abilities cost 50% less energy while in Duskveil or shadow-wreathed by the veil, and for 6 sec after leaving Duskveil.' },
           { id: 'rog_r14_venom_dividend', name: 'Venom Dividend', iconUrl: getSkillIconUrl('rogue', 'deadly_poison'), desc: 'Landed melee auto-attacks with an active poison have a 20% chance to restore 10 energy. Once every 2 sec.' },
           { id: 'rog_deadly_brew', name: 'Venom Dividend', iconUrl: getSkillIconUrl('rogue', 'deadly_poison'), desc: 'Every 3rd Wicked Slash restores 50 energy. (Combat)' },
+          { id: 'rog_r14_ceaseless_cuts', name: 'Ceaseless Cuts', iconUrl: getSkillIconUrl('rogue', 'sinister_strike'), desc: 'Every 3rd Wicked Slash restores 50 energy. (Combat)' },
         ]
       },
       {
@@ -581,6 +583,7 @@ const GAME_SPECS = {
           { id: 'rog_r17_flurry_of_knives', name: 'Flurry of Knives', iconUrl: getSkillIconUrl('rogue', 'flurry_of_knives'), desc: 'Grants Flurry of Knives: lash every enemy within 6 yd and gain 2 combo points.' },
           { id: 'rog_r17_ghostfoot_gambit', name: 'Ghostfoot Gambit', iconUrl: getSkillIconUrl('rogue', 'evasion'), desc: 'Ghostfoot restores 30 energy and makes your next builder within 8 sec cost 50% less energy.' },
           { id: 'rog_improved_evasion', name: 'Ghostfoot Gambit', iconUrl: getSkillIconUrl('rogue', 'evasion'), desc: 'Grants Thieves\' Chorus: your party attacks and casts 10% faster for 10 sec.' },
+          { id: 'rog_r17_thieves_chorus', name: 'Thieves\' Chorus', iconUrl: getSkillIconUrl('rogue', 'thieves_chorus'), desc: 'Grants Thieves\' Chorus: your party attacks and casts 10% faster for 10 sec.' },
         ]
       },
       {
@@ -674,6 +677,7 @@ const GAME_SPECS = {
           { id: 'pri_r17_desperate_prayer', name: 'Last Prayer', iconUrl: getSkillIconUrl('priest', 'desperate_prayer'), desc: 'Learn Last Prayer, which instantly heals you for 30% of maximum health.' },
           { id: 'pri_r8_improved_shield', name: 'Shattered Psalm', iconUrl: getSkillIconUrl('priest', 'power_word_shield'), desc: 'When Psalm of Warding is fully consumed, it heals its target for 12% maximum health.' },
           { id: 'pri_shield_burst', name: 'Shattered Psalm', iconUrl: getSkillIconUrl('priest', 'martyrs_aegis'), desc: 'A hit for at least 15% maximum health grants a 15% absorb for 10 sec. 20 sec internal cooldown.' },
+          { id: 'pri_r17_inner_fire', name: 'Wounded Halo', iconUrl: getSkillIconUrl('priest', 'martyrs_aegis'), desc: 'A hit for at least 15% maximum health grants a 15% absorb for 10 sec. 20 sec internal cooldown.' },
         ]
       },
       {
@@ -690,6 +694,7 @@ const GAME_SPECS = {
           { id: 'pri_r11_inner_focus', name: 'Stilled Mind', iconUrl: getSkillIconUrl('priest', 'inner_focus'), desc: 'Grants Stilled Mind. Your next Priest spell is free and uninterruptible.' },
           { id: 'pri_r11_meditation', name: 'Measured Faith', iconUrl: getSkillIconUrl('priest', 'lesser_heal'), desc: 'Every 3rd Mana-spending Priest spell makes the next Priest spell within 10 sec cost 50% less Mana.' },
           { id: 'pri_measured_faith', name: 'Measured Faith', iconUrl: getSkillIconUrl('priest', 'inner_focus'), desc: 'Doctrine damage-healing restores Psalm of Warding by 20% of the healing done, up to its original absorb. Benison turns Choirmend overhealing into a 10 sec absorb capped at 10% maximum health. Each Vespers Effigy echo extends Dirge of Decay by 1 sec, up to 6 sec per target.' },
+          { id: 'pri_r14_pain_and_suffering', name: 'Living Covenant', iconUrl: getSkillIconUrl('priest', 'power_word_shield'), desc: 'Doctrine damage-healing restores Psalm of Warding by 20% of the healing done, up to its original absorb. Benison turns Choirmend overhealing into a 10 sec absorb capped at 10% maximum health. Each Vespers Effigy echo extends Dirge of Decay by 1 sec, up to 6 sec per target.' },
         ]
       },
       {
@@ -790,6 +795,7 @@ const GAME_SPECS = {
           { id: 'sha_r8_improved_earth_shock', name: 'Stoneward', iconUrl: getSkillIconUrl('shaman', 'stoneward'), desc: 'Grants Stoneward, a 60 sec ally shield with 6 charges. Damage consumes a charge to heal 5% maximum health, once every 3 sec.' },
           { id: 'sha_r8_frost_bind', name: 'Warded Elements', iconUrl: getSkillIconUrl('shaman', 'lightning_shield'), desc: 'Thunder Ward retaliation grants 10% damage reduction for 3 sec.' },
           { id: 'sha_r8_shock_efficiency', name: 'Ancestral Mending', iconUrl: getSkillIconUrl('shaman', 'healing_wave'), desc: 'Taking a hit for at least 15% of your maximum health heals you for 12% of maximum health. 20 sec internal cooldown.' },
+          { id: 'sha_ancestral_mending', name: 'Ancestral Mending', iconUrl: getSkillIconUrl('shaman', 'healing_wave'), desc: 'Taking a hit for at least 15% of your maximum health heals you for 12% of maximum health. 20 sec internal cooldown.' },
         ]
       },
       {
@@ -1018,6 +1024,7 @@ const GAME_SPECS = {
           { id: 'dru_r8_typhoon', name: 'Oakhide Reflex', iconUrl: getSkillIconUrl('druid', 'barkskin'), desc: 'Oakhide gains 50% more armor and its cooldown is reduced by 20 sec.' },
           { id: 'dru_r8_improved_roots', name: 'Ironhide Reflex', iconUrl: getSkillIconUrl('druid', 'bear_form'), desc: 'Taking a hit for at least 20% of maximum health shields you for 15% of maximum health for 6 sec. 20 sec internal cooldown.' },
           { id: 'dru_ironhide_reflex', name: 'Ironhide Reflex', iconUrl: getSkillIconUrl('druid', 'bear_form'), desc: 'Taking a hit for at least 20% of maximum health heals you for 12% of maximum health. 20 sec internal cooldown.' },
+          { id: 'dru_r8_brutal_bash', name: 'Bear-Blood Mending', iconUrl: getSkillIconUrl('druid', 'healing_touch'), desc: 'Taking a hit for at least 20% of maximum health heals you for 12% of maximum health. 20 sec internal cooldown.' },
         ]
       },
       {
@@ -1026,6 +1033,7 @@ const GAME_SPECS = {
           { id: 'dru_r11_innervate', name: 'Typhoon', iconUrl: getSkillIconUrl('druid', 'typhoon'), desc: 'Grants Typhoon: knock back and daze all enemies within 8 yd.' },
           { id: 'dru_r11_furor', name: 'Gripping Ambush', iconUrl: getSkillIconUrl('druid', 'entangling_roots'), desc: 'Gripping Roots makes your next Wildbolt within 8 sec instant, at most once every 15 sec.' },
           { id: 'dru_gripping_ambush', name: 'Gripping Ambush', iconUrl: getSkillIconUrl('druid', 'entangling_roots'), desc: 'Concuss restores 15 rage and removes 20 sec from its cooldown.' },
+          { id: 'dru_r11_improved_mark', name: 'Concussive Economy', iconUrl: getSkillIconUrl('druid', 'bash'), desc: 'Concuss restores 15 rage and removes 20 sec from its cooldown.' },
         ]
       },
       {
