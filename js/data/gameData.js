@@ -438,7 +438,6 @@ const GAME_SPECS = {
         level: 8,
         options: [
           { id: 'mag_r8_warded', name: 'Warded', iconUrl: getSkillIconUrl('mage', 'warded'), desc: 'While your personal barrier is up you take 15% less damage, and it heals its bearer for 10% of your maximum health when it breaks after absorbing.' },
-          { id: 'mag_warded', name: 'Warded', iconUrl: getSkillIconUrl('mage', 'temporal_rift'), desc: 'Casting your personal barrier breaks roots affecting you.' },
           { id: 'mag_r8_temporal_rift', name: 'Shifting Ward', iconUrl: getSkillIconUrl('mage', 'temporal_rift'), desc: 'Casting your personal barrier breaks roots affecting you.' },
           { id: 'mag_r8_greater_invis', name: 'Greater Invisibility', iconUrl: getSkillIconUrl('mage', 'greater_invisibility'), desc: 'Grants Greater Invisibility: vanish for 20 sec and remove 2 damage-over-time effects. When the invisibility ends, take 90% less damage for 2 sec.' },
         ]
